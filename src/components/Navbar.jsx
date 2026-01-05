@@ -77,7 +77,7 @@ export default function Navbar() {
             className="bg-[#17A1E5] hover:bg-[#0E628C] text-white px-[13px] py-[9px] rounded-[6px] text-[15px] font-semibold transition-colors flex items-center gap-2"
           >
             Join Waitlist
-            <ChevronRight className="w-4 h-4 -rotate-90" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
@@ -155,7 +155,7 @@ export default function Navbar() {
                 className="w-full bg-[#17A1E5] hover:bg-[#0E628C] text-white px-[13px] py-[9px] rounded-[6px] text-[15px] font-semibold transition-colors flex items-center justify-center gap-2 mt-4"
               >
                 Join Waitlist
-                <ChevronRight className="w-4 h-4 -rotate-90" />
+                <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
