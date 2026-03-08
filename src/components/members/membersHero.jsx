@@ -138,13 +138,13 @@ export default function MembersHero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 text-[10px] tracking-[0.2em] uppercase">
+      {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 text-[10px] tracking-[0.2em] uppercase">
         <div
           className="w-px h-10 bg-gradient-to-b from-white/25 to-transparent"
           style={{ animation: "scrollline 2.2s ease-in-out infinite" }}
         />
         scroll
-      </div>
+      </div> */}
 
       <style>{`
         @keyframes scrollline {
