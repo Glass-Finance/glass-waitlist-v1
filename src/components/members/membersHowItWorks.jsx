@@ -1,35 +1,113 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Overlay from "../../assets/Overlay2.png";
 
-import work1 from "../../assets/work1.png";
-import work2 from "../../assets/work2.png";
-import work3 from "../../assets/work3.png";
-import work4 from "../../assets/work4.png";
+import work1 from "../../assets/work1.jpg";
+import work2 from "../../assets/work2.jpg";
+import work3 from "../../assets/work3.jpg";
+import work4 from "../../assets/work4.jpg";
+import stepIcon1 from "../../assets/icon/step1.png";
+import stepIcon2 from "../../assets/icon/step2.png";
+import stepIcon3 from "../../assets/icon/step3.png";
+import stepIcon4 from "../../assets/icon/step4.png";
 
 const steps = [
   {
-    num: "01", label: "Get Invited",
+    num: "01",
+    label: "Get Invited",
     desc: "Receive an invite link from your admin via WhatsApp or SMS. One tap and you're in.",
-    badge: "Instant Access", img: work1,
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    badge: "Instant Access",
+    img: work1,
+    stepIcon: stepIcon1,
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
   },
   {
-    num: "02", label: "Create Account",
+    num: "02",
+    label: "Create Account",
     desc: "Sign up in under 60 seconds. Verify your phone — no long forms, no waiting.",
-    badge: "No Long Forms", img: work2,
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
+    badge: "No Long Forms",
+    img: work2,
+    stepIcon: stepIcon2,
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <line x1="19" y1="8" x2="19" y2="14" />
+        <line x1="22" y1="11" x2="16" y2="11" />
+      </svg>
+    ),
   },
   {
-    num: "03", label: "Set Up Payment",
+    num: "03",
+    label: "Set Up Payment",
     desc: "Add your card, bank, or USSD once. Glass stores it securely — never re-enter it.",
-    badge: "Card · Bank · USSD", img: work3,
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>,
+    badge: "Set Your Dues Structure",
+    img: work3,
+    stepIcon: stepIcon3,
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 6v6l4 2" />
+      </svg>
+    ),
   },
   {
-    num: "04", label: "Auto-Pay!",
+    num: "04",
+    label: "Auto-Pay!",
     desc: "Dues deducted automatically on your due date. Official receipt sent instantly every time.",
-    badge: "Receipt Sent Instantly", img: work4,
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+    badge: "Receipt Sent Instantly",
+    img: work4,
+    stepIcon: stepIcon4,
+    icon: (
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+        <path d="M9 18h6" />
+        <path d="M10 22h4" />
+      </svg>
+    ),
   },
 ];
 
@@ -41,38 +119,25 @@ function StepConnector({ fromDir, stepRef, connId }) {
   const opacity = useTransform(
     scrollYProgress,
     [0, 0.08, 0.5, 0.88, 1],
-    [0,  0,    1,   1,    0]
+    [0, 0, 1, 1, 0],
   );
-
-  const isRTL = fromDir === "rtl";
-  const fId = `mgf-${connId}`;
-  const gId = `mgg-${connId}`;
-
+  const isLTR = fromDir === "ltr";
+  const fId = `gf-${connId}`;
+  const gId = `gg-${connId}`;
   const R = 60;
-  const offsets  = [0, 14, 26];
-  const strokeW  = [1.6, 1.0, 0.6];
-  const glowW    = [9,   6,   3.5];
-  const alphas   = [1,   0.55, 0.28];
-  const delays   = [0.5, 0.72, 0.92];
+  const offsets = [0, 14, 26];
+  const strokeW = [1.6, 1.0, 0.6];
+  const glowW = [9, 6, 3.5];
+  const alphas = [1, 0.55, 0.28];
+  const delays = [0.5, 0.72, 0.92];
 
   const makePath = (off) => {
-    const yTop = 5, yMid = 110, yBot = 215;
-    if (isRTL) {
-      // Exit from LEFT side → cross to RIGHT
-      const x1 = 25  + off;
-      const x2 = 975 - off;
-      return [
-        `M ${x1} ${yTop}`,
-        `L ${x1} ${yMid - R}`,
-        `C ${x1} ${yMid} ${x1} ${yMid} ${x1 + R} ${yMid}`,
-        `L ${x2 - R} ${yMid}`,
-        `C ${x2} ${yMid} ${x2} ${yMid} ${x2} ${yMid + R}`,
-        `L ${x2} ${yBot}`,
-      ].join(" ");
-    } else {
-      // Exit from RIGHT side → cross to LEFT
-      const x1 = 975 - off;
-      const x2 = 25  + off;
+    if (isLTR) {
+      const x1 = 975 - off,
+        x2 = 25 + off,
+        yTop = 5,
+        yMid = 110,
+        yBot = 215;
       return [
         `M ${x1} ${yTop}`,
         `L ${x1} ${yMid - R}`,
@@ -81,11 +146,26 @@ function StepConnector({ fromDir, stepRef, connId }) {
         `C ${x2} ${yMid} ${x2} ${yMid} ${x2} ${yMid + R}`,
         `L ${x2} ${yBot}`,
       ].join(" ");
+    } else {
+      const x1 = 25 + off,
+        x2 = 975 - off,
+        yTop = 5,
+        yMid = 110,
+        yBot = 215;
+      return [
+        `M ${x1} ${yTop}`,
+        `L ${x1} ${yMid - R}`,
+        `C ${x1} ${yMid} ${x1} ${yMid} ${x1 + R} ${yMid}`,
+        `L ${x2 - R} ${yMid}`,
+        `C ${x2} ${yMid} ${x2} ${yMid} ${x2} ${yMid + R}`,
+        `L ${x2} ${yBot}`,
+      ].join(" ");
     }
   };
 
   return (
     <motion.div
+      className="hidden md:block"
       style={{
         opacity,
         height: "200px",
@@ -112,39 +192,53 @@ function StepConnector({ fromDir, stepRef, connId }) {
             </feMerge>
           </filter>
           <linearGradient id={gId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stopColor="#e9d5ff" stopOpacity="1"   />
-            <stop offset="35%"  stopColor="#a855f7" stopOpacity="1"   />
-            <stop offset="65%"  stopColor="#7c3aed" stopOpacity="1"   />
+            <stop offset="0%" stopColor="#e9d5ff" stopOpacity="1" />
+            <stop offset="35%" stopColor="#a855f7" stopOpacity="1" />
+            <stop offset="65%" stopColor="#7c3aed" stopOpacity="1" />
             <stop offset="100%" stopColor="#4338ca" stopOpacity="0.8" />
           </linearGradient>
         </defs>
-
         {offsets.map((off, i) => {
           const d = makePath(off);
           return (
             <g key={i} opacity={alphas[i]}>
               <motion.path
-                d={d} stroke="#a855f7" strokeWidth={glowW[i]}
-                strokeLinecap="round" strokeLinejoin="round" strokeOpacity={0.28}
+                d={d}
+                stroke="#a855f7"
+                strokeWidth={glowW[i]}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeOpacity={0.28}
                 filter={`url(#${fId})`}
                 initial={{ pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: false, margin: "-20px" }}
                 transition={{
-                  pathLength: { duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: delays[i] },
-                  opacity:    { duration: 0.35, delay: delays[i] },
+                  pathLength: {
+                    duration: 1.1,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: delays[i],
+                  },
+                  opacity: { duration: 0.35, delay: delays[i] },
                 }}
               />
               <motion.path
-                d={d} stroke={`url(#${gId})`} strokeWidth={strokeW[i]}
-                strokeLinecap="round" strokeLinejoin="round"
+                d={d}
+                stroke={`url(#${gId})`}
+                strokeWidth={strokeW[i]}
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 strokeDasharray={i === 0 ? "none" : i === 1 ? "6 9" : "3 11"}
                 initial={{ pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: false, margin: "-20px" }}
                 transition={{
-                  pathLength: { duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: delays[i] },
-                  opacity:    { duration: 0.3, delay: delays[i] },
+                  pathLength: {
+                    duration: 1.1,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: delays[i],
+                  },
+                  opacity: { duration: 0.3, delay: delays[i] },
                 }}
               />
               <motion.circle
@@ -154,9 +248,18 @@ function StepConnector({ fromDir, stepRef, connId }) {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: [0, 1, 1, 0] }}
                 viewport={{ once: false, margin: "-20px" }}
-                transition={{ duration: 1.1, ease: "easeInOut", delay: delays[i] }}
+                transition={{
+                  duration: 1.1,
+                  ease: "easeInOut",
+                  delay: delays[i],
+                }}
               >
-                <animateMotion dur="1.4s" begin={`${delays[i]}s`} repeatCount="indefinite" path={d} />
+                <animateMotion
+                  dur="1.4s"
+                  begin={`${delays[i]}s`}
+                  repeatCount="indefinite"
+                  path={d}
+                />
               </motion.circle>
             </g>
           );
@@ -166,79 +269,233 @@ function StepConnector({ fromDir, stepRef, connId }) {
   );
 }
 
-function StepRow({ step, index, innerRef }) {
-  const isRTL = index % 2 === 0;
+function MobileDivider() {
+  return (
+    <div className="flex md:hidden items-center justify-center gap-[5px] py-4">
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          className="w-px rounded-full"
+          style={{
+            height: 32,
+            background:
+              "linear-gradient(to bottom, rgba(168,85,247,0.7), rgba(99,102,241,0.4))",
+          }}
+          animate={{ scaleY: [0, 1, 0], opacity: [0, 1, 0] }}
+          transition={{
+            duration: 1.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.15,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
+function StepRow({ step, index, innerRef }) {
+  const isLTR = index % 2 === 0;
   const { scrollYProgress } = useScroll({
     target: innerRef,
     offset: ["start 90%", "end 10%"],
   });
-  const rowOpacity = useTransform(scrollYProgress, [0, 0.18, 0.75, 1], [0, 1, 1, 0]);
-  const rowY       = useTransform(scrollYProgress, [0, 0.18],           [40, 0]);
+  const rowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.18, 0.75, 1],
+    [0, 1, 1, 0],
+  );
+  const rowY = useTransform(scrollYProgress, [0, 0.18], [40, 0]);
+
+  const glassCard = {
+    background: "rgba(255,255,255,0.25)",
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
+    border: "1px solid rgba(255,255,255,0.45)",
+    boxShadow: "0 4px 24px rgba(28,43,138,0.08)",
+  };
+
+  const glassBadge = {
+    position: "absolute",
+    bottom: 12,
+    right: 12,
+    display: "flex",
+    alignItems: "center",
+    gap: 8,
+    borderRadius: 999,
+    padding: "8px 14px",
+    background: "rgba(255,255,255,0.22)",
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
+    border: "1px solid rgba(255,255,255,0.45)",
+    boxShadow: "0 4px 20px rgba(28,43,138,0.12)",
+  };
 
   return (
-    <motion.div
-      ref={innerRef}
-      style={{ opacity: rowOpacity, y: rowY }}
-      className={`relative flex items-center ${isRTL ? "flex-row-reverse" : "flex-row"}`}
-    >
-      <div
-        className={`flex-shrink-0 w-[190px] bg-white rounded-2xl shadow-xl shadow-black/10 p-5 z-20
-          ${isRTL ? "ml-[-34px]" : "mr-[-34px]"}`}
-      >
-        <div className="w-8 h-8 rounded-xl bg-[#EEF1FB] flex items-center justify-center text-[#1C2B8A] mb-3">
-          {step.icon}
-        </div>
-        <div className="text-[9px] font-black text-[#9099b2] tracking-widest mb-1 uppercase">Step {step.num}</div>
-        <p className="text-[13px] font-extrabold text-[#0f1d6e] leading-snug">{step.label}</p>
-      </div>
-
-      <div
-        className="relative flex-1 rounded-3xl overflow-hidden shadow-2xl shadow-[#1C2B8A]/15"
-        style={{ aspectRatio: "16/10" }}
-      >
-        <img src={step.img} alt={step.label} className="w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,rgba(255,255,255,0.04) 0%,transparent 60%,rgba(0,0,0,0.06) 100%)" }} />
-        <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 shadow-lg">
-          <motion.span
-            animate={{ scale: [1, 1.7, 1], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 2.2, repeat: Infinity }}
-            className="w-1.5 h-1.5 rounded-full bg-[#1C2B8A]"
+    <motion.div ref={innerRef} style={{ opacity: rowOpacity, y: rowY }}>
+      {/* ── Mobile — label overlaps top of image ── */}
+      <div className="flex flex-col md:hidden" style={{ position: "relative" }}>
+        {/* Image card — full width */}
+        <div className="relative w-full rounded-lg overflow-hidden shadow-2xl shadow-[#1C2B8A]/15">
+          <img
+            src={step.img}
+            alt={step.label}
+            className="w-full h-auto block"
+            draggable={false}
           />
-          <span className="text-[10px] font-black text-[#0f1d6e]">{step.badge}</span>
+          <div style={glassBadge}>
+            <span
+              style={{
+                width: 7,
+                height: 7,
+                borderRadius: "50%",
+                background: "#1C2B8A",
+                flexShrink: 0,
+                display: "inline-block",
+              }}
+            />
+            <span style={{ fontSize: 12, fontWeight: 800, color: "#0f1d6e" }}>
+              {step.badge}
+            </span>
+          </div>
+        </div>
+        {/* Label card — overlaps top-left of image with negative margin */}
+        <div
+          style={{
+            ...glassCard,
+            position: "absolute",
+            top: -24,
+            left: -12,
+            width: 130,
+            borderRadius: "4px",
+            padding: "14px 12px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            zIndex: 20,
+          }}
+        >
+          <img
+            src={step.stepIcon}
+            alt=""
+            style={{
+              width: 32,
+              height: 32,
+              objectFit: "contain",
+              marginBottom: 8,
+            }}
+          />
+          <p
+            style={{
+              fontSize: 12,
+              fontWeight: 800,
+              color: "#0f1d6e",
+              lineHeight: 1.3,
+              margin: 0,
+            }}
+          >
+            {step.label}
+          </p>
         </div>
       </div>
 
-      <div className={`absolute top-3 ${isRTL ? "left-[-8px]" : "right-[-8px]"}
-        w-[calc(100%-158px)] h-full rounded-3xl border border-[#1C2B8A]/8 bg-[#EEF1FB]/45 -z-10`} />
-      <div className={`absolute top-6 ${isRTL ? "left-[-15px]" : "right-[-15px]"}
-        w-[calc(100%-158px)] h-full rounded-3xl border border-[#1C2B8A]/4 bg-[#E8ECF8]/28 -z-20`} />
+      {/* ── Desktop ── */}
+      <div
+        className={`hidden md:flex relative items-center ${isLTR ? "flex-row" : "flex-row-reverse"}`}
+      >
+        {/* Label card */}
+        <div
+          className={`flex-shrink-0 w-[190px] rounded-2xl p-5 z-20 flex flex-col items-center text-center ${isLTR ? "mr-[-34px]" : "ml-[-34px]"}`}
+          style={glassCard}
+        >
+          <img
+            src={step.stepIcon}
+            alt=""
+            style={{
+              width: 44,
+              height: 44,
+              objectFit: "contain",
+              marginBottom: 10,
+            }}
+          />
+          <p className="text-[13px] font-extrabold text-[#0f1d6e] leading-snug">
+            {step.label}
+          </p>
+        </div>
+        {/* Image card */}
+        <div className="relative flex-1 rounded-3xl overflow-hidden shadow-2xl shadow-[#1C2B8A]/15">
+          <img
+            src={step.img}
+            alt={step.label}
+            className="w-full h-auto block"
+            draggable={false}
+          />
+          <div
+            style={{
+              ...glassBadge,
+              bottom: 16,
+              right: 16,
+              padding: "10px 18px",
+            }}
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                background: "#1C2B8A",
+                flexShrink: 0,
+                display: "inline-block",
+              }}
+            />
+            <span style={{ fontSize: 13, fontWeight: 800, color: "#0f1d6e" }}>
+              {step.badge}
+            </span>
+          </div>
+        </div>
+        {/* Ghost depth cards */}
+        <div
+          className={`absolute top-3 ${isLTR ? "right-[-8px]" : "left-[-8px]"} w-[calc(100%-158px)] h-full rounded-3xl border border-[#1C2B8A]/8 bg-[#EEF1FB]/45 -z-10`}
+        />
+        <div
+          className={`absolute top-6 ${isLTR ? "right-[-15px]" : "left-[-15px]"} w-[calc(100%-158px)] h-full rounded-3xl border border-[#1C2B8A]/4 bg-[#E8ECF8]/28 -z-20`}
+        />
+      </div>
     </motion.div>
   );
 }
 
-export default function MembersHowItWorks() {
+export default function GetStarted() {
   const stepRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
   return (
-    <section className="relative bg-[#F7F8FC] overflow-hidden py-24" id="how-it-works-members">
-
+    <section className="relative overflow-hidden py-24" id="how-it-works">
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${Overlay})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.6,
+        }}
+      />
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
-          className="absolute top-[8%] right-[4%] w-[360px] h-[360px] rounded-full bg-indigo-200/15 blur-[100px]"
+          className="absolute top-[8%] left-[4%] w-[360px] h-[360px] rounded-full bg-indigo-200/15 blur-[100px]"
           animate={{ scale: [1, 1.12, 1], opacity: [0.15, 0.3, 0.15] }}
           transition={{ duration: 11, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-[8%] left-[4%] w-[300px] h-[300px] rounded-full bg-purple-200/12 blur-[90px]"
+          className="absolute bottom-[8%] right-[4%] w-[300px] h-[300px] rounded-full bg-purple-200/12 blur-[90px]"
           animate={{ scale: [1.1, 1, 1.1], opacity: [0.1, 0.25, 0.1] }}
           transition={{ duration: 13, repeat: Infinity, delay: 4 }}
         />
       </div>
 
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
-
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <motion.span
             initial={{ opacity: 0, y: -12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -253,19 +510,20 @@ export default function MembersHowItWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[clamp(34px,5vw,58px)] font-extrabold text-[#0f1d6e] leading-tight tracking-tight mb-5"
+            className="text-[clamp(26px,5vw,58px)] font-extrabold text-[#0f1d6e] leading-tight tracking-tight mb-5"
           >
-            Join Your Community
-            <br className="hidden md:block" /> In Minutes
+            Launch Transparent Payments
+            <br className="hidden md:block" /> in Minutes
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.56, delay: 0.2 }}
-            className="text-[15px] text-[#9099b2] max-w-[460px] mx-auto leading-relaxed"
+            className="text-[17px] text-[#00000099] max-w-[720px] mx-auto leading-relaxed"
           >
-            Enter your invite code and get instant access to your community's payments.
+            Set up your community, link member payment methods, and let Glass
+            handle the rest.
           </motion.p>
         </div>
 
@@ -274,11 +532,14 @@ export default function MembersHowItWorks() {
             <div key={step.num}>
               <StepRow step={step} index={i} innerRef={stepRefs[i]} />
               {i < steps.length - 1 && (
-                <StepConnector
-                  fromDir={i % 2 === 0 ? "rtl" : "ltr"}
-                  stepRef={stepRefs[i]}
-                  connId={`m${i}`}
-                />
+                <>
+                  <MobileDivider />
+                  <StepConnector
+                    fromDir={i % 2 === 0 ? "ltr" : "rtl"}
+                    stepRef={stepRefs[i]}
+                    connId={`o${i}`}
+                  />
+                </>
               )}
             </div>
           ))}
@@ -289,10 +550,10 @@ export default function MembersHowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex justify-center mt-20"
+          className="flex justify-center mt-12 md:mt-20"
         >
           <motion.a
-            href="/find-community"
+            href="/get-started"
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.97 }}
             className="relative inline-flex items-center gap-3 bg-[#0f1d6e] text-white font-bold text-[14px] px-8 py-4 rounded-full no-underline overflow-hidden shadow-2xl shadow-[#0f1d6e]/25"
@@ -304,16 +565,26 @@ export default function MembersHowItWorks() {
             />
             <span className="relative z-10">Join Glass</span>
             <motion.svg
-              className="relative z-10" width="15" height="15" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+              className="relative z-10"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </motion.svg>
           </motion.a>
         </motion.div>
-
       </div>
     </section>
   );

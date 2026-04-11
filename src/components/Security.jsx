@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-
+import Overlay from "../assets/Overlay2.png";
 
 const cards = [
   {
@@ -37,11 +37,19 @@ export default function Security() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
+            const idx = itemsRef.current.indexOf(entry.target);
+            // observer
+            if (idx === 3) {
+              entry.target.style.transform = "rotateZ(-4deg) translateY(20px)";
+            } else if (idx === 5) {
+              entry.target.style.transform = "rotateZ(4deg) translateY(20px)";
+            } else {
+              entry.target.style.transform = "translateY(0)";
+            }
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     itemsRef.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
@@ -51,17 +59,31 @@ export default function Security() {
     ref: (el) => (itemsRef.current[i] = el),
     style: {
       opacity: 0,
-      transform: "translateY(28px)",
+      transform:
+        i === 3
+          ? "rotateZ(-4deg) translateY(28px)"
+          : i === 5
+            ? "rotateZ(4deg) translateY(28px)"
+            : "translateY(28px)",
       transition: `opacity 0.65s ease ${delay}ms, transform 0.65s ease ${delay}ms`,
     },
   });
-
   return (
-    <section className="bg-[#F7F8FC] py-20 md:py-28" id="security">
+    <section className="bg-[#F7F8FC] py-20 md:py-24" id="security">
+      {/* Same overlay as problem section */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${Overlay})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.6,
+        }}
+      />
       <div className="max-w-[1140px] mx-auto px-6">
-
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <div {...anim(0, 0)}>
             <span className="inline-flex items-center border border-[#1C2B8A]/25 text-[#1C2B8A] text-[13px] font-medium px-5 py-2 rounded-full mb-8">
               Security & Trust
@@ -73,61 +95,67 @@ export default function Security() {
             </h2>
           </div>
           <div {...anim(2, 160)}>
-            <p className="text-[16px] text-[#9099b2] max-w-[520px] mx-auto leading-relaxed">
-              We protect your funds with end-to-end encryption, and ensure your data never falls into the wrong hands.
+            <p className="text-[17px] text-[#00000099] max-w-[720px] mx-auto leading-relaxed">
+              We protect your funds with end-to-end encryption, and ensure your
+              data never falls into the wrong hands.
             </p>
           </div>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
-          {cards.map(({ imgSrc, imgBg, iconBg, title, desc, titleColor }, i) => (
-            <div
-              key={title}
-              {...anim(3 + i, 200 + i * 80)}
-              className="bg-white rounded-3xl overflow-hidden shadow-sm border border-[#ECEEF5] hover:-translate-y-1 hover:shadow-xl hover:shadow-[#1C2B8A]/8 transition-all duration-300"
-            >
-              {/* Top — gradient bg with concentric circles + icon */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12 items-start">
+          {cards.map(
+            ({ imgSrc, imgBg, iconBg, title, desc, titleColor }, i) => (
               <div
-                className="relative w-full h-[200px] flex items-center justify-center overflow-hidden"
-                style={{ background: imgBg }}
+                key={title}
+                {...anim(3 + i, 200 + i * 80)}
+                className="bg-[#F0F1F7] rounded-xl shadow-sm border border-[#ECEEF5] hover:-translate-y-1 hover:shadow-xl hover:shadow-[#1C2B8A]/8 transition-all duration-300 p-1.5"
+                style={{
+                  transformOrigin: "top center",
+                }}
               >
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-[240px] h-[240px] rounded-full border border-white/10 absolute" />
-                  <div className="w-[170px] h-[170px] rounded-full border border-white/10 absolute" />
-                  <div className="w-[110px] h-[110px] rounded-full border border-white/10 absolute" />
-                </div>
+                {/* Top — gradient bg with concentric circles + icon */}
                 <div
-                  className="relative z-10 w-[76px] h-[76px] rounded-full flex items-center justify-center shadow-2xl"
-                  style={{ backgroundColor: iconBg }}
+                  className="relative w-full h-[200px] flex items-center justify-center overflow-hidden rounded-lg"
+                  style={{ background: imgBg }}
                 >
-                  <img
-                    src={imgSrc}
-                    alt={title}
-                    className="w-9 h-9 object-contain brightness-0 invert"
-                  />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-[240px] h-[240px] rounded-full border border-white/10 absolute" />
+                    <div className="w-[170px] h-[170px] rounded-full border border-white/10 absolute" />
+                    <div className="w-[110px] h-[110px] rounded-full border border-white/10 absolute" />
+                  </div>
+                  <div
+                    className="relative z-10 w-[76px] h-[76px] rounded-full flex items-center justify-center shadow-2xl"
+                    style={{ backgroundColor: iconBg }}
+                  >
+                    <img
+                      src={imgSrc}
+                      alt={title}
+                      className="w-9 h-9 object-contain brightness-0 invert"
+                    />
+                  </div>
+                </div>
+
+                {/* Bottom — white text area */}
+                <div className="px-6 py-6 text-center">
+                  <h3
+                    className="text-[20px] font-extrabold mb-2 leading-tight"
+                    style={{ color: titleColor }}
+                  >
+                    {title}
+                  </h3>
+                  <p className="text-[14px] text-[#00000099] leading-relaxed">
+                    {desc}
+                  </p>
                 </div>
               </div>
-
-              {/* Bottom — white text area */}
-              <div className="px-6 py-6 text-center">
-                <h3
-                  className="text-[20px] font-extrabold mb-2 leading-tight"
-                  style={{ color: titleColor }}
-                >
-                  {title}
-                </h3>
-                <p className="text-[14px] text-[#9099b2] leading-relaxed">
-                  {desc}
-                </p>
-              </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
 
         {/* Bottom banner */}
         <div {...anim(6, 460)}>
-          <div className="bg-[#EEF1FB] rounded-2xl px-8 py-6 flex items-center justify-between gap-6 flex-wrap">
+          <div className="bg-[#CCDBFF66] rounded-2xl px-8 py-6 flex items-center justify-between gap-6 flex-wrap">
             <div>
               <h4 className="text-[15px] font-bold text-[#0f1d6e] mb-1">
                 Why the Nigerian Tribune Is Talking About Glass
@@ -140,13 +168,12 @@ export default function Security() {
               href="https://tribuneonlineng.com/team-glass-shines-as-winner-of-5th-babcock-innovation-challenge/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 bg-white border border-[#D1D5E8] text-[#0f1d6e] font-semibold text-[14px] px-6 py-3 rounded-full no-underline hover:shadow-md hover:-translate-y-px transition-all"
+              className="flex-shrink-0 border border-[#0f1d6e] text-[#0f1d6e] font-semibold text-[14px] px-6 py-3 rounded-full no-underline hover:shadow-md hover:-translate-y-px transition-all"
             >
               Check It Out
             </a>
           </div>
         </div>
-
       </div>
     </section>
   );

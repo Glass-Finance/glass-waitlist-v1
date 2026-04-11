@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Clock, Eye, Lightbulb } from "lucide-react";
 import Problem from "../../assets/problem.png";
-import Gradient from "/gradient.png";
+import Overlay from "../../assets/Overlay.png";
 
 const problems = [
   {
@@ -45,9 +45,19 @@ export default function ProblemSection() {
   });
 
   return (
-    <section className="bg-[#F7F8FC] py-20 md:py-28" id="problem">
-      <div className="max-w-[1140px] mx-auto px-6">
-
+    <section className="py-20 md:py-28 relative" id="problem">
+      {/* Overlay background image */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${Overlay})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.6,
+        }}
+      />
+      <div className="max-w-[1140px] mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <div {...anim(0, 0)}>
@@ -56,38 +66,51 @@ export default function ProblemSection() {
             </span>
           </div>
           <div {...anim(1, 80)}>
-            <h2 className="text-[clamp(32px,5vw,58px)] font-extrabold text-[#0f1d6e] leading-tight tracking-tight mb-4">
-              Still spending weekends<br />chasing payments?
+            <h2 className="text-[clamp(26px,5vw,58px)] font-extrabold text-[#0f1d6e] leading-tight tracking-tight mb-4">
+              Still spending weekends chasing payments?
             </h2>
           </div>
           <div {...anim(2, 160)}>
-            <p className="text-[16px] text-[#9099b2] max-w-[480px] mx-auto leading-relaxed">
-              Without centralized visibility, time is wasted and trust begins to weaken.
+            <p className="text-[17px] text-[#00000099] max-w-[720px] mx-auto leading-relaxed">
+              Without centralized visibility, time is wasted and trust begins to
+              weaken.
             </p>
           </div>
         </div>
 
         {/* Body */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24 items-center">
-
           {/* LEFT */}
           <div className="flex flex-col gap-10">
             {problems.map(({ Icon, title, desc }, i) => (
-              <div key={title} {...anim(3 + i, 220 + i * 130)} className="flex items-start gap-5">
+              <div
+                key={title}
+                {...anim(3 + i, 220 + i * 130)}
+                className="flex items-start gap-5"
+              >
                 <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-white shadow-[0_2px_12px_rgba(28,43,138,0.10)] border border-[#e8eaf5] flex items-center justify-center mt-0.5">
-                  <Icon className="w-[18px] h-[18px] text-[#1C2B8A]" strokeWidth={1.8} />
+                  <Icon
+                    className="w-[24px] h-[24px] text-[#1C2B8A]"
+                    strokeWidth={1.8}
+                  />
                 </div>
                 <div>
-                  <h3 className="text-[22px] font-bold text-[#0f1d6e] leading-snug mb-2">{title}</h3>
-                  <p className="text-[17px] text-[#9099b2] leading-relaxed">{desc}</p>
+                  <h3 className="text-[22px] font-bold text-[#0f1d6e] leading-snug mb-2">
+                    {title}
+                  </h3>
+                  <p className="text-[17px] text-[#808080] leading-relaxed">
+                    {desc}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
 
           {/* RIGHT */}
-          <div {...anim(5, 300)} className="w-full max-w-[640px] flex flex-col">
-
+          <div
+            {...anim(5, 300)}
+            className="w-full max-w-[640px] flex flex-col mx-auto lg:mx-0"
+          >
             {/* Image — overflow-hidden keeps corners clean */}
             <div
               className="relative rounded-2xl overflow-hidden w-full shadow-xl shadow-[#1C2B8A]/15"
@@ -99,29 +122,39 @@ export default function ProblemSection() {
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ objectPosition: "50% 40%" }}
               />
-              <img
-                src={Gradient}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                style={{ mixBlendMode: "multiply", opacity: 0.85 }}
-              />
             </div>
 
             {/* Floating card — sibling, negative margin pulls it up to overlap image bottom */}
             <div
-              className="bg-white rounded-2xl shadow-lg shadow-[#1C2B8A]/10 border border-[#eef0f8] px-5 py-4 flex items-center gap-4 self-start"
-              style={{ marginTop: "-28px", marginLeft: "-40px", width: "260px", position: "relative", zIndex: 10 }}
+              className="rounded-2xl shadow-lg shadow-[#1C2B8A]/10 border border-[#eef0f8] px-5 py-4 flex items-center gap-4 self-start"
+              style={{
+                marginTop: "-28px",
+                marginLeft: "-20px",
+                width: "260px",
+                position: "relative",
+                zIndex: 10,
+                backgroundColor: "#EFEFF199",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+              }}
             >
               <div className="w-10 h-10 rounded-xl bg-[#eef0fb] flex items-center justify-center flex-shrink-0">
-                <Lightbulb className="w-5 h-5 text-[#1C2B8A]" strokeWidth={1.8} />
+                <Lightbulb
+                  className="w-5 h-5 text-[#1C2B8A]"
+                  strokeWidth={1.8}
+                />
               </div>
               <div>
-                <p className="text-[13px] font-bold text-[#0f1d6e] leading-tight">Your Solution Awaits.</p>
-                <p className="text-[12px] text-[#9099b2] leading-snug mt-1">Experience financial<br />transparency.</p>
+                <p className="text-[15px] font-bold text-[#0f1d6e] leading-tight">
+                  Your Solution Awaits.
+                </p>
+                <p className="text-[14px] text-[#00000099] text-center leading-snug mt-1">
+                  Experience financial
+                  <br />
+                  transparency.
+                </p>
               </div>
             </div>
-
           </div>
         </div>
       </div>

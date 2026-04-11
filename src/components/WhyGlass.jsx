@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import Overlay from "../assets/Overlay2.png";
 
 const faqs = [
   {
@@ -38,7 +39,7 @@ export default function WhyGlass() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     itemsRef.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
@@ -55,8 +56,18 @@ export default function WhyGlass() {
 
   return (
     <section className="bg-[#F7F8FC] py-20 md:py-28">
+      {/* Same overlay as problem section */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${Overlay})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.6,
+        }}
+      />
       <div className="max-w-[1140px] mx-auto px-6">
-
         {/* Header */}
         <div className="text-center mb-14">
           <div {...anim(0, 0)}>
@@ -71,7 +82,8 @@ export default function WhyGlass() {
           </div>
           <div {...anim(2, 160)}>
             <p className="text-[16px] text-[#9099b2] max-w-[640px] mx-auto leading-relaxed">
-              Everything you need to know about using Glass, from setting up dues to tracking payments and ensuring full transparency.
+              Everything you need to know about using Glass, from setting up
+              dues to tracking payments and ensuring full transparency.
             </p>
           </div>
         </div>
@@ -140,7 +152,6 @@ export default function WhyGlass() {
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
-
       </div>
     </section>
   );

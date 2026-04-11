@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useRef } from "react";
+import Overlay from "../assets/Overlay2.png";
 
 export default function TrustedBy() {
-  // You'll replace these placeholder items with actual logo images
+  const scrollRef = useRef(null);
+  const isDown = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const handleMouseDown = (e) => {
+    isDown.current = true;
+    startX.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft.current = scrollRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDown.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleMouseUp = () => {
+    isDown.current = false;
+  };
+
+
   const trustedLogos = [
     {
       name: "Babcock University",
@@ -31,7 +55,18 @@ export default function TrustedBy() {
   ];
 
   return (
-    <section className="bg-[#F7F8FC] py-16 px-6 md:px-12 lg:px-24">
+    <section className="bg-[#F7F8FC] pb-16 px-6 md:px-12 lg:px-24">
+      {/* Same overlay as problem section */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${Overlay})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.6,
+        }}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -41,8 +76,14 @@ export default function TrustedBy() {
         </div>
 
         {/* Logos Container - Carousel */}
-        <div className="relative overflow-hidden">
-          {/* Scrolling Container */}
+        <div
+          className="relative overflow-hidden cursor-grab active:cursor-grabbing"
+          ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+        >
           <div className="flex items-center gap-12 md:gap-16 animate-scroll">
             {/* First set of logos */}
             {trustedLogos.map((item, index) => (
@@ -55,7 +96,6 @@ export default function TrustedBy() {
                   alt={item.alt}
                   className="h-12 md:h-16 w-auto object-contain"
                   onError={(e) => {
-                    // Fallback to text if image fails to load
                     e.target.style.display = "none";
                     e.target.parentElement.innerHTML = `<div class="text-gray-400 font-semibold text-lg whitespace-nowrap">${item.name}</div>`;
                   }}
@@ -74,7 +114,6 @@ export default function TrustedBy() {
                   alt={item.alt}
                   className="h-12 md:h-16 w-auto object-contain"
                   onError={(e) => {
-                    // Fallback to text if image fails to load
                     e.target.style.display = "none";
                     e.target.parentElement.innerHTML = `<div class="text-gray-400 font-semibold text-lg whitespace-nowrap">${item.name}</div>`;
                   }}

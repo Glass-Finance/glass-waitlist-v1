@@ -22,8 +22,8 @@ export default function MembersHome() {
       <UseCases />
       <TrustedBy />
       <Security />
-      <WhyGlass />
       <MembersCTA />
+      <WhyGlass />
       <Footer />
     </div>
   );

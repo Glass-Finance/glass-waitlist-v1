@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import case1 from "../assets/case1.png";
-import case2 from "../assets/case2.png";
-import case3 from "../assets/case3.png";
-import case4 from "../assets/case4.png";
+import Overlay from "../assets/Overlay2.png";
+import case1 from "../assets/usecase/case1.png";
+import case2 from "../assets/usecase/case2.png";
+import case3 from "../assets/usecase/case3.png";
+import case4 from "../assets/usecase/case4.png";
 
 const cases = [
   {
@@ -11,9 +12,9 @@ const cases = [
     desc: "Collect school fees and alumni dues without the reconciliation headache.",
   },
   {
-    img: case2,
-    title: "Religious Organizations",
-    desc: "Track tithes and building fund pledges with total transparency.",
+    img: case4,
+    title: "Professional Bodies",
+    desc: "Manage annual membership dues and certification fees effortlessly.",
   },
   {
     img: case3,
@@ -21,9 +22,9 @@ const cases = [
     desc: "Collect monthly dues and event fees in seconds, not hours.",
   },
   {
-    img: case4,
-    title: "Professional Bodies",
-    desc: "Manage annual membership dues and certification fees effortlessly.",
+    img: case2,
+    title: "Religious Organizations",
+    desc: "Track tithes and building fund pledges with total transparency.",
   },
 ];
 
@@ -40,7 +41,7 @@ export default function UseCases() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     itemsRef.current.forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
@@ -57,8 +58,17 @@ export default function UseCases() {
 
   return (
     <section className="bg-[#F7F8FC] py-20 md:py-28" id="use-cases">
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${Overlay})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.6,
+        }}
+      />
       <div className="max-w-[1140px] mx-auto px-6">
-
         {/* Header */}
         <div className="text-center mb-14">
           <div {...anim(0, 0)}>
@@ -67,13 +77,14 @@ export default function UseCases() {
             </span>
           </div>
           <div {...anim(1, 80)}>
-            <h2 className="text-[clamp(36px,5.5vw,64px)] font-extrabold text-[#0f1d6e] leading-tight tracking-tight mb-4 max-w-[800px] mx-auto">
+            <h2 className="text-[clamp(26px,5.5vw,64px)] font-extrabold text-[#0f1d6e] leading-tight tracking-tight mb-4 max-w-[800px] mx-auto">
               Built for every Nigerian community
             </h2>
           </div>
           <div {...anim(2, 160)}>
-            <p className="text-[16px] text-[#9099b2] max-w-[500px] mx-auto leading-relaxed">
-              Whether you run a small club or a national association, Glass scales with you.
+            <p className="text-[17px] text-[#00000099] max-w-[500px] mx-auto leading-relaxed">
+              Whether you run a small club or a national association, Glass
+              scales with you.
             </p>
           </div>
         </div>
@@ -84,10 +95,10 @@ export default function UseCases() {
             <div
               key={title}
               {...anim(3 + i, 200 + i * 70)}
-              className="bg-white rounded-3xl overflow-hidden border border-[#ECEEF5] shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-[#1C2B8A]/8 transition-all duration-300"
+              className="bg-[#F0F1F7] rounded-xl md:rounded-3xl border border-[#ECEEF5] shadow-sm hover:-translate-y-1 hover:shadow-xl hover:shadow-[#1C2B8A]/8 transition-all duration-300 p-1.5"
             >
               {/* Photo */}
-              <div className="w-full h-[240px] overflow-hidden">
+              <div className="w-full h-[180px] md:h-[260px] overflow-hidden rounded-lg md:rounded-2xl">
                 <img
                   src={img}
                   alt={title}
@@ -96,18 +107,17 @@ export default function UseCases() {
               </div>
 
               {/* Text */}
-              <div className="px-8 py-7 text-center">
+              <div className="px-2 py-5 text-left">
                 <h3 className="text-[22px] font-extrabold text-[#0f1d6e] mb-2 leading-tight">
                   {title}
                 </h3>
-                <p className="text-[15px] text-[#9099b2] leading-relaxed max-w-[320px] mx-auto">
+                <p className="text-[15px] text-[#9099b2] leading-relaxed max-w-[320px]">
                   {desc}
                 </p>
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
