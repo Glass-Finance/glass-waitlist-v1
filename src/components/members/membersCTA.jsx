@@ -62,10 +62,40 @@ export default function CTA() {
               fill="none"
               className="flex-shrink-0 mt-1 text-white"
             >
-              <line x1="18" y1="0" x2="18" y2="36" stroke="currentColor" strokeWidth="1.5" />
-              <line x1="0" y1="18" x2="36" y2="18" stroke="currentColor" strokeWidth="1.5" />
-              <line x1="3" y1="3" x2="33" y2="33" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" />
-              <line x1="33" y1="3" x2="3" y2="33" stroke="currentColor" strokeWidth="1" strokeOpacity="0.5" />
+              <line
+                x1="18"
+                y1="0"
+                x2="18"
+                y2="36"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+              <line
+                x1="0"
+                y1="18"
+                x2="36"
+                y2="18"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              />
+              <line
+                x1="3"
+                y1="3"
+                x2="33"
+                y2="33"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeOpacity="0.5"
+              />
+              <line
+                x1="33"
+                y1="3"
+                x2="3"
+                y2="33"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeOpacity="0.5"
+              />
             </svg>
           </div>
 
@@ -74,7 +104,13 @@ export default function CTA() {
           </p>
 
           <button
-            onClick={() => navigate("/waitlist")}
+            onClick={() =>
+              window.open(
+                "https://tally.so/r/WOEblj",
+                "_blank",
+                "noopener,noreferrer",
+              )
+            }
             className="inline-flex items-center gap-2 bg-white text-[#0f1d6e] font-semibold text-[15px] px-7 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-xl shadow-lg shadow-black/20"
           >
             Join Our Waitlist →

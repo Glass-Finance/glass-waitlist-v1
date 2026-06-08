@@ -97,7 +97,7 @@ export default function Navbar() {
         </div>
 
         {/* ── Nav Links (desktop) ── */}
-        <div className="hidden lg:flex items-center gap-7">
+        {/* <div className="hidden lg:flex items-center gap-7">
           <button className="flex items-center gap-1 text-[13.5px] text-white hover:text-white/55 transition-colors font-medium">
             Use Cases <ChevronDown className="w-3.5 h-3.5 mt-px" />
           </button>
@@ -110,13 +110,19 @@ export default function Navbar() {
           >
             Ambassadors
           </button>
-        </div>
+        </div> */}
 
         {/* ── CTA ── */}
         <div className="hidden lg:flex items-center shrink-0">
           {viewMode === "organizations" ? (
             <button
-              onClick={() => navigate("/waitlist")}
+              onClick={() =>
+                window.open(
+                  "https://tally.so/r/WOEblj",
+                  "_blank",
+                  "noopener,noreferrer",
+                )
+              }
               className="flex items-center gap-1.5 bg-white text-[#0B0F2E] px-5 py-2.5 rounded-full text-[13.5px] font-bold transition-all hover:opacity-90 hover:-translate-y-px shadow-lg shadow-black/20"
             >
               Join Our Waitlist
@@ -161,7 +167,11 @@ export default function Navbar() {
             {viewMode === "organizations" ? (
               <button
                 onClick={() => {
-                  navigate("/waitlist");
+                  window.open(
+                    "https://tally.so/r/WOEblj",
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
                   setMenuOpen(false);
                 }}
                 className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold"
