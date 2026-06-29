@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer className="bg-[#0d1a6e] text-white">
 
-      {/* ── CTA ── */}
+      {/* ─ CTA ─*/}
       <div className="relative pt-20 md:pt-28 pb-20 overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
