@@ -42,11 +42,13 @@ export default function TrustedBy() {
       logo: "/logos/cowrywise.png", // Replace with actual path
       alt: "Cowrywise logo",
     },
+    /*
     {
       name: "ICAN",
       logo: "/logos/ican.png", // Replace with actual path
       alt: "ICAN logo",
     },
+    */
     {
       name: "GDG Lagos",
       logo: "/logos/gdg-lagos.png", // Replace with actual path
