@@ -419,7 +419,7 @@ function StepRow({ step, index, innerRef }) {
               marginBottom: 10,
             }}
           />
-          <p className="text-[13px] font-extrabold text-[#0f1d6e] leading-snug">
+          <p className="text-[13px] font-bold text-[#0f1d6e] leading-snug">
             {step.label}
           </p>
         </div>
