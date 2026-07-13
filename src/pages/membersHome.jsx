@@ -1,19 +1,26 @@
-import React from "react";
+import { useSeoMeta } from "../hooks/useSeoMeta";
 import Navbar from "../components/Navbar";
 import MembersHero from "../components/members/membersHero";
 import MembersHowItWorks from "../components/members/membersHowItWorks";
 import MembersProblem from "../components/members/membersProblem";
 import MembersSolution from "../components/members/membersSolution";
 import Security from "../components/Security";
-import Footer from "../components/Footer";
 import TrustedBy from "../components/TrustedBy";
+import Pricing from "../components/Pricing";
 import UseCases from "../components/Usecases";
 import WhyGlass from "../components/WhyGlass";
 import MembersCTA from "../components/members/membersCTA";
+import Footer from "../components/Footer";
 
 export default function MembersHome() {
+  useSeoMeta({
+    title: "Glass for Members — Pay Your Dues, Effortlessly",
+    description:
+      "Join your community on Glasspay and pay dues, subscriptions, and contributions in a few taps — no more chasing payments in group chats.",
+    path: "/members",
+  });
   return (
-    <div className="bg-white">
+    <div className="bg-[#F7F8FC]">
       <Navbar />
       <MembersHero />
       <MembersProblem />
@@ -22,6 +29,7 @@ export default function MembersHome() {
       <UseCases />
       <TrustedBy />
       <Security />
+      <Pricing />
       <MembersCTA />
       <WhyGlass />
       <Footer />
