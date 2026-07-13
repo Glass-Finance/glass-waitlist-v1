@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Home from './pages/index';
 import MembersHome from './pages/membersHome';
 // import Waitlist from './pages/Waitlist';
@@ -23,6 +24,7 @@ function App() {
         {/* Catch-all redirect to home */}
         <Route path="*" element={<Home />} />
       </Routes>
+      <Analytics />
     </Router>
   );
 }
