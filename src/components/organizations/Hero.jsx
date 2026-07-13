@@ -1629,14 +1629,13 @@
 //   );
 // }
 
-import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "../Reveal";
 import macbookMockup from "../../assets/desktopdash.png";
 import iphoneMockup from "../../assets/mobiledash.png";
+import { appUrl } from "../../utils/appUrl";
 
 export default function Hero() {
-  const navigate = useNavigate();
 
   return (
     <section
@@ -1722,19 +1721,13 @@ export default function Hero() {
           </p>
         </Reveal>
         <Reveal variant="up" delay={240}>
-          <button
-            onClick={() =>
-              window.open(
-                "https://tally.so/r/WOEblj",
-                "_blank",
-                "noopener,noreferrer",
-              )
-            }
-            className="inline-flex items-center gap-2 bg-white text-[#0d1022] text-[15px] px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30"
+          <a
+            href={appUrl("/sign-up")}
+            className="inline-flex items-center gap-2 bg-white text-[#0d1022] text-[15px] px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 no-underline"
           >
-            Join Our Waitlist
+            Get Started Free
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </a>
         </Reveal>
       </div>
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ChevronDown, ChevronRight, Search, Menu, X } from "lucide-react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { appUrl } from "../utils/appUrl";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -113,29 +114,35 @@ export default function Navbar() {
         </div> */}
 
         {/* ── CTA ── */}
-        <div className="hidden lg:flex items-center shrink-0">
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
           {viewMode === "organizations" ? (
-            <button
-              onClick={() =>
-                window.open(
-                  "https://tally.so/r/WOEblj",
-                  "_blank",
-                  "noopener,noreferrer",
-                )
-              }
-              className="flex items-center gap-1.5 bg-white text-[#0B0F2E] px-5 py-2.5 rounded-full text-[13.5px] font-bold transition-all hover:opacity-90 hover:-translate-y-px shadow-lg shadow-black/20"
-            >
-              Join Our Waitlist
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
+            <>
+              {/* Members already land on a "sign in first" CTA
+                  (Find My Community, below) -- this is only needed for the
+                  organizations side, which otherwise has no path back for a
+                  returning admin, only the sign-up-flavored Get Started. */}
+              <a
+                href={appUrl("/sign-in")}
+                className="text-[13.5px] text-white/80 hover:text-white transition-colors font-semibold no-underline"
+              >
+                Sign In
+              </a>
+              <a
+                href={appUrl("/sign-up")}
+                className="flex items-center gap-1.5 bg-white text-[#0B0F2E] px-5 py-2.5 rounded-full text-[13.5px] font-bold transition-all hover:opacity-90 hover:-translate-y-px shadow-lg shadow-black/20 no-underline"
+              >
+                Get Started
+                <ChevronRight className="w-3.5 h-3.5" />
+              </a>
+            </>
           ) : (
-            <button
-              onClick={() => navigate("/find-community")}
-              className="flex items-center gap-1.5 bg-white text-[#0B0F2E] px-5 py-2.5 rounded-full text-[13.5px] font-bold transition-all hover:opacity-90 hover:-translate-y-px shadow-lg shadow-black/20"
+            <a
+              href={appUrl("/member/app-sign-in?return=/member/communities/search")}
+              className="flex items-center gap-1.5 bg-white text-[#0B0F2E] px-5 py-2.5 rounded-full text-[13.5px] font-bold transition-all hover:opacity-90 hover:-translate-y-px shadow-lg shadow-black/20 no-underline"
             >
               Find My Community
               <Search className="w-3.5 h-3.5" />
-            </button>
+            </a>
           )}
         </div>
 
@@ -165,29 +172,30 @@ export default function Navbar() {
             </div>
 
             {viewMode === "organizations" ? (
-              <button
-                onClick={() => {
-                  window.open(
-                    "https://tally.so/r/WOEblj",
-                    "_blank",
-                    "noopener,noreferrer",
-                  );
-                  setMenuOpen(false);
-                }}
-                className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold"
-              >
-                Join Our Waitlist <ChevronRight className="w-4 h-4" />
-              </button>
+              <>
+                <a
+                  href={appUrl("/sign-up")}
+                  onClick={() => setMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold no-underline"
+                >
+                  Get Started <ChevronRight className="w-4 h-4" />
+                </a>
+                <a
+                  href={appUrl("/sign-in")}
+                  onClick={() => setMenuOpen(false)}
+                  className="w-full flex items-center justify-center py-2 text-[13.5px] font-semibold text-white/70 hover:text-white transition-colors no-underline"
+                >
+                  Already have an account? Sign In
+                </a>
+              </>
             ) : (
-              <button
-                onClick={() => {
-                  navigate("/find-community");
-                  setMenuOpen(false);
-                }}
-                className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold"
+              <a
+                href={appUrl("/member/app-sign-in?return=/member/communities/search")}
+                onClick={() => setMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold no-underline"
               >
                 Find My Community <Search className="w-4 h-4" />
-              </button>
+              </a>
             )}
           </div>
         </div>

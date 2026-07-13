@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { appUrl } from "../utils/appUrl";
 
 const links = {
   Product: ["Features", "How It Works", "Pricing", "Integrations"],
@@ -11,7 +11,6 @@ const links = {
 
 export default function Footer() {
   const [contact, setContact] = useState("");
-  const navigate = useNavigate();
 
   return (
     <footer className="bg-[#0d1a6e] text-white">
@@ -34,12 +33,12 @@ export default function Footer() {
           <p className="text-[16px] text-white/60 max-w-[420px] mx-auto leading-relaxed mb-10">
             Join 10+ communities already using Glass.
           </p>
-          <button
-            onClick={() => navigate("/waitlist")}
-            className="inline-flex items-center gap-2 bg-white text-[#0f1640] text-[15px] font-semibold px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/20"
+          <a
+            href={appUrl("/sign-up")}
+            className="inline-flex items-center gap-2 bg-white text-[#0f1640] text-[15px] font-semibold px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/20 no-underline"
           >
-            Join Our Waitlist
-          </button>
+            Get Started Free
+          </a>
         </div>
       </div>
 

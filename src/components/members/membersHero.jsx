@@ -333,14 +333,13 @@
 //     </section>
 //   );
 // }
-import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import iphone from "../../assets/hero/iphone.png";
 import { motion } from "motion/react";
+import { appUrl } from "../../utils/appUrl";
 
 export default function MembersHero() {
-  const navigate = useNavigate();
   const itemsRef = useRef([]);
 
   useEffect(() => {
@@ -460,13 +459,13 @@ export default function MembersHero() {
           </p>
 
           <div {...animItem(2, 320)}>
-            <button
-              onClick={() => navigate("/waitlist")}
-              className="inline-flex items-center gap-2 bg-white text-[#0c1020] text-[15px] px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30"
+            <a
+              href={appUrl("/member/join")}
+              className="inline-flex items-center gap-2 bg-white text-[#0c1020] text-[15px] px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 no-underline"
             >
-              Join Our Waitlist
+              Get Started
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </a>
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Overlay from "../../assets/Overlay2.png";
+import { appUrl } from "../../utils/appUrl";
 
 import work1 from "../../assets/work1.jpg";
 import work2 from "../../assets/work2.jpg";
@@ -553,7 +554,7 @@ export default function GetStarted() {
           className="flex justify-center mt-12 md:mt-20"
         >
           <motion.a
-            href="/get-started"
+            href={appUrl("/member/join")}
             whileHover={{ scale: 1.04, y: -2 }}
             whileTap={{ scale: 0.97 }}
             className="relative inline-flex items-center gap-3 bg-[#0f1d6e] text-white font-bold text-[14px] px-8 py-4 rounded-full no-underline overflow-hidden shadow-2xl shadow-[#0f1d6e]/25"
