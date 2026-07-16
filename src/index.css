@@ -27,8 +27,13 @@
      (kept in sync with glass-waitlist's index.css). Applied as a
      backdrop-filter on a panel in front of the logo mark, not as
      filter:blur() on the image itself — that's what produces the soft
-     pastel glow rather than a visible logo silhouette. */
-  --color-surface-overlay: rgb(249 249 251 / 0.95);
+     pastel glow rather than a visible logo silhouette.
+     Spec value is 95% opacity, but at that opacity the overlay's own fill
+     is nearly the same color as the page background it sits on (both
+     #F9F9FB), so only ~5% of the blurred backdrop shows through --
+     imperceptible in practice. Lowered to 55% so the glow is actually
+     visible while staying soft. */
+  --color-surface-overlay: rgb(249 249 251 / 0.55);
   --blur-logo-overlay: 120px;
 }
 
