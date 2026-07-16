@@ -22,6 +22,14 @@
   --animate-slideInUp: slideInUp 0.8s ease-out forwards;
   --animate-scaleIn: scaleIn 0.6s ease-out forwards;
   --animate-float: float 3s ease-in-out infinite;
+
+  /* Glass Logo Element Surface Overlay, from the Glass Design System spec
+     (kept in sync with glass-waitlist's index.css). Applied as a
+     backdrop-filter on a panel in front of the logo mark, not as
+     filter:blur() on the image itself — that's what produces the soft
+     pastel glow rather than a visible logo silhouette. */
+  --color-surface-overlay: rgb(249 249 251 / 0.95);
+  --blur-logo-overlay: 120px;
 }
 
 /* Global Resets */
