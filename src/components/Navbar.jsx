@@ -43,7 +43,11 @@ export default function Navbar() {
       }`}
     >
       {/* ── Toggle pill mobile ── */}
-      <div className="lg:hidden bg-white/[0.07] border border-white/[0.1] flex mt-[6px] mx-3 rounded-full">
+      {/* rounded-md, not rounded-full -- matches the selected-tab background's
+          own rounded-md so the container's corners don't read as more rounded
+          than what actually sits inside it. Mobile only; the desktop toggle
+          below (line ~86) intentionally keeps its full pill shape. */}
+      <div className="lg:hidden bg-white/[0.07] border border-white/[0.1] flex mt-[6px] mx-3 rounded-md">
         <button
           onClick={() => {
             handleViewModeChange("organizations");
