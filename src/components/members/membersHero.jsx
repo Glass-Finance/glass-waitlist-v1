@@ -1,14 +1,12 @@
-/* eslint-disable no-unused-vars */
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { goToApp } from "../../utils/deviceRedirect";
 import waveBg from "../../assets/hero/hero.webp";
-import iphone from "../../assets/hero/iphone.webp";
 import BlurText from "../ui/BlurText";
 import VariableProximity from "../ui/VariableProximity";
-import MembersDashboard from "../MemberDashboardOverlay";
+import { ScaledPhoneHeroDemo } from "./PhoneHeroDemo";
 
 export default function MembersHero() {
   const navigate = useNavigate();
@@ -130,7 +128,7 @@ export default function MembersHero() {
       </div> */}
 
       {/* ── DESKTOP ── */}
-      <div className="hidden sm:flex relative z-10 w-full max-w-[1280px] mx-auto px-8 lg:px-16 min-h-[calc(100vh-68px)] flex-row items-center">
+      <div className="hidden sm:flex relative z-10 w-full max-w-[1280px] mx-auto px-8 lg:px-16 gap-6 lg:gap-10 min-h-[calc(100vh-68px)] flex-row items-center">
         {/* Left: Text */}
         <div
           ref={containerRef}
@@ -241,7 +239,7 @@ export default function MembersHero() {
 
         {/* Right: iPhone */}
         <div
-          className="relative self-stretch flex items-end justify-start"
+          className="relative self-stretch flex items-end justify-center lg:justify-start min-w-0"
           style={{
             width: "55%",
             paddingBottom: 0,
@@ -255,36 +253,10 @@ export default function MembersHero() {
               ease: [0.22, 1, 0.36, 1],
               delay: 0.25,
             }}
-            style={{
-              position: "relative",
-              width: "min(95%, 620px)",
-              marginLeft: "-90px",
-            }}
+            className="w-full lg:-ml-[60px]"
+            style={{ position: "relative" }}
           >
-            {/* loading="lazy" here (and on the mobile copy below) is
-                deliberate, not an oversight: this and the mobile-only
-                <img> further down both render the same 444KB iphone.png,
-                one hidden via `hidden sm:flex` and the other via
-                `sm:hidden`. display:none doesn't stop an eager <img> from
-                fetching, so without this every visitor downloaded BOTH
-                copies. Browsers skip fetching a lazy image with no
-                generated box (i.e. currently display:none), so only the
-                one actually visible at the matching breakpoint loads --
-                whichever one that is still loads promptly since it's in
-                the initial viewport, "lazy" here just means "skip if
-                hidden," not "defer until scrolled to." */}
-            <img
-              src={iphone}
-              alt="Glass app on iPhone"
-              className="relative block w-full"
-              style={{
-                zIndex: 10,
-                objectFit: "contain",
-              }}
-              draggable={false}
-              loading="lazy"
-              decoding="async"
-            />
+            <ScaledPhoneHeroDemo className="relative block" maxWidth={560} />
           </motion.div>
         </div>
       </div>
@@ -373,46 +345,8 @@ export default function MembersHero() {
           className="absolute bottom-0 left-0 right-0 flex justify-center items-end overflow-hidden"
           style={{ maxHeight: "58vh" }}
         >
-          <div style={{ position: "relative", width: 330 }}>
-            <div
-              style={{
-                position: "absolute",
-                top: "1.8%",
-                left: "8.2%",
-                width: "83.5%",
-                height: "100%",
-                borderRadius: "38px",
-                overflow: "hidden",
-                zIndex: 2,
-              }}
-            >
-              {/* <div
-                style={{
-                  width: 390,
-                  height: 844,
-                  transform: `scale(${(280 * 0.835) / 390})`,
-                  transformOrigin: "top left",
-                }}
-              >
-                <MembersDashboard />
-              </div> */}
-            </div>
-            {/* See the desktop copy of this <img> above for why
-                loading="lazy" is deliberate here, not an oversight. */}
-            <img
-              src={iphone}
-              alt="Glass app on iPhone"
-              style={{
-                position: "relative",
-                zIndex: 10,
-                width: "100%",
-                display: "block",
-                filter: "drop-shadow(0 16px 40px rgba(120,10,160,0.5))",
-              }}
-              draggable={false}
-              loading="lazy"
-              decoding="async"
-            />
+          <div style={{ position: "relative", width: 330, filter: "drop-shadow(0 16px 40px rgba(120,10,160,0.5))" }}>
+            <ScaledPhoneHeroDemo />
           </div>
         </div>
       </div>
