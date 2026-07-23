@@ -1,33 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 /**
- * CTA.jsx  →  src/components/organizations/CTA.jsx
- *            src/components/members/membersCTA.jsx
- *
- * Icons from src/assets/cta/icon1.png → icon6.png
- *
- * Left column (image 2, top→bottom):
- *   icon1 = soccer ball      (top-left,    further from text)
- *   icon2 = basketball hoop  (mid-left,    CLOSER to text)
- *   icon3 = people + add     (bottom-left, further from text)
- *
- * Right column (image 1, top→bottom):
- *   icon4 = bible/cross      (top-right,    further from text)
- *   icon5 = runner with ball (mid-right,    CLOSER to text)
- *   icon6 = graduation cap   (bottom-right, further from text)
- *
- * Positioning logic:
- *   - Top/bottom icons: left/right ~5-6%   (further from centre)
- *   - Middle icons:     left/right ~12-13%  (noticeably closer to text)
- *   - This mirrors the Figma where mid icons almost touch the copy block
+ * Shared closing CTA section used by both the organizations and members
+ * marketing pages. Icon layout/entrance animation is identical between
+ * them; only copy, click target, and button hover style vary — see
+ * organizations/CTA.jsx and members/MembersCTA.jsx for the per-audience
+ * data. buttonHoverVariant "magnetic" (org) follows the cursor on hover;
+ * "lift" (members) is a simpler translateY.
  */
 
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import BlurText from "../ui/BlurText";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { goToApp } from "../../utils/deviceRedirect";
+import BlurText from "../ui/BlurText";
 
 import icon1 from "../../assets/cta/icon1.webp";
 import icon2 from "../../assets/cta/icon2.webp";
@@ -36,8 +19,6 @@ import icon4 from "../../assets/cta/icon4.webp";
 import icon5 from "../../assets/cta/icon5.webp";
 import icon6 from "../../assets/cta/icon6.webp";
 import logo from "../../assets/cta/ctalogo.webp";
-
-const TALLY = "https://tally.so/r/WOEblj";
 
 /* ─── Icon layout config ───────────────────────────────────────────── */
 const icons = [
@@ -138,10 +119,6 @@ function FloatingIcon({ icon, inView }) {
       el.style.transition = "none";
       startRef.current = null;
 
-      const baseTransform = icon.style.transform
-        ? icon.style.transform.replace("translateY(-50%)", "")
-        : "";
-
       const loop = (ts) => {
         if (!startRef.current) startRef.current = ts;
         const elapsed = (ts - startRef.current) / icon.floatPeriod;
@@ -201,17 +178,18 @@ function FloatingIcon({ icon, inView }) {
   );
 }
 
-/* ─── CTA ──────────────────────────────────────────────────────────── */
-export default function CTA() {
-  const navigate = useNavigate();
+/* ─── CTASection ───────────────────────────────────────────────────── */
+export default function CTASection({
+  headline,
+  subtext,
+  buttonLabel,
+  onButtonClick,
+  buttonHoverVariant = "magnetic",
+}) {
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
   const btnRef = useRef(null);
   const [inView, setInView] = useState(false);
-
-  function handleJoin() {
-    goToApp("/member/join", navigate);
-  }
 
   /* Section enters viewport */
   useEffect(() => {
@@ -256,8 +234,8 @@ export default function CTA() {
       }),
     );
 
-    // ← ADD THIS: after the bounce finishes, clear the slow transition
-    // so hover can take over instantly
+    // after the bounce finishes, clear the slow transition so hover can
+    // take over instantly
     const t = setTimeout(() => {
       if (btnRef.current) {
         btnRef.current.style.transition =
@@ -267,6 +245,8 @@ export default function CTA() {
 
     return () => clearTimeout(t);
   }, [inView]);
+
+  const magnetic = buttonHoverVariant === "magnetic";
 
   return (
     <section
@@ -301,7 +281,6 @@ export default function CTA() {
               width: 34,
               height: 34,
               objectFit: "contain",
-              // filter: "brightness(0) invert(1)",
               opacity: 0.88,
             }}
             loading="lazy"
@@ -324,7 +303,7 @@ export default function CTA() {
           }}
         >
           <BlurText
-            text="Bring clarity to your community finances."
+            text={headline}
             animateBy="words"
             direction="top"
             delay={55}
@@ -344,48 +323,99 @@ export default function CTA() {
             zIndex: 5,
           }}
         >
-          Pay dues, track your history, and get receipts — all in one place.
+          {subtext}
         </p>
 
         {/* ── Button ── */}
-        <button
-          ref={btnRef}
-          onClick={handleJoin}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            background: "white",
-            color: "#0d1a6e",
-            fontSize: 15,
-            fontWeight: 600,
-            padding: "14px 32px",
-            borderRadius: 99,
-            border: "none",
-            cursor: "pointer",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
-            transition: "transform 0.2s ease, box-shadow 0.2s ease",
-            position: "relative",
-            zIndex: 5,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "translateY(-4px) scale(1.03)";
-            e.currentTarget.style.boxShadow = "0 14px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "translateY(0) scale(1)";
-            e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.25)";
-          }}
-        >
-          Join A Community
-          <motion.span
-            animate={{ x: [0, 5, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-            style={{ display: "inline-flex", alignItems: "center" }}
+        {magnetic ? (
+          <button
+            ref={btnRef}
+            onClick={onButtonClick}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              background: "white",
+              color: "#0d1a6e",
+              fontSize: "clamp(12px, 3.5vw, 15px)",
+              fontWeight: 600,
+              padding: "clamp(10px, 2.5vw, 14px) clamp(16px, 5vw, 32px)",
+              borderRadius: 99,
+              border: "none",
+              cursor: "pointer",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+              transition: "transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease",
+              position: "relative",
+              zIndex: 5,
+            }}
+            onMouseMove={(e) => {
+              const btn = e.currentTarget;
+              const r = btn.getBoundingClientRect();
+              const cx = r.left + r.width / 2;
+              const cy = r.top + r.height / 2;
+              const dx = ((e.clientX - cx) / (r.width / 2)) * 10;
+              const dy = ((e.clientY - cy) / (r.height / 2)) * 6;
+              btn.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(1.04)`;
+              btn.style.boxShadow = "0 14px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translate(0,0) scale(1)";
+              e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.25)";
+            }}
           >
-            <ArrowRight className="w-4 h-4" />
-          </motion.span>
-        </button>
+            {buttonLabel}
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{
+                duration: 1.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{ display: "inline-flex", alignItems: "center" }}
+            >
+              <ArrowRight className="w-4 h-4" />
+            </motion.span>
+          </button>
+        ) : (
+          <button
+            ref={btnRef}
+            onClick={onButtonClick}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              background: "white",
+              color: "#0d1a6e",
+              fontSize: 15,
+              fontWeight: 600,
+              padding: "14px 32px",
+              borderRadius: 99,
+              border: "none",
+              cursor: "pointer",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              position: "relative",
+              zIndex: 5,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-4px) scale(1.03)";
+              e.currentTarget.style.boxShadow = "0 14px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0) scale(1)";
+              e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.25)";
+            }}
+          >
+            {buttonLabel}
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+              style={{ display: "inline-flex", alignItems: "center" }}
+            >
+              <ArrowRight className="w-4 h-4" />
+            </motion.span>
+          </button>
+        )}
       </div>
     </section>
   );

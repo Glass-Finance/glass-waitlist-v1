@@ -1,14 +1,14 @@
 import { useSeoMeta } from "../hooks/useSeoMeta";
 import Navbar from "../components/Navbar";
-import MembersHero from "../components/members/membersHero";
-import MembersHowItWorks from "../components/members/membersHowItWorks";
-import MembersProblem from "../components/members/membersProblem";
-import MembersSolution from "../components/members/membersSolution";
+import MembersHero from "../components/members/MembersHero";
+import MembersHowItWorks from "../components/members/MembersHowItWorks";
+import MembersProblem from "../components/members/MembersProblem";
+import MembersSolution from "../components/members/MembersSolution";
 import Security from "../components/Security";
 import TrustedBy from "../components/TrustedBy";
-import UseCases from "../components/Usecases";
+import UseCases from "../components/UseCases";
 import WhyGlass from "../components/WhyGlass";
-import MembersCTA from "../components/members/membersCTA";
+import MembersCTA from "../components/members/MembersCTA";
 import Footer from "../components/Footer";
 
 export default function MembersHome() {

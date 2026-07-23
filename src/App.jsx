@@ -4,7 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import LoadingScreen from './components/LoadingScreen';
 
 const Home = lazy(() => import('./pages/index'));
-const MembersHome = lazy(() => import('./pages/membersHome'));
+const MembersHome = lazy(() => import('./pages/MembersHome'));
 const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('./pages/legal/TermsOfService'));
 const CookiePolicy = lazy(() => import('./pages/legal/CookiePolicy'));
