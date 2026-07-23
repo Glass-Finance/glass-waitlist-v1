@@ -60,6 +60,13 @@ function DashboardOverlay() {
   const outerRef = useRef(null);
   const toastRef = useRef(null);
   const aliveRef = useRef(true);
+  // Guided-tour state — same idea as the members page's PhoneHeroDemo, in
+  // this product's native form factor: a cursor clicks through the sidebar
+  // and the content area swaps screens the way the real desktop app
+  // navigates (sidebar and topbar persist, only the content pane changes).
+  const [nav, setNav] = useState("dashboard");
+  const [cursor, setCursor] = useState({ x: 550, y: 300, visible: false });
+  const [ring, setRing] = useState(null);
 
   useEffect(() => {
     const canvas = document.getElementById("hero-static-canvas");
@@ -185,10 +192,53 @@ function DashboardOverlay() {
       }
     };
 
-    const dashLoop = async () => {
+    // Sidebar nav-item click targets, in the mockup's 960px natural space.
+    const NAV_POINTS = {
+      dashboard: { x: 138, y: 94 },
+      payments: { x: 138, y: 129 },
+      members: { x: 138, y: 164 },
+    };
+
+    const move = (p) => {
+      if (!aliveRef.current) return;
+      setCursor({ x: p.x, y: p.y, visible: true });
+    };
+    const clickFx = (p) => {
+      if (!aliveRef.current) return;
+      setRing({ x: p.x, y: p.y, key: Date.now() });
+    };
+
+    // One tour lap: dashboard reveals element-by-element (the original
+    // animation), then the cursor walks the sidebar — Payments, Members,
+    // back to Dashboard — with the content pane sliding between screens.
+    const tourLoop = async () => {
       while (aliveRef.current) {
         await revealIn();
-        await sw(5500);
+        await sw(2400);
+        if (!aliveRef.current) break;
+        move(NAV_POINTS.payments);
+        await sw(1000);
+        clickFx(NAV_POINTS.payments);
+        await sw(320);
+        if (!aliveRef.current) break;
+        setNav("payments");
+        await sw(4300);
+        move(NAV_POINTS.members);
+        await sw(1000);
+        clickFx(NAV_POINTS.members);
+        await sw(320);
+        if (!aliveRef.current) break;
+        setNav("members");
+        await sw(4300);
+        move(NAV_POINTS.dashboard);
+        await sw(1000);
+        clickFx(NAV_POINTS.dashboard);
+        await sw(320);
+        if (!aliveRef.current) break;
+        setNav("dashboard");
+        await sw(3000);
+        setCursor((c) => ({ ...c, visible: false }));
+        await sw(600);
         if (!aliveRef.current) break;
         await revealOut();
         await sw(400);
@@ -203,7 +253,7 @@ function DashboardOverlay() {
       outerRef.current.style.transform = "translateY(0)";
       await sw(2200);
       if (!aliveRef.current) return;
-      dashLoop();
+      tourLoop();
       await sw(1400);
       if (!aliveRef.current) return;
       toastLoop();
@@ -259,6 +309,7 @@ function DashboardOverlay() {
         >
           <div
             style={{
+              position: "relative",
               display: "flex",
               background: "#F7F8FC",
               overflow: "hidden",
@@ -266,6 +317,53 @@ function DashboardOverlay() {
               borderRadius: "4px 4px 0 0",
             }}
           >
+            <style>{`@keyframes gh-click { 0% { transform: scale(0.35); opacity: 0.9; } 100% { transform: scale(1.9); opacity: 0; } }`}</style>
+            {/* Tour cursor — travels the sidebar clicking through screens */}
+            <div
+              style={{
+                position: "absolute",
+                left: cursor.x,
+                top: cursor.y,
+                opacity: cursor.visible ? 1 : 0,
+                transition:
+                  "left 0.9s cubic-bezier(0.22,1,0.36,1), top 0.9s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease",
+                zIndex: 300,
+                pointerEvents: "none",
+              }}
+            >
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                style={{ display: "block", filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.35))" }}
+              >
+                <path
+                  d="M4 2v16.5l4.4-3.6 2.4 5.6 2.8-1.2-2.4-5.5 5.8-0.6z"
+                  fill="#fff"
+                  stroke="#111"
+                  strokeWidth="1.4"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            {ring && (
+              <span
+                key={ring.key}
+                style={{
+                  position: "absolute",
+                  left: ring.x - 11,
+                  top: ring.y - 11,
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  border: "2px solid rgba(0,47,167,0.65)",
+                  background: "rgba(0,47,167,0.18)",
+                  animation: "gh-click 0.55s ease-out forwards",
+                  zIndex: 290,
+                  pointerEvents: "none",
+                }}
+              />
+            )}
             {/* Blue rail */}
             <div
               style={{
@@ -452,7 +550,7 @@ function DashboardOverlay() {
                 {[
                   {
                     label: "Dashboard",
-                    active: true,
+                    active: nav === "dashboard",
                     icon: (
                       <svg
                         width="14"
@@ -501,7 +599,7 @@ function DashboardOverlay() {
                   },
                   {
                     label: "Payments",
-                    active: false,
+                    active: nav === "payments",
                     icon: (
                       <svg
                         width="14"
@@ -529,7 +627,7 @@ function DashboardOverlay() {
                   },
                   {
                     label: "Members",
-                    active: false,
+                    active: nav === "members",
                     icon: (
                       <svg
                         width="14"
@@ -725,7 +823,7 @@ function DashboardOverlay() {
                 </div>
               </div>
               <div
-                style={{ flex: 1, padding: "14px 16px 0", overflow: "hidden" }}
+                style={{ position: "relative", flex: 1, padding: "14px 16px 0", overflow: "hidden" }}
               >
                 <div
                   id="dbo-e0"
@@ -1390,6 +1488,177 @@ function DashboardOverlay() {
                             </span>
                           </div>
                         </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ── Payments screen (tour overlay — slides over the content
+                    pane only, sidebar/topbar persist like the real app) ── */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "#F7F8FC",
+                    padding: "14px 16px 0",
+                    transform: nav === "payments" ? "translateX(0)" : "translateX(105%)",
+                    transition: "transform 480ms cubic-bezier(0.32,0.72,0.3,1)",
+                    boxShadow: "-24px 0 48px rgba(0,0,0,0.14)",
+                    willChange: "transform",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 10 }}>
+                    <div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Payments</div>
+                      <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
+                        A full picture of all payments created in your community.
+                      </div>
+                    </div>
+                    <button style={{ padding: "6px 12px", borderRadius: 7, border: "none", background: "#002FA7", color: "#fff", fontSize: 11, fontWeight: 600 }}>
+                      + Create Payment Plan
+                    </button>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 10 }}>
+                    {[
+                      { label: "Total Amount Collected", value: "₦4,800,040", color: "#d4a017", small: true },
+                      { label: "Active Plans", value: "04", color: "#e11d48" },
+                      { label: "Yet to pay", value: "36", color: "#d4a017" },
+                      { label: "Failed Payments", value: "08", color: "#c026d3" },
+                    ].map((s) => (
+                      <div key={s.label} style={{ background: "#fff", borderRadius: 10, padding: "9px 11px", border: "1px solid #eef0f8", boxShadow: "0 1px 4px rgba(0,47,167,0.05)" }}>
+                        <div style={{ fontSize: 9, color: "#6b7280", fontWeight: 500, marginBottom: 6 }}>{s.label}</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                          <span style={{ fontSize: s.small ? 12 : 14, fontWeight: 800, color: "#0f1d6e" }}>{s.value}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ display: "inline-flex", background: "#eef0f8", borderRadius: 8, padding: 2, marginBottom: 10 }}>
+                    {["All Plans", "Recurring", "One Time"].map((t, i) => (
+                      <span key={t} style={{ fontSize: 10, fontWeight: 600, padding: "4px 10px", borderRadius: 6, background: i === 0 ? "#fff" : "transparent", color: i === 0 ? "#0f1d6e" : "#6b7280" }}>{t}</span>
+                    ))}
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    {[
+                      { st: "Active", stc: "#059669", stb: "#ecfdf5", name: "Association Dues", freq: "Monthly", fc: "#d4a017", fb: "#fff8e7", bar: "#d4a017", pct: "60%" },
+                      { st: "Active", stc: "#059669", stb: "#ecfdf5", name: "Infrastructure Development", freq: "Monthly", fc: "#c026d3", fb: "#fdf0ff", bar: "#c026d3", pct: "74%" },
+                      { st: "Inactive", stc: "#e11d48", stb: "#fff1f2", name: "End Of The Year Party", freq: "One-Time", fc: "#9C27B0", fb: "#F3E5F5", bar: "#2547D0", pct: "100%" },
+                      { st: "Paused", stc: "#6b7280", stb: "#f3f4f6", name: "Association Dues", freq: "Weekly", fc: "#1C2B8A", fb: "#E8ECF8", bar: "#e88504", pct: "45%" },
+                    ].map((p, i) => (
+                      <div key={i} style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "10px 12px" }}>
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                          <span style={{ fontSize: 9, fontWeight: 700, color: p.stc, background: p.stb, borderRadius: 99, padding: "2px 8px", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                            <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.stc }} />
+                            {p.st}
+                          </span>
+                          <span style={{ fontSize: 12, color: "#9ca3af", letterSpacing: 1 }}>•••</span>
+                        </div>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", marginBottom: 4 }}>{p.name}</div>
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                          <span style={{ fontSize: 11, fontWeight: 800, color: "#0f1d6e" }}>
+                            ₦5,000
+                            <span style={{ fontSize: 9, fontWeight: 700, color: p.fc, background: p.fb, borderRadius: 99, padding: "1px 7px", marginLeft: 4 }}>{p.freq}</span>
+                          </span>
+                          <span style={{ fontSize: 9, color: "#9ca3af" }}>
+                            <b style={{ color: "#0f1d6e" }}>N1.2M</b>/N2M Collected
+                          </span>
+                        </div>
+                        <div style={{ height: 4, borderRadius: 99, background: "#eef0f8", overflow: "hidden", marginBottom: 5 }}>
+                          <div style={{ height: "100%", width: p.pct, borderRadius: 99, background: p.bar }} />
+                        </div>
+                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: "#9ca3af" }}>
+                          <span><b style={{ color: "#374151" }}>24 / 120</b> members paid</span>
+                          <span>Due Apr 1</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ── Members screen (tour overlay) ── */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "#F7F8FC",
+                    padding: "14px 16px 0",
+                    transform: nav === "members" ? "translateX(0)" : "translateX(105%)",
+                    transition: "transform 480ms cubic-bezier(0.32,0.72,0.3,1)",
+                    boxShadow: "-24px 0 48px rgba(0,0,0,0.14)",
+                    willChange: "transform",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 10 }}>
+                    <div>
+                      <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Members</div>
+                      <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
+                        A full picture of the members of your community.
+                      </div>
+                    </div>
+                    <button style={{ padding: "6px 12px", borderRadius: 7, border: "none", background: "#002FA7", color: "#fff", fontSize: 11, fontWeight: 600 }}>
+                      + Add Member
+                    </button>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 10 }}>
+                    {[
+                      { label: "Total Members", value: "209", color: "#002FA7" },
+                      { label: "Active Members", value: "212", color: "#e11d48" },
+                      { label: "Inactive", value: "36", color: "#d4a017" },
+                      { label: "Admins", value: "02", color: "#c026d3" },
+                    ].map((s) => (
+                      <div key={s.label} style={{ background: "#fff", borderRadius: 10, padding: "9px 11px", border: "1px solid #eef0f8", boxShadow: "0 1px 4px rgba(0,47,167,0.05)" }}>
+                        <div style={{ fontSize: 9, color: "#6b7280", fontWeight: 500, marginBottom: 6 }}>{s.label}</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
+                          <span style={{ fontSize: 14, fontWeight: 800, color: "#0f1d6e" }}>{s.value}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "10px 14px 6px" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>Member Payments</span>
+                      <button style={{ padding: "5px 11px", borderRadius: 7, border: "1.5px solid #e0e3f0", background: "#fff", color: "#002FA7", fontSize: 10, fontWeight: 600 }}>
+                        Export Csv
+                      </button>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#f5f6fa", borderRadius: 7, padding: "5px 11px", border: "1px solid #eef0f8", flex: 1, maxWidth: 220 }}>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+                          <circle cx="11" cy="11" r="8" stroke="#9ca3af" strokeWidth="1.8" />
+                          <path d="M21 21l-4.35-4.35" stroke="#9ca3af" strokeWidth="1.8" strokeLinecap="round" />
+                        </svg>
+                        <span style={{ fontSize: 10, color: "#9ca3af" }}>Search members…</span>
+                      </div>
+                      <span style={{ fontSize: 10, color: "#6b7280" }}>Sort by: <b style={{ color: "#0f1d6e" }}>Recent</b></span>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1.6fr 0.6fr 1fr 1.2fr 1.8fr", gap: 8, padding: "7px 0", borderBottom: "1px solid #f3f4f8", fontSize: 10, color: "#9ca3af", fontWeight: 600, background: "#F9F9FB" }}>
+                      <span>Members</span>
+                      <span>Plans</span>
+                      <span>Status</span>
+                      <span>Date</span>
+                      <span>Email</span>
+                    </div>
+                    {[
+                      { n: "Adebayor Okafor", plans: "2", st: "2/2 Paid", sc: "#059669", sb: "#ecfdf5", d: "Mar 12, 2025", e: "adebayor@gmail.com" },
+                      { n: "Chisom Eze", plans: "2", st: "1/2 Paid", sc: "#b45309", sb: "#fffbeb", d: "Mar 12, 2025", e: "chisom@gmail.com" },
+                      { n: "Tunde Nwosu", plans: "3", st: "0/3 Paid", sc: "#e11d48", sb: "#fff1f2", d: "Mar 12, 2025", e: "tunde@gmail.com" },
+                      { n: "Blessing Igwe", plans: "2", st: "2/2 Paid", sc: "#059669", sb: "#ecfdf5", d: "Mar 12, 2025", e: "blessing@gmail.com" },
+                    ].map((m, i, arr) => (
+                      <div
+                        key={m.n}
+                        style={{ display: "grid", gridTemplateColumns: "1.6fr 0.6fr 1fr 1.2fr 1.8fr", gap: 8, alignItems: "center", padding: "9px 0", borderBottom: i < arr.length - 1 ? "1px solid #f3f4f8" : "none" }}
+                      >
+                        <span style={{ fontSize: 11, fontWeight: 700, color: "#002FA7" }}>{m.n}</span>
+                        <span style={{ fontSize: 11, color: "#374151" }}>{m.plans}</span>
+                        <span>
+                          <span style={{ fontSize: 9, fontWeight: 700, color: m.sc, background: m.sb, borderRadius: 99, padding: "1px 8px" }}>{m.st}</span>
+                        </span>
+                        <span style={{ fontSize: 11, color: "#374151" }}>{m.d}</span>
+                        <span style={{ fontSize: 11, color: "#6b7280" }}>{m.e}</span>
                       </div>
                     ))}
                   </div>
