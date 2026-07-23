@@ -7,7 +7,6 @@ const links = {
   Product: [
     { label: "Features",     href: "/#solution"     },
     { label: "How It Works", href: "/#how-it-works" },
-    { label: "Pricing",      href: "/#pricing"      },
     { label: "Integrations", href: null             },
   ],
   "Use Cases": [

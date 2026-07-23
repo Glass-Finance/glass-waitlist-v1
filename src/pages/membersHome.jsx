@@ -6,7 +6,6 @@ import MembersProblem from "../components/members/membersProblem";
 import MembersSolution from "../components/members/membersSolution";
 import Security from "../components/Security";
 import TrustedBy from "../components/TrustedBy";
-import Pricing from "../components/Pricing";
 import UseCases from "../components/Usecases";
 import WhyGlass from "../components/WhyGlass";
 import MembersCTA from "../components/members/membersCTA";
@@ -29,7 +28,6 @@ export default function MembersHome() {
       <UseCases />
       <TrustedBy />
       <Security />
-      <Pricing />
       <MembersCTA />
       <WhyGlass />
       <Footer />
