@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { usePageTitle } from "../../hooks/usePageTitle";
+import { useSeoMeta } from "../../hooks/useSeoMeta";
 import LegalPageLayout from "../../components/legal/LegalPageLayout";
 
 export default function RefundPolicy() {
-  usePageTitle("Refund Policy");
+  useSeoMeta({
+    title: "Refund Policy",
+    description: "Glass Finance's policy on refunds and payment disputes.",
+    path: "/refund-policy",
+  });
 
   return (
     <LegalPageLayout

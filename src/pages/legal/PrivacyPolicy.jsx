@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { usePageTitle } from "../../hooks/usePageTitle";
+import { useSeoMeta } from "../../hooks/useSeoMeta";
 import LegalPageLayout from "../../components/legal/LegalPageLayout";
 
 export default function PrivacyPolicy() {
-  usePageTitle("Privacy Policy");
+  useSeoMeta({
+    title: "Privacy Policy",
+    description: "How Glass Finance collects, uses, and protects your data.",
+    path: "/privacy",
+  });
 
   return (
     <LegalPageLayout

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useSeoMeta } from "../hooks/useSeoMeta";
 import Navbar from "../components/Navbar";
@@ -20,6 +22,22 @@ export default function OrganizationsHome() {
     path: "/",
   });
   useScrollReveal();
+
+  // Footer's "Features"/"How It Works" links point at /#solution and
+  // /#how-it-works. Since Home is lazy-loaded, a hard navigation from any
+  // other route (the only way a plain <a> gets here) fires the browser's
+  // one-shot native fragment scroll before this page has rendered --
+  // it finds no matching element and never retries, so the visitor lands
+  // at the top instead. Do the scroll ourselves once mounted.
+  const location = useLocation();
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    const timer = setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [location.hash]);
 
   return (
     <div className="bg-[#F7F8FC]">

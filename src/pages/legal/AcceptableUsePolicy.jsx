@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { usePageTitle } from "../../hooks/usePageTitle";
+import { useSeoMeta } from "../../hooks/useSeoMeta";
 import LegalPageLayout from "../../components/legal/LegalPageLayout";
 
 export default function AcceptableUsePolicy() {
-  usePageTitle("Acceptable Use Policy");
+  useSeoMeta({
+    title: "Acceptable Use Policy",
+    description: "Rules for acceptable use of Glass Finance's platform.",
+    path: "/acceptable-use",
+  });
 
   return (
     <LegalPageLayout

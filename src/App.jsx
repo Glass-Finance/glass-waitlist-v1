@@ -10,8 +10,6 @@ const TermsOfService = lazy(() => import('./pages/legal/TermsOfService'));
 const CookiePolicy = lazy(() => import('./pages/legal/CookiePolicy'));
 const AcceptableUsePolicy = lazy(() => import('./pages/legal/AcceptableUsePolicy'));
 const RefundPolicy = lazy(() => import('./pages/legal/RefundPolicy'));
-// import Waitlist from './pages/Waitlist';
-// import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -30,12 +28,6 @@ function App() {
           <Route path="/cookies" element={<CookiePolicy />} />
           <Route path="/acceptable-use" element={<AcceptableUsePolicy />} />
           <Route path="/refund-policy" element={<RefundPolicy />} />
-
-          {/* Waitlist Signup Page */}
-          {/* <Route path="/waitlist" element={<Waitlist />} /> */}
-
-          {/* Contact Page */}
-          {/* <Route path="/contact" element={<Contact />} /> */}
 
           {/* Catch-all redirect to home */}
           <Route path="*" element={<Home />} />

@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { usePageTitle } from "../../hooks/usePageTitle";
+import { useSeoMeta } from "../../hooks/useSeoMeta";
 import LegalPageLayout from "../../components/legal/LegalPageLayout";
 
 export default function TermsOfService() {
-  usePageTitle("Terms of Service");
+  useSeoMeta({
+    title: "Terms of Service",
+    description: "The terms that govern your use of Glass Finance.",
+    path: "/terms",
+  });
 
   return (
     <LegalPageLayout

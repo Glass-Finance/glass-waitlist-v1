@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { usePageTitle } from "../../hooks/usePageTitle";
+import { useSeoMeta } from "../../hooks/useSeoMeta";
 import LegalPageLayout from "../../components/legal/LegalPageLayout";
 
 export default function CookiePolicy() {
-  usePageTitle("Cookie Policy");
+  useSeoMeta({
+    title: "Cookie Policy",
+    description: "How Glass Finance uses cookies and similar technologies.",
+    path: "/cookies",
+  });
 
   return (
     <LegalPageLayout

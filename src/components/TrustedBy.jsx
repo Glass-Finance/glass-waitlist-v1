@@ -79,7 +79,15 @@ export default function TrustedBy() {
                 decoding="async"
                 onError={(e) => {
                   e.target.style.display = "none";
-                  e.target.parentElement.innerHTML = `<span style="color:#9099b2;font-weight:600;font-size:15px;white-space:nowrap">${item.name}</span>`;
+                  const fallback = document.createElement("span");
+                  fallback.textContent = item.name;
+                  Object.assign(fallback.style, {
+                    color: "#9099b2",
+                    fontWeight: "600",
+                    fontSize: "15px",
+                    whiteSpace: "nowrap",
+                  });
+                  e.target.parentElement.appendChild(fallback);
                 }}
               />
             </div>
