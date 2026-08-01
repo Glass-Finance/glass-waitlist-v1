@@ -3,6 +3,18 @@
   "installCommand": "npm install",
   "framework": "vite",
   "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/member/:path*", "destination": "https://app.glasspay.app/member/:path*", "permanent": false },
+    { "source": "/invite", "destination": "https://app.glasspay.app/invite", "permanent": false },
+    { "source": "/invites", "destination": "https://app.glasspay.app/invites", "permanent": false },
+    { "source": "/sign-up", "destination": "https://app.glasspay.app/sign-up", "permanent": false },
+    { "source": "/sign-in", "destination": "https://app.glasspay.app/sign-in", "permanent": false },
+    { "source": "/forgot-password", "destination": "https://app.glasspay.app/forgot-password", "permanent": false },
+    { "source": "/reset-password", "destination": "https://app.glasspay.app/reset-password", "permanent": false },
+    { "source": "/check-email", "destination": "https://app.glasspay.app/check-email", "permanent": false },
+    { "source": "/onboarding/:path*", "destination": "https://app.glasspay.app/onboarding/:path*", "permanent": false },
+    { "source": "/dashboard/:path*", "destination": "https://app.glasspay.app/dashboard/:path*", "permanent": false }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -14,11 +26,7 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.sentry.io; frame-src 'none'; worker-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
-        }
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
       ]
     },
     {
