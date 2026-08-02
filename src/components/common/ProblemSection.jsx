@@ -92,7 +92,7 @@ export default function ProblemSection({
 
   return (
     <section
-      className="relative bg-[#F7F8FC] overflow-hidden py-20 md:py-28"
+      className="relative isolate bg-[#F7F8FC] overflow-hidden py-20 md:py-28"
       id="problem"
     >
       {/* Glass Logo Element Surface Overlay, per the design system spec:
@@ -104,7 +104,14 @@ export default function ProblemSection({
           above normal-flow content regardless of DOM order, and this
           overlay is a ~95%-opaque, full-area panel, so without it this was
           washing out the section's real text content instead of sitting
-          behind it. */}
+          behind it. `isolate` on the section itself matters just as much --
+          without it, position:relative + z-index:auto never actually forms
+          a stacking context of its own, so this -1 child doesn't stay
+          scoped "behind this section's content" the way it looks like it
+          should; it escapes to the section's *parent* stacking context
+          instead, which put it behind the section's own opaque bg-[#F7F8FC]
+          fill -- fully hidden, confirmed via elementFromPoint returning the
+          <section> itself at a point where only the glow should be. */}
       <div className="absolute inset-0" style={{ zIndex: -1 }} aria-hidden="true">
         <img
           src="/Bg.png"
