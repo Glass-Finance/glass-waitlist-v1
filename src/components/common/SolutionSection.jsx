@@ -9,6 +9,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import BlurText from "../ui/BlurText";
 import lightBg from "../../assets/solution/bg-light.webp";
+import solutionGlow from "../../assets/solution-glow.webp";
 
 // ─── Per-card tilt hook ───────────────────────────────────────────────────────
 function useTilt(strength = 14) {
@@ -260,13 +261,17 @@ export default function SolutionSection({
       }
     `}</style>
 
-      <section className="py-20 md:py-28 relative bg-white" id="solution">
-        {/*
-          Fix: was "relative" before which pushed content down.
-          Overlay opacity dropped from 0.6 → 0.2 to stop darkening the section.
-          Background colour matches the surrounding page sections.
-        */}
-        <div className="absolute inset-0 z-0 pointer-events-none" />
+      <section className="py-20 md:py-28 relative isolate bg-white" id="solution">
+        {/* `isolate` matters here the same way it does in ProblemSection.jsx --
+            position:relative alone (z-index:auto) never actually forms a
+            stacking context, so this overlay was escaping to the section's
+            *parent* context instead of staying scoped behind this section's
+            own content, landing behind the section's own opaque bg-white
+            fill and disappearing entirely. */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${solutionGlow})` }}
+        />
 
         <div className="max-w-[1140px] mx-auto px-6 relative z-30">
           {/* ── Header — BlurText on all three elements ── */}
