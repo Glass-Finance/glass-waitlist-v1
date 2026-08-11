@@ -130,7 +130,7 @@ export default function WhyGlass() {
             <div
               key={faq.q}
               ref={(el) => (itemRefs.current[i] = el)}
-              className={`bg-[#F0F2F8] rounded-2xl mb-3 overflow-hidden border transition-all duration-300 ${
+              className={`bg-[#F0F2F8] rounded-2xl mb-3 overflow-hidden border shadow-[0_2px_10px_rgba(15,29,110,0.06)] transition-all duration-300 ${
                 open === i ? "border-[#e0e4f5]" : "border-transparent"
               }`}
             >
@@ -194,7 +194,9 @@ export default function WhyGlass() {
             }}
           >
             Ask A Question
-            <ArrowRight className="w-4 h-4" />
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1C2B8A] flex items-center justify-center">
+              <ArrowRight className="w-3.5 h-3.5" />
+            </span>
           </a>
         </div>
 
