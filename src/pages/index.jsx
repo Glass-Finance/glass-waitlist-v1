@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useSeoMeta } from "../hooks/useSeoMeta";
+import PageGlow from "../components/common/PageGlow";
 import Navbar from "../components/Navbar";
 import Hero from "../components/organizations/Hero";
 import ProblemSection from "../components/organizations/ProblemSection";
@@ -40,7 +41,8 @@ export default function OrganizationsHome() {
   }, [location.hash]);
 
   return (
-    <div className="bg-[#F7F8FC]">
+    <div className="bg-white">
+      <PageGlow />
       <Navbar />
       <Hero />
       <ProblemSection />

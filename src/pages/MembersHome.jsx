@@ -1,4 +1,5 @@
 import { useSeoMeta } from "../hooks/useSeoMeta";
+import PageGlow from "../components/common/PageGlow";
 import Navbar from "../components/Navbar";
 import MembersHero from "../components/members/MembersHero";
 import MembersHowItWorks from "../components/members/MembersHowItWorks";
@@ -19,7 +20,8 @@ export default function MembersHome() {
     path: "/members",
   });
   return (
-    <div className="bg-[#F7F8FC]">
+    <div className="bg-white">
+      <PageGlow />
       <Navbar />
       <MembersHero />
       <MembersProblem />

@@ -9,7 +9,6 @@
 import { useEffect, useRef } from "react";
 import { Lightbulb } from "lucide-react";
 import BlurText from "../ui/BlurText";
-import problemGlow from "../../assets/problem-glow.webp";
 
 export default function ProblemSection({
   image,
@@ -93,26 +92,9 @@ export default function ProblemSection({
 
   return (
     <section
-      className="relative isolate bg-[#F7F8FC] overflow-hidden py-20 md:py-28"
+      className="relative isolate overflow-hidden py-20 md:py-28"
       id="problem"
     >
-      {/* Dedicated pre-rendered glow art (replaces the old Bg.png-logo +
-          backdrop-blur trick, which needed real blur math to fake a soft
-          wash and was fragile to stacking-context bugs like this section's
-          own -- this is just a finished background image). `isolate` on
-          the section itself matters here regardless: position:relative
-          alone (z-index:auto) never actually forms a stacking context, so
-          without it a -1 child like this one escapes to the section's
-          *parent* stacking context instead of staying scoped behind this
-          section's own content, landing behind the section's own opaque
-          bg-[#F7F8FC] fill and disappearing entirely -- confirmed via
-          elementFromPoint returning the <section> itself at a point where
-          only the glow should be. */}
-      <div
-        className="absolute inset-0 -z-10 bg-cover bg-left bg-no-repeat"
-        style={{ backgroundImage: `url(${problemGlow})` }}
-        aria-hidden="true"
-      />
       <div className="max-w-[1140px] mx-auto px-6 relative">
         {/* ── Header ── */}
         <div className="text-center mb-16">
