@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import BlurText from "./ui/BlurText";
-import GlowOrbs from "./common/GlowOrbs";
 
 import icon1 from "../assets/security/icon1.webp";
 import icon2 from "../assets/security/icon2.webp";
@@ -33,6 +32,11 @@ const TILTS = [
 
 export default function Security() {
   const cardRefs = useRef([]);
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const orb1Y = useTransform(scrollYProgress, [0, 1], ["-40px", "40px"]);
+  const orb2Y = useTransform(scrollYProgress, [0, 1], ["30px", "-50px"]);
+  const orb3Y = useTransform(scrollYProgress, [0, 1], ["-20px", "60px"]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -65,10 +69,22 @@ export default function Security() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative bg-[#F7F8FC] overflow-hidden py-20 md:py-28"
       id="security"
     >
-      <GlowOrbs />
+      {/* ── Parallax glow orbs ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <motion.div
+          style={{ y: orb1Y, position: "absolute", top: "10%", left: "5%", width: 340, height: 340, borderRadius: "50%", background: "radial-gradient(circle, rgba(28,43,138,0.08) 0%, transparent 70%)", filter: "blur(60px)", willChange: "transform" }}
+        />
+        <motion.div
+          style={{ y: orb2Y, position: "absolute", bottom: "12%", right: "8%", width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%)", filter: "blur(55px)", willChange: "transform" }}
+        />
+        <motion.div
+          style={{ y: orb3Y, position: "absolute", top: "40%", right: "20%", width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(28,43,138,0.05) 0%, transparent 70%)", filter: "blur(45px)", willChange: "transform" }}
+        />
+      </div>
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         {/* ── Header ── */}
         <div className="mb-8 md:mb-16" style={{ textAlign: "center" }}>

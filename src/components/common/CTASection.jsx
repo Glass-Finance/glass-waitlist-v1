@@ -11,7 +11,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import BlurText from "../ui/BlurText";
-import GlowOrbs from "./GlowOrbs";
 
 import icon1 from "../../assets/cta/icon1.webp";
 import icon2 from "../../assets/cta/icon2.webp";
@@ -254,7 +253,6 @@ export default function CTASection({
       ref={sectionRef}
       className="relative bg-[#F7F8FC] py-14 px-6 overflow-hidden"
     >
-      <GlowOrbs />
       <div
         ref={cardRef}
         className="max-w-[1140px] mx-auto rounded-3xl overflow-hidden relative"
