@@ -251,7 +251,7 @@ export default function CTASection({
   return (
     <section
       ref={sectionRef}
-      className="relative bg-white py-14 px-6 overflow-hidden"
+      className="relative isolate py-14 px-6 overflow-hidden"
     >
       <div
         ref={cardRef}
