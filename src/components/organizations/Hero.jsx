@@ -87,7 +87,7 @@ export default function Hero() {
       </div>
 
       <div
-        className="relative z-10 w-full max-w-[720px] mx-auto text-center px-6 pt-12 pb-8 sm:pt-20"
+        className="relative z-10 w-full max-w-[720px] mx-auto text-center px-6 pb-8"
         style={{ fontFamily: "Inter,-apple-system,sans-serif" }}
       >
         <Reveal variant="up" delay={80}>
