@@ -81,12 +81,12 @@ export default function DashboardOverlay() {
         el.style.transition =
           "opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1)";
         setRi(el, true);
-        if (i >= 5 && i <= 7) {
-          const bar = $(PBARS[i - 5].id);
+        if (i >= 6 && i <= 7) {
+          const bar = $(PBARS[i - 6].id);
           if (bar) {
             await sw(60);
             bar.style.transition = "width 1.1s ease";
-            bar.style.width = PBARS[i - 5].w;
+            bar.style.width = PBARS[i - 6].w;
           }
         }
       }

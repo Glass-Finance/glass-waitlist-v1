@@ -6,6 +6,10 @@ const REVEAL_STYLE = {
   transition: "opacity .5s ease, transform .5s ease",
 };
 
+// "payment" (green) / "member" (brand) / "failed" (red) are the real
+// RecentActivityCard.jsx's actual category set -- there's no distinct
+// "reminder" category in the real app, so that invented type is replaced
+// with a real "failed" example instead.
 const ACTIVITY = [
   {
     id: "e8",
@@ -36,17 +40,17 @@ const ACTIVITY = [
   },
   {
     id: "e11",
-    aBg: "#fff8e7",
-    aColor: "#d4a017",
-    type: "reminder",
-    name: null,
-    action: "Dues Reminder Sent to",
-    detail: "12 members",
+    aBg: "#fff1f2",
+    aColor: "#e11d48",
+    type: "failed",
+    name: "Chidinma Obi",
+    action: "payment failed for",
+    detail: "Association Dues",
   },
 ];
 
 function ActivityIcon({ type, color }) {
-  if (type === "payment") {
+  if (type === "payment" || type === "failed") {
     return (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="10" stroke={color} strokeWidth="1.8" />
@@ -72,26 +76,13 @@ function ActivityIcon({ type, color }) {
       </svg>
     );
   }
-  if (type === "reminder") {
-    return (
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
-          stroke={color}
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-        <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    );
-  }
   return null;
 }
 
 export default function RecentActivityPanel() {
   return (
-    <div style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "12px" }}>
-      <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", marginBottom: 10 }}>
+    <div style={{ background: "#fff", borderRadius: 12, border: "1px solid #E0E0EB", padding: "10px" }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: "#000", marginBottom: 8 }}>
         Recent Activity
       </div>
       {ACTIVITY.map((a, i, arr) => (
@@ -103,7 +94,7 @@ export default function RecentActivityPanel() {
             display: "flex",
             alignItems: "flex-start",
             gap: 9,
-            padding: "9px 0",
+            padding: "7px 0",
             borderBottom: i < arr.length - 1 ? "1px solid #f3f4f8" : "none",
           }}
         >
@@ -130,7 +121,7 @@ export default function RecentActivityPanel() {
               {a.detail && (
                 <>
                   {" "}
-                  <strong style={{ color: "#0f1d6e" }}>{a.detail}</strong>
+                  <strong style={{ color: "#000" }}>{a.detail}</strong>
                 </>
               )}
             </p>

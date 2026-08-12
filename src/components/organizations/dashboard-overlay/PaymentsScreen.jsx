@@ -1,15 +1,60 @@
+function WalletIcon({ color }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <path d="M21 12V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5h-4a2 2 0 0 1 0-4h4z" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function ChecklistIcon({ color }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <path d="M9 11l3 3 8-8" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function ClockIcon({ color }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke={color} strokeWidth="1.8" />
+      <path d="M12 7v5l3.5 2" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+function XCircleIcon({ color }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke={color} strokeWidth="1.8" />
+      <path d="M9.5 9.5l5 5m0-5l-5 5" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// Matches the real Payments tab's exact StatCard set/order/colors:
+// brand / success / amber / danger.
 const STATS = [
-  { label: "Total Amount Collected", value: "₦4,800,040", color: "#d4a017", small: true },
-  { label: "Active Plans", value: "04", color: "#e11d48" },
-  { label: "Yet to pay", value: "36", color: "#d4a017" },
-  { label: "Failed Payments", value: "08", color: "#c026d3" },
+  { label: "Total Amount Collected", value: "₦4,800,040", small: true, fg: "#002FA7", bg: "#e6eeff", Icon: WalletIcon },
+  { label: "Active Plans", value: "04", fg: "#16A34A", bg: "#DCFCE7", Icon: ChecklistIcon },
+  { label: "Yet to pay", value: "36", fg: "#b45309", bg: "#FFF8E7", Icon: ClockIcon },
+  { label: "Failed Payments", value: "08", fg: "#DC2626", bg: "#FEE2E2", Icon: XCircleIcon },
 ];
 
+// Frequency pill is always purple in the real app, not color-varying by
+// frequency. Status colors match the real PLAN_STATUS map exactly --
+// Paused is amber, not gray. Progress-bar color cycles by position
+// (BAR_COLOR_CLASSES), same palette as the Dashboard's Payment Plans panel.
+const STATUS = {
+  Active: { fg: "#059669", bg: "#ecfdf5" },
+  Inactive: { fg: "#e11d48", bg: "#fff1f2" },
+  Paused: { fg: "#b45309", bg: "#fffbeb" },
+};
+const BAR_COLORS = ["#d4a017", "#7c3aed", "#002FA7", "#059669"];
+
 const PLANS = [
-  { st: "Active", stc: "#059669", stb: "#ecfdf5", name: "Association Dues", freq: "Monthly", fc: "#d4a017", fb: "#fff8e7", bar: "#d4a017", pct: "60%" },
-  { st: "Active", stc: "#059669", stb: "#ecfdf5", name: "Infrastructure Development", freq: "Monthly", fc: "#c026d3", fb: "#fdf0ff", bar: "#c026d3", pct: "74%" },
-  { st: "Inactive", stc: "#e11d48", stb: "#fff1f2", name: "End Of The Year Party", freq: "One-Time", fc: "#9C27B0", fb: "#F3E5F5", bar: "#2547D0", pct: "100%" },
-  { st: "Paused", stc: "#6b7280", stb: "#f3f4f6", name: "Association Dues", freq: "Weekly", fc: "#1C2B8A", fb: "#E8ECF8", bar: "#e88504", pct: "45%" },
+  { st: "Active", name: "Association Dues", freq: "Monthly", amt: "₦5,000", collected: "₦1.2M", expected: "₦2M", pct: "60%", due: "Due Apr 1" },
+  { st: "Active", name: "Infrastructure Development", freq: "One-Time", amt: "₦300,000", collected: "₦222,000", expected: "₦300,000", pct: "74%", due: "Due Apr 15" },
+  { st: "Inactive", name: "End Of The Year Party", freq: "One-Time", amt: "₦400,500", collected: "₦400,500", expected: "₦400,500", pct: "100%", due: "Closed" },
+  { st: "Paused", name: "Association Dues", freq: "Weekly", amt: "₦2,000", collected: "₦45,000", expected: "₦100,000", pct: "45%", due: "Due Apr 8" },
 ];
 
 // Tour overlay — slides over the dashboard content pane only (sidebar/topbar
@@ -31,7 +76,7 @@ export default function PaymentsScreen({ active }) {
     >
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 10 }}>
         <div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Payments</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: "#000" }}>Payments</div>
           <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
             A full picture of all payments created in your community.
           </div>
@@ -42,49 +87,54 @@ export default function PaymentsScreen({ active }) {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 10 }}>
         {STATS.map((s) => (
-          <div key={s.label} style={{ background: "#fff", borderRadius: 10, padding: "9px 11px", border: "1px solid #eef0f8", boxShadow: "0 1px 4px rgba(0,47,167,0.05)" }}>
-            <div style={{ fontSize: 9, color: "#6b7280", fontWeight: 500, marginBottom: 6 }}>{s.label}</div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-              <span style={{ fontSize: s.small ? 12 : 14, fontWeight: 800, color: "#0f1d6e" }}>{s.value}</span>
+          <div key={s.label} style={{ background: "#fff", borderRadius: 12, padding: "10px 12px", border: "1px solid #E0E0EB", boxShadow: "0 1px 4px rgba(0,47,167,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div>
+              <div style={{ fontSize: 9, color: "#9ca3af", marginBottom: 4 }}>{s.label}</div>
+              <div style={{ fontSize: s.small ? 12 : 14, fontWeight: 700, color: "#000" }}>{s.value}</div>
+            </div>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <s.Icon color={s.fg} />
             </div>
           </div>
         ))}
       </div>
-      <div style={{ display: "inline-flex", background: "#eef0f8", borderRadius: 8, padding: 2, marginBottom: 10 }}>
+      <div style={{ display: "inline-flex", background: "#F3F4F6", borderRadius: 8, padding: 2, marginBottom: 10 }}>
         {["All Plans", "Recurring", "One Time"].map((t, i) => (
-          <span key={t} style={{ fontSize: 10, fontWeight: 600, padding: "4px 10px", borderRadius: 6, background: i === 0 ? "#fff" : "transparent", color: i === 0 ? "#0f1d6e" : "#6b7280" }}>{t}</span>
+          <span key={t} style={{ fontSize: 10, fontWeight: 600, padding: "4px 10px", borderRadius: 6, background: i === 0 ? "#fff" : "transparent", color: i === 0 ? "#000" : "#6b7280" }}>{t}</span>
         ))}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-        {PLANS.map((p, i) => (
-          <div key={i} style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "10px 12px" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 700, color: p.stc, background: p.stb, borderRadius: 99, padding: "2px 8px", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.stc }} />
-                {p.st}
-              </span>
-              <span style={{ fontSize: 12, color: "#9ca3af", letterSpacing: 1 }}>•••</span>
+        {PLANS.map((p, i) => {
+          const s = STATUS[p.st];
+          return (
+            <div key={i} style={{ background: "#fff", borderRadius: 16, border: "1px solid #E0E0EB", padding: "12px 14px", boxShadow: "0 1px 6px rgba(0,47,167,0.07)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                <span style={{ fontSize: 9, fontWeight: 700, color: s.fg, background: s.bg, borderRadius: 99, padding: "2px 8px", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: s.fg }} />
+                  {p.st}
+                </span>
+                <span style={{ fontSize: 12, color: "#9ca3af", letterSpacing: 1 }}>•••</span>
+              </div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#000", marginBottom: 4 }}>{p.name}</div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: "#000" }}>
+                  {p.amt}
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "#7c3aed", background: "#f3eeff", borderRadius: 99, padding: "1px 7px", marginLeft: 4 }}>{p.freq}</span>
+                </span>
+                <span style={{ fontSize: 9, color: "#9ca3af" }}>
+                  <b style={{ color: "#000" }}>{p.collected}</b>/{p.expected} Collected
+                </span>
+              </div>
+              <div style={{ height: 10, borderRadius: 99, background: "#E0E0EB", overflow: "hidden", marginBottom: 5 }}>
+                <div style={{ height: "100%", width: p.pct, borderRadius: 99, background: BAR_COLORS[i % BAR_COLORS.length] }} />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: "#9ca3af" }}>
+                <span><b style={{ color: "#374151" }}>24 / 120</b> members paid</span>
+                <span>{p.due}</span>
+              </div>
             </div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", marginBottom: 4 }}>{p.name}</div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-              <span style={{ fontSize: 11, fontWeight: 800, color: "#0f1d6e" }}>
-                ₦5,000
-                <span style={{ fontSize: 9, fontWeight: 700, color: p.fc, background: p.fb, borderRadius: 99, padding: "1px 7px", marginLeft: 4 }}>{p.freq}</span>
-              </span>
-              <span style={{ fontSize: 9, color: "#9ca3af" }}>
-                <b style={{ color: "#0f1d6e" }}>N1.2M</b>/N2M Collected
-              </span>
-            </div>
-            <div style={{ height: 4, borderRadius: 99, background: "#eef0f8", overflow: "hidden", marginBottom: 5 }}>
-              <div style={{ height: "100%", width: p.pct, borderRadius: 99, background: p.bar }} />
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: "#9ca3af" }}>
-              <span><b style={{ color: "#374151" }}>24 / 120</b> members paid</span>
-              <span>Due Apr 1</span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

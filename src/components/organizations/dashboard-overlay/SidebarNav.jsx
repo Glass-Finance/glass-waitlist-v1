@@ -47,6 +47,22 @@ export default function SidebarNav({ nav }) {
       ),
     },
     {
+      label: "Notifications",
+      active: false,
+      badge: 3,
+      icon: (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+          <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ),
+    },
+    {
       label: "Settings",
       active: false,
       icon: (
@@ -67,46 +83,37 @@ export default function SidebarNav({ nav }) {
       style={{
         width: 180,
         background: "#fff",
-        borderRight: "1px solid #eef0f8",
+        borderRight: "1px solid #E0E0EB",
         flexShrink: 0,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <div
         style={{
-          padding: "14px 12px",
-          borderBottom: "1px solid #eef0f8",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          padding: "11px 12px",
+          borderBottom: "1px solid #E0E0EB",
         }}
       >
-        <div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", lineHeight: 1.3 }}>
-            Kings College Alumni
-          </div>
-          <span
-            style={{
-              fontSize: 9,
-              fontWeight: 700,
-              color: "#e85d04",
-              background: "#fff4ee",
-              borderRadius: 99,
-              padding: "1px 6px",
-              display: "inline-block",
-              marginTop: 2,
-            }}
-          >
-            Admin
-          </span>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "#000", lineHeight: 1.3 }}>
+          Kings College Alumni
         </div>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="3" width="7" height="7" rx="1" stroke="#9ca3af" strokeWidth="1.8" />
-          <rect x="14" y="3" width="7" height="7" rx="1" stroke="#9ca3af" strokeWidth="1.8" />
-          <rect x="3" y="14" width="7" height="7" rx="1" stroke="#9ca3af" strokeWidth="1.8" />
-          <rect x="14" y="14" width="7" height="7" rx="1" stroke="#9ca3af" strokeWidth="1.8" />
-        </svg>
+        <span
+          style={{
+            fontSize: 9,
+            fontWeight: 700,
+            color: "#e85d04",
+            background: "#fff4ee",
+            borderRadius: 99,
+            padding: "1px 6px",
+            display: "inline-block",
+            marginTop: 2,
+          }}
+        >
+          Admin
+        </span>
       </div>
-      <div style={{ padding: "10px 8px" }}>
+      <div style={{ padding: "8px", flex: 1 }}>
         {items.map((item) => (
           <div
             key={item.label}
@@ -114,19 +121,60 @@ export default function SidebarNav({ nav }) {
               display: "flex",
               alignItems: "center",
               gap: 8,
-              padding: "9px 10px",
+              padding: "6.5px 10px",
               borderRadius: 8,
-              marginBottom: 3,
+              marginBottom: 2,
               background: item.active ? "#e6eeff" : "transparent",
               color: item.active ? "#002FA7" : "#6b7280",
               fontSize: 12,
               fontWeight: item.active ? 700 : 500,
+              position: "relative",
             }}
           >
             {item.icon}
             {item.label}
+            {item.badge != null && (
+              <span
+                style={{
+                  marginLeft: "auto",
+                  minWidth: 14,
+                  height: 14,
+                  padding: "0 3px",
+                  borderRadius: 99,
+                  background: "#DC2626",
+                  color: "#fff",
+                  fontSize: 8,
+                  fontWeight: 700,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {item.badge}
+              </span>
+            )}
           </div>
         ))}
+      </div>
+      <div style={{ padding: "6px 8px", borderTop: "1px solid #E0E0EB" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "6.5px 10px",
+            borderRadius: 8,
+            color: "#6b7280",
+            fontSize: 12,
+            fontWeight: 500,
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <rect x="6" y="2" width="12" height="20" rx="2" stroke="currentColor" strokeWidth="1.8" />
+            <path d="M11 18h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+          Member View
+        </div>
       </div>
     </div>
   );

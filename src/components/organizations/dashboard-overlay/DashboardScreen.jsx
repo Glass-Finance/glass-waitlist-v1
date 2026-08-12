@@ -17,11 +17,11 @@ export default function DashboardScreen() {
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "space-between",
-          marginBottom: 14,
+          marginBottom: 10,
         }}
       >
         <div>
-          <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Dashboard</div>
+          <div style={{ fontSize: 16, fontWeight: 800, color: "#000" }}>Dashboard</div>
           <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
             A full picture of your community's financial activity.
           </div>
@@ -31,9 +31,9 @@ export default function DashboardScreen() {
             style={{
               padding: "6px 12px",
               borderRadius: 7,
-              border: "1.5px solid #e0e3f0",
+              border: "1.5px solid #E0E0EB",
               background: "#fff",
-              color: "#0f1d6e",
+              color: "#000",
               fontSize: 11,
               fontWeight: 600,
             }}

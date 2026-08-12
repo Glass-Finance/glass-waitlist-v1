@@ -44,7 +44,6 @@ export const ELEM_IDS = [
 export const PBARS = [
   { id: "pb0", w: "60%" },
   { id: "pb1", w: "74%" },
-  { id: "pb2", w: "20%" },
 ];
 
 // Sidebar nav-item click targets, in the mockup's 960px natural space —

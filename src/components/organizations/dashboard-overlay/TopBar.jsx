@@ -1,10 +1,11 @@
-// Search + notification + user row across the top of the dashboard mockup.
+// Search + help + notification + user row across the top of the dashboard
+// mockup.
 export default function TopBar() {
   return (
     <div
       style={{
         background: "#fff",
-        borderBottom: "1px solid #eef0f8",
+        borderBottom: "1px solid #E0E0EB",
         padding: "8px 16px",
         display: "flex",
         alignItems: "center",
@@ -16,10 +17,10 @@ export default function TopBar() {
           display: "flex",
           alignItems: "center",
           gap: 8,
-          background: "#f5f6fa",
+          background: "#fff",
           borderRadius: 7,
           padding: "6px 12px",
-          border: "1px solid #eef0f8",
+          border: "1px solid #E0E0EB",
           flex: 1,
           maxWidth: 340,
         }}
@@ -32,7 +33,16 @@ export default function TopBar() {
           Search members, payments, receipts...
         </span>
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#6b7280" strokeWidth="1.8" />
+          <path
+            d="M9.5 9a2.5 2.5 0 0 1 4.9.75c0 1.5-2 1.75-2.4 3M12 17h.01"
+            stroke="#6b7280"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        </svg>
         <div style={{ position: "relative" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path
@@ -46,23 +56,33 @@ export default function TopBar() {
           <div
             style={{
               position: "absolute",
-              top: 0,
-              right: 0,
-              width: 5,
-              height: 5,
-              background: "#e11d48",
-              borderRadius: "50%",
-              border: "1px solid #fff",
+              top: -3,
+              right: -4,
+              minWidth: 12,
+              height: 12,
+              padding: "0 2px",
+              background: "#DC2626",
+              borderRadius: 99,
+              border: "1.5px solid #fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 7,
+              fontWeight: 700,
+              color: "#fff",
             }}
-          />
+          >
+            3
+          </div>
         </div>
+        <div style={{ width: 1, height: 20, background: "#E0E0EB" }} />
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <div
             style={{
               width: 26,
               height: 26,
               borderRadius: "50%",
-              background: "linear-gradient(135deg,#002FA7,#4f6fe5)",
+              background: "linear-gradient(135deg,#002FA7,#4f46e5)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -74,7 +94,7 @@ export default function TopBar() {
             AA
           </div>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#0f1d6e", lineHeight: 1.2 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#000", lineHeight: 1.2 }}>
               Amina Agrawal
             </div>
             <div style={{ fontSize: 9, color: "#9ca3af" }}>amina@gmail.com</div>
