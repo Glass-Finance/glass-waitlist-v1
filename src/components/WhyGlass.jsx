@@ -158,23 +158,23 @@ export default function WhyGlass() {
           <a
             ref={btnRef}
             href="mailto:glasspayhq@gmail.com"
-            className="inline-flex items-center gap-2.5 bg-[#0f1d6e] text-white font-semibold text-[15px] px-7 py-3.5 rounded-full no-underline shadow-lg shadow-[#0f1d6e]/25"
+            className="inline-flex items-center gap-2.5 bg-[#002FA7] text-white font-semibold text-[15px] px-7 py-3.5 rounded-full no-underline shadow-lg shadow-[#002FA7]/25"
             style={{
               transition: "background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background  = "#1C2B8A";
+              e.currentTarget.style.background  = "rgba(0,47,167,0.9)";
               e.currentTarget.style.transform   = "translateY(-3px)";
-              e.currentTarget.style.boxShadow   = "0 10px 28px rgba(15,29,110,0.35)";
+              e.currentTarget.style.boxShadow   = "0 10px 28px rgba(0,47,167,0.35)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background  = "#0f1d6e";
+              e.currentTarget.style.background  = "#002FA7";
               e.currentTarget.style.transform   = "translateY(0)";
               e.currentTarget.style.boxShadow   = "";
             }}
           >
             Ask A Question
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1C2B8A] flex items-center justify-center">
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
               <ArrowRight className="w-3.5 h-3.5" />
             </span>
           </a>
