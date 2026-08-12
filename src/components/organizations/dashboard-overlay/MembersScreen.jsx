@@ -90,7 +90,7 @@ export default function MembersScreen({ active }) {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 10 }}>
         {STATS.map((s) => (
-          <div key={s.label} style={{ background: "#fff", borderRadius: 12, padding: "10px 12px", border: "1px solid #E0E0EB", boxShadow: "0 1px 4px rgba(0,47,167,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div key={s.label} style={{ background: "#fff", borderRadius: 12, padding: "10px 12px", border: "1px solid #E0E0EB", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div>
               <div style={{ fontSize: 9, color: "#9ca3af", marginBottom: 4 }}>{s.label}</div>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#000" }}>{s.value}</div>

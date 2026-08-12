@@ -87,7 +87,7 @@ export default function PaymentsScreen({ active }) {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 10 }}>
         {STATS.map((s) => (
-          <div key={s.label} style={{ background: "#fff", borderRadius: 12, padding: "10px 12px", border: "1px solid #E0E0EB", boxShadow: "0 1px 4px rgba(0,47,167,0.05)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div key={s.label} style={{ background: "#fff", borderRadius: 12, padding: "10px 12px", border: "1px solid #E0E0EB", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div>
               <div style={{ fontSize: 9, color: "#9ca3af", marginBottom: 4 }}>{s.label}</div>
               <div style={{ fontSize: s.small ? 12 : 14, fontWeight: 700, color: "#000" }}>{s.value}</div>
@@ -107,7 +107,7 @@ export default function PaymentsScreen({ active }) {
         {PLANS.map((p, i) => {
           const s = STATUS[p.st];
           return (
-            <div key={i} style={{ background: "#fff", borderRadius: 16, border: "1px solid #E0E0EB", padding: "12px 14px", boxShadow: "0 1px 6px rgba(0,47,167,0.07)" }}>
+            <div key={i} style={{ background: "#fff", borderRadius: 16, border: "1px solid #E0E0EB", padding: "12px 14px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
                 <span style={{ fontSize: 9, fontWeight: 700, color: s.fg, background: s.bg, borderRadius: 99, padding: "2px 8px", display: "inline-flex", alignItems: "center", gap: 4 }}>
                   <span style={{ width: 5, height: 5, borderRadius: "50%", background: s.fg }} />
