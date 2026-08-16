@@ -104,199 +104,6 @@ function BlurText({
   );
 }
 
-// ─── Community mock UI (back of card) ────────────────────────────────────────
-function CommunityMock({ variant }) {
-  const mocks = {
-    schools: {
-      name: "Kings College Alumni",
-      tag: "Education",
-      tagColor: "#002FA7",
-      tagBg: "#e6eeff",
-      members: ["AO", "BK", "CF", "DN"],
-      stat: "₦2.4M",
-      statLabel: "Collected this term",
-      rows: [
-        { name: "Adebayo O.", amt: "₦5,000", paid: true },
-        { name: "Chisom F.", amt: "₦5,000", paid: true },
-        { name: "Emeka N.", amt: "₦5,000", paid: false },
-      ],
-    },
-    professional: {
-      name: "ICAN Lagos Chapter",
-      tag: "Professional",
-      tagColor: "#7c3aed",
-      tagBg: "#f3eeff",
-      members: ["JA", "RI", "SO", "TU"],
-      stat: "98%",
-      statLabel: "Dues compliance rate",
-      rows: [
-        { name: "John A.", amt: "₦12,000", paid: true },
-        { name: "Rita I.", amt: "₦12,000", paid: true },
-        { name: "Samuel O.", amt: "₦12,000", paid: false },
-      ],
-    },
-    clubs: {
-      name: "Arsenal Club Lagos",
-      tag: "Club",
-      tagColor: "#059669",
-      tagBg: "#ecfdf5",
-      members: ["LA", "MK", "NP", "OQ"],
-      stat: "₦480k",
-      statLabel: "Monthly dues pool",
-      rows: [
-        { name: "Lawal A.", amt: "₦2,000", paid: true },
-        { name: "Musa K.", amt: "₦2,000", paid: false },
-        { name: "Ngozi P.", amt: "₦2,000", paid: true },
-      ],
-    },
-    religious: {
-      name: "Redeemed Parish G45",
-      tag: "Religious",
-      tagColor: "#d4a017",
-      tagBg: "#fff8e7",
-      members: ["PA", "QB", "RC", "SD"],
-      stat: "₦1.1M",
-      statLabel: "Building fund raised",
-      rows: [
-        { name: "Pastor A.", amt: "₦10,000", paid: true },
-        { name: "Qudus B.", amt: "₦10,000", paid: true },
-        { name: "Ruth C.", amt: "₦10,000", paid: false },
-      ],
-    },
-  };
-  const m = mocks[variant];
-  const avatarColors = ["#002FA7", "#7c3aed", "#059669", "#d4a017"];
-
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        background: "#F5F5F8",
-        borderRadius: 20,
-        padding: "18px 16px",
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        fontFamily: "Inter,-apple-system,sans-serif",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div>
-          <div style={{ fontSize: 13, fontWeight: 800, color: "#0f1d6e" }}>
-            {m.name}
-          </div>
-          <span
-            style={{
-              fontSize: 9,
-              fontWeight: 700,
-              color: m.tagColor,
-              background: m.tagBg,
-              borderRadius: 99,
-              padding: "2px 8px",
-              marginTop: 3,
-              display: "inline-block",
-            }}
-          >
-            {m.tag}
-          </span>
-        </div>
-        <div style={{ display: "flex" }}>
-          {m.members.map((av, i) => (
-            <div
-              key={i}
-              style={{
-                width: 26,
-                height: 26,
-                borderRadius: "50%",
-                background: avatarColors[i % avatarColors.length],
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#fff",
-                fontSize: 8,
-                fontWeight: 800,
-                border: "2px solid #F7F8FC",
-                marginLeft: i === 0 ? 0 : -8,
-                zIndex: m.members.length - i,
-              }}
-            >
-              {av}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div
-        style={{
-          background: "#fff",
-          borderRadius: 10,
-          padding: "10px 14px",
-          border: "1px solid #eef0f8",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <span style={{ fontSize: 9, color: "#6b7280" }}>{m.statLabel}</span>
-        <span style={{ fontSize: 18, fontWeight: 800, color: "#0f1d6e" }}>
-          {m.stat}
-        </span>
-      </div>
-      <div
-        style={{
-          background: "#fff",
-          borderRadius: 10,
-          border: "1px solid #eef0f8",
-          overflow: "hidden",
-          flex: 1,
-        }}
-      >
-        {m.rows.map((row, i) => (
-          <div
-            key={i}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "8px 12px",
-              borderBottom:
-                i < m.rows.length - 1 ? "1px solid #f3f4f8" : "none",
-            }}
-          >
-            <span style={{ fontSize: 11, color: "#374151", fontWeight: 500 }}>
-              {row.name}
-            </span>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: "#0f1d6e" }}>
-                {row.amt}
-              </span>
-              <span
-                style={{
-                  fontSize: 9,
-                  fontWeight: 700,
-                  color: row.paid ? "#059669" : "#e85d04",
-                  background: row.paid ? "#ecfdf5" : "#fff4ee",
-                  borderRadius: 99,
-                  padding: "2px 7px",
-                }}
-              >
-                {row.paid ? "Paid" : "Pending"}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ─── Card icon map — uses your imported images ────────────────────────────────
 const CARD_ICONS = {
   schools: iconSchools,
@@ -305,9 +112,8 @@ const CARD_ICONS = {
   religious: iconReligious,
 };
 
-// ─── Flip card ────────────────────────────────────────────────────────────────
-function FlipCard({ title, desc, variant, entryDelay }) {
-  const [flipped, setFlipped] = useState(false);
+// ─── Use case card ──────────────────────────────────────────────────────────
+function UseCaseCard({ title, desc, variant, entryDelay }) {
   const cardRef = useRef(null);
   const [inView, setInView] = useState(false);
   const accent = "#001F6E";
@@ -328,156 +134,104 @@ function FlipCard({ title, desc, variant, entryDelay }) {
   return (
     <div
       ref={cardRef}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onTouchStart={(e) => { e.preventDefault(); setFlipped((f) => !f); }}
       style={{
-        perspective: "1200px",
+        position: "relative",
         height: "380px",
+        borderRadius: 24,
+        background: "#F5F5F8",
+        boxShadow:
+          "0 0 0 1px rgba(255,255,255,0.75) inset, 0 2px 20px rgba(28,43,138,0.08)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 12,
+        padding: "32px 28px",
+        textAlign: "center",
+        overflow: "hidden",
         opacity: 0,
         animation: inView
           ? `ucCardIn 0.7s cubic-bezier(0.22,1,0.36,1) ${entryDelay}ms forwards`
           : "none",
       }}
     >
-      <div
+      {/* Top-left corner line — imported asset */}
+      <img
+        src={cornerTL}
+        alt=""
+        draggable={false}
         style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          transformStyle: "preserve-3d",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
-          transition: "transform 0.65s cubic-bezier(0.22,1,0.36,1)",
-          willChange: "transform",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: 80,
+          height: 80,
+          objectFit: "contain",
+          opacity: 0.55,
+          pointerEvents: "none",
+        }}
+        loading="lazy"
+        decoding="async"
+      />
+
+      {/* Bottom-right corner line — imported asset (rotated 180°) */}
+      <img
+        src={cornerBR}
+        alt=""
+        draggable={false}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          width: 80,
+          height: 80,
+          objectFit: "contain",
+          opacity: 0.45,
+          pointerEvents: "none",
+        }}
+        loading="lazy"
+        decoding="async"
+      />
+
+      {/* Icon circle — your imported image */}
+      <img
+        src={CARD_ICONS[variant]}
+        alt={title}
+        style={{
+          width: 72,
+          height: 72,
+          objectFit: "contain",
+          marginBottom: 4,
+        }}
+        loading="lazy"
+        decoding="async"
+      />
+
+      {/* Title */}
+      <h3
+        style={{
+          fontSize: "clamp(20px,4vw,24px)",
+          fontWeight: 500,
+          color: accent,
+          lineHeight: 1.25,
+          margin: 0,
         }}
       >
-        {/* ── FRONT ── */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            borderRadius: 24,
-            background: "#F5F5F8",
-            boxShadow:
-              "0 0 0 1px rgba(255,255,255,0.75) inset, 0 2px 20px rgba(28,43,138,0.08)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 12,
-            padding: "32px 28px",
-            textAlign: "center",
-            overflow: "hidden",
-          }}
-        >
-          {/* Top-left corner line — imported asset */}
-          <img
-            src={cornerTL}
-            alt=""
-            draggable={false}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: 80,
-              height: 80,
-              objectFit: "contain",
-              opacity: 0.55,
-              pointerEvents: "none",
-            }}
-            loading="lazy"
-            decoding="async"
-          />
+        {title}
+      </h3>
 
-          {/* Bottom-right corner line — imported asset (rotated 180°) */}
-          <img
-            src={cornerBR}
-            alt=""
-            draggable={false}
-            style={{
-              position: "absolute",
-              bottom: 0,
-              right: 0,
-              width: 80,
-              height: 80,
-              objectFit: "contain",
-              opacity: 0.45,
-              pointerEvents: "none",
-            }}
-            loading="lazy"
-            decoding="async"
-          />
-
-          {/* Icon circle — your imported image */}
-          <img
-            src={CARD_ICONS[variant]}
-            alt={title}
-            style={{
-              width: 72,
-              height: 72,
-              objectFit: "contain",
-              marginBottom: 4,
-            }}
-            loading="lazy"
-            decoding="async"
-          />
-
-          {/* Title */}
-          <h3
-            style={{
-              fontSize: "clamp(20px,4vw,24px)",
-              fontWeight: 500,
-              color: accent,
-              lineHeight: 1.25,
-              margin: 0,
-            }}
-          >
-            {title}
-          </h3>
-
-          {/* Desc */}
-          <p
-            style={{
-              fontSize: 18,
-              color: "rgba(0,0,0,0.5)",
-              lineHeight: 1.6,
-              margin: 0,
-              maxWidth: 360,
-            }}
-          >
-            {desc}
-          </p>
-        </div>
-
-        {/* ── BACK ── */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            borderRadius: 24,
-            overflow: "hidden",
-            boxShadow: `0 0 0 1.5px ${accent}30 inset, 0 8px 40px rgba(28,43,138,0.14)`,
-          }}
-        >
-          <CommunityMock variant={variant} />
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: 3,
-              background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
-              opacity: 0.6,
-            }}
-          />
-        </div>
-      </div>
+      {/* Desc */}
+      <p
+        style={{
+          fontSize: 18,
+          color: "rgba(0,0,0,0.5)",
+          lineHeight: 1.6,
+          margin: 0,
+          maxWidth: 360,
+        }}
+      >
+        {desc}
+      </p>
     </div>
   );
 }
@@ -590,7 +344,7 @@ export default function UseCases() {
           {/* ── Cards ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             {cases.map(({ title, desc, variant }, i) => (
-              <FlipCard
+              <UseCaseCard
                 key={title}
                 title={title}
                 desc={desc}
