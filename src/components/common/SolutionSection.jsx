@@ -110,126 +110,49 @@ function FeatureCard({ icon, title, desc, illustration, entryDelay }) {
       onMouseMove={onMouseMove}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      className="relative rounded-[14px] bg-[#EFEFF1] shadow-[0_0_0_1px_rgba(255,255,255,0.75)_inset,0_2px_12px_rgba(28,43,138,0.07),0_1px_3px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col cursor-default will-change-transform [transform-style:preserve-3d] opacity-0"
       style={{
-        position: "relative",
-        borderRadius: 14,
-        background: "#EFEFF1",
-        boxShadow:
-          "0 0 0 1px rgba(255,255,255,0.75) inset, 0 2px 12px rgba(28,43,138,0.07), 0 1px 3px rgba(0,0,0,0.05)",
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        cursor: "default",
-        willChange: "transform",
-        transformStyle: "preserve-3d",
-        opacity: 0,
         animation: `glassCardIn 0.65s cubic-bezier(0.22,1,0.36,1) ${entryDelay}ms forwards`,
       }}
     >
       <div
         ref={sheenRef}
-        style={{
-          position: "absolute",
-          inset: 0,
-          borderRadius: 14,
-          pointerEvents: "none",
-          zIndex: 20,
-          opacity: 0,
-          transition: "opacity 0.2s ease",
-        }}
+        className="absolute inset-0 rounded-[14px] pointer-events-none z-20 transition-opacity duration-200 ease-in-out"
+        style={{ opacity: 0 }}
       />
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 12,
-          padding: "clamp(16px,3vw,28px) clamp(14px,2.5vw,20px) 0px",
-        }}
-      >
+      <div className="flex items-start gap-3 [padding:clamp(16px,3vw,28px)_clamp(14px,2.5vw,20px)_0px]">
         <img
           src={icon}
           alt=""
-          style={{
-            width: "clamp(36px,5vw,50px)",
-            height: "clamp(36px,5vw,50px)",
-            objectFit: "contain",
-            flexShrink: 0,
-          }}
+          className="[width:clamp(36px,5vw,50px)] [height:clamp(36px,5vw,50px)] object-contain flex-shrink-0"
           loading="lazy"
           decoding="async"
         />
-        <div style={{ minWidth: 0 }}>
-          <h3
-            style={{
-              fontSize: "clamp(16px,2.5vw,18px)",
-              fontWeight: 700,
-              color: "#0f1d6e",
-              lineHeight: 1.3,
-              marginBottom: 6,
-            }}
-          >
+        <div className="min-w-0">
+          <h3 className="text-[clamp(16px,2.5vw,18px)] font-bold text-[#0f1d6e] leading-[1.3] mb-1.5">
             {title}
           </h3>
-          <p
-            style={{
-              fontSize: "clamp(14px,2vw,14px)",
-              color: "rgba(0,0,0,0.6)",
-              lineHeight: 1.6,
-              margin: 0,
-            }}
-          >
+          <p className="text-[clamp(14px,2vw,14px)] text-black/60 leading-[1.6] m-0">
             {desc}
           </p>
         </div>
       </div>
 
-      <div
-        className="solution-illus"
-        style={{ position: "relative", height: "clamp(160px, 45vw, 240px)", overflow: "hidden" }}
-      >
+      <div className="solution-illus relative [height:clamp(160px,45vw,240px)] overflow-hidden">
         <img
           src={lightBg}
           alt=""
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: 0.3,
-          }}
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
           draggable={false}
           loading="lazy"
           decoding="async"
         />
-        <div
-          className="solution-fade"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "18%",
-            background:
-              "linear-gradient(to bottom, #EFEFF1 0%, rgba(239,239,241,0.7) 55%, transparent 100%)",
-            pointerEvents: "none",
-            zIndex: 5,
-          }}
-        />
+        <div className="solution-fade absolute top-0 left-0 right-0 h-[18%] bg-[linear-gradient(to_bottom,#EFEFF1_0%,rgba(239,239,241,0.7)_55%,transparent_100%)] pointer-events-none z-[5]" />
         <img
           src={illustration}
           alt={title}
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "85%",
-            height: "auto",
-            objectFit: "contain",
-            zIndex: 10,
-          }}
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] h-auto object-contain z-10"
           draggable={false}
           loading="lazy"
           decoding="async"
@@ -263,29 +186,14 @@ export default function SolutionSection({
       <section className="py-20 md:py-28 relative isolate" id="solution">
         <div className="max-w-[1140px] mx-auto px-6 relative z-30">
           {/* ── Header — BlurText on all three elements ── */}
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div
-              style={{
-                marginBottom: 20,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+          <div className="text-center mb-12">
+            <div className="mb-5 flex justify-center">
               <span className="inline-flex items-center border border-[#1C2B8A]/25 text-[#1C2B8A] text-[13px] font-medium px-5 py-2 rounded-full">
                 {badge}
               </span>
             </div>
 
-            <h2
-              style={{
-                fontSize: "clamp(26px,5vw,58px)",
-                fontWeight: 700,
-                color: "#0f1d6e",
-                lineHeight: 1.15,
-                letterSpacing: "-0.02em",
-                marginBottom: 16,
-              }}
-            >
+            <h2 className="text-[clamp(26px,5vw,58px)] font-bold text-[#0f1d6e] leading-[1.15] tracking-[-0.02em] mb-4">
               <BlurText
                 text={headline}
                 animateBy="words"
@@ -297,13 +205,8 @@ export default function SolutionSection({
             </h2>
 
             <p
-              style={{
-                fontSize: "clamp(15px,2vw,17px)",
-                color: "rgba(0,0,0,0.6)",
-                maxWidth: subtextMaxWidth,
-                margin: "0 auto",
-                lineHeight: 1.7,
-              }}
+              className="text-[clamp(15px,2vw,17px)] text-black/60 mx-auto leading-[1.7]"
+              style={{ maxWidth: subtextMaxWidth }}
             >
               {subtext}
             </p>

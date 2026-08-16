@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
+import BlurText from "./ui/BlurText";
 // import case1 from "../assets/usecase/case1.webp";
 // import case2 from "../assets/usecase/case2.webp";
 // import case3 from "../assets/usecase/case3.webp";
@@ -18,92 +19,6 @@ import iconReligious from "../assets/usecase/icon-religious.webp";
 import cornerTL from "../assets/usecase/corner-tl.webp"; // top-left curved line
 import cornerBR from "../assets/usecase/corner-br.webp"; // bottom-right curved line
 
-// ─── BlurText (inline) ────────────────────────────────────────────────────────
-const buildKeyframes = (from, steps) => {
-  const keys = new Set([
-    ...Object.keys(from),
-    ...steps.flatMap((s) => Object.keys(s)),
-  ]);
-  const kf = {};
-  keys.forEach((k) => {
-    kf[k] = [from[k], ...steps.map((s) => s[k])];
-  });
-  return kf;
-};
-
-function BlurText({
-  text = "",
-  delay = 70,
-  className = "",
-  animateBy = "words",
-  direction = "top",
-  threshold = 0.15,
-  stepDuration = 0.4,
-  centered = false,
-}) {
-  const elements = animateBy === "words" ? text.split(" ") : text.split("");
-  const [inView, setInView] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
-        }
-      },
-      { threshold },
-    );
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [threshold]);
-
-  const from =
-    direction === "top"
-      ? { filter: "blur(8px)", opacity: 0, y: -18 }
-      : { filter: "blur(8px)", opacity: 0, y: 18 };
-  const to = [
-    { filter: "blur(3px)", opacity: 0.5, y: direction === "top" ? 2 : -2 },
-    { filter: "blur(0px)", opacity: 1, y: 0 },
-  ];
-  const totalDuration = stepDuration * to.length;
-  const times = Array.from({ length: to.length + 1 }, (_, i) => i / to.length);
-  const kf = buildKeyframes(from, to);
-
-  return (
-    <span
-      ref={ref}
-      className={className}
-      style={{
-        display: "inline-flex",
-        flexWrap: "wrap",
-        justifyContent: centered ? "center" : "flex-start",
-        width: centered ? "100%" : "auto",
-      }}
-    >
-      {elements.map((seg, i) => (
-        <motion.span
-          key={i}
-          className="inline-block will-change-[transform,filter,opacity]"
-          initial={from}
-          animate={inView ? kf : from}
-          transition={{
-            duration: totalDuration,
-            times,
-            delay: (i * delay) / 1000,
-            ease: "easeOut",
-          }}
-        >
-          {seg === " " ? "\u00A0" : seg}
-          {animateBy === "words" && i < elements.length - 1 && "\u00A0"}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
-
 // ─── Card icon map — uses your imported images ────────────────────────────────
 const CARD_ICONS = {
   schools: iconSchools,
@@ -116,7 +31,6 @@ const CARD_ICONS = {
 function UseCaseCard({ title, desc, variant, entryDelay }) {
   const cardRef = useRef(null);
   const [inView, setInView] = useState(false);
-  const accent = "#001F6E";
 
   useEffect(() => {
     const el = cardRef.current;
@@ -134,22 +48,8 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
   return (
     <div
       ref={cardRef}
+      className="relative h-[380px] rounded-3xl bg-[#F5F5F8] shadow-[0_0_0_1px_rgba(255,255,255,0.75)_inset,0_2px_20px_rgba(28,43,138,0.08)] flex flex-col items-center justify-center gap-3 py-8 px-7 text-center overflow-hidden opacity-0"
       style={{
-        position: "relative",
-        height: "380px",
-        borderRadius: 24,
-        background: "#F5F5F8",
-        boxShadow:
-          "0 0 0 1px rgba(255,255,255,0.75) inset, 0 2px 20px rgba(28,43,138,0.08)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 12,
-        padding: "32px 28px",
-        textAlign: "center",
-        overflow: "hidden",
-        opacity: 0,
         animation: inView
           ? `ucCardIn 0.7s cubic-bezier(0.22,1,0.36,1) ${entryDelay}ms forwards`
           : "none",
@@ -160,16 +60,7 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
         src={cornerTL}
         alt=""
         draggable={false}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: 80,
-          height: 80,
-          objectFit: "contain",
-          opacity: 0.55,
-          pointerEvents: "none",
-        }}
+        className="absolute top-0 left-0 w-20 h-20 object-contain opacity-55 pointer-events-none"
         loading="lazy"
         decoding="async"
       />
@@ -179,16 +70,7 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
         src={cornerBR}
         alt=""
         draggable={false}
-        style={{
-          position: "absolute",
-          bottom: 0,
-          right: 0,
-          width: 80,
-          height: 80,
-          objectFit: "contain",
-          opacity: 0.45,
-          pointerEvents: "none",
-        }}
+        className="absolute bottom-0 right-0 w-20 h-20 object-contain opacity-45 pointer-events-none"
         loading="lazy"
         decoding="async"
       />
@@ -197,39 +79,18 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
       <img
         src={CARD_ICONS[variant]}
         alt={title}
-        style={{
-          width: 72,
-          height: 72,
-          objectFit: "contain",
-          marginBottom: 4,
-        }}
+        className="w-[72px] h-[72px] object-contain mb-1"
         loading="lazy"
         decoding="async"
       />
 
       {/* Title */}
-      <h3
-        style={{
-          fontSize: "clamp(20px,4vw,24px)",
-          fontWeight: 500,
-          color: accent,
-          lineHeight: 1.25,
-          margin: 0,
-        }}
-      >
+      <h3 className="text-[clamp(20px,4vw,24px)] font-medium text-[#001F6E] leading-[1.25] m-0">
         {title}
       </h3>
 
       {/* Desc */}
-      <p
-        style={{
-          fontSize: 18,
-          color: "rgba(0,0,0,0.5)",
-          lineHeight: 1.6,
-          margin: 0,
-          maxWidth: 360,
-        }}
-      >
+      <p className="text-lg text-black/50 leading-[1.6] m-0 max-w-[360px]">
         {desc}
       </p>
     </div>
@@ -283,37 +144,15 @@ export default function UseCases() {
           {/* ── Header ── */}
           <div className="text-center mb-14">
             {/* Badge */}
-            <div
-              style={{
-                marginBottom: 20,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+            <div className="mb-5 flex justify-center">
               <span className="inline-flex items-center border border-[#1C2B8A]/25 text-[#1C2B8A] text-[13px] font-medium px-5 py-2 rounded-full">
                 Use Cases
               </span>
             </div>
 
             {/* Headline */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: 16,
-              }}
-            >
-              <h2
-                style={{
-                  fontSize: "clamp(26px,5.5vw,64px)",
-                  fontWeight: 700,
-                  color: "#0f1d6e",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  maxWidth: 1080,
-                  textAlign: "center",
-                }}
-              >
+            <div className="flex justify-center mb-4">
+              <h2 className="text-[clamp(26px,5.5vw,64px)] font-bold text-[#0f1d6e] leading-[1.15] tracking-[-0.02em] max-w-[1080px] text-center">
                 <BlurText
                   text="Built for every Nigerian community"
                   animateBy="words"
@@ -326,16 +165,8 @@ export default function UseCases() {
             </div>
 
             {/* Subtext */}
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <p
-                style={{
-                  fontSize: "clamp(15px,2vw,17px)",
-                  color: "rgba(0,0,0,0.6)",
-                  maxWidth: 700,
-                  lineHeight: 1.7,
-                  textAlign: "center",
-                }}
-              >
+            <div className="flex justify-center">
+              <p className="text-[clamp(15px,2vw,17px)] text-black/60 max-w-[700px] leading-[1.7] text-center">
                 Whether you run a small club or a national association, Glass scales with you.
               </p>
             </div>

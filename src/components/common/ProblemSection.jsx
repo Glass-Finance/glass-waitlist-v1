@@ -152,14 +152,12 @@ export default function ProblemSection({
           <div className="w-full max-w-[640px] flex flex-col mx-auto lg:mx-0">
             <div
               ref={imageRef}
-              className="relative rounded-2xl overflow-hidden w-full shadow-xl shadow-[#1C2B8A]/15"
-              style={{ aspectRatio: "458 / 250" }}
+              className="relative rounded-2xl overflow-hidden w-full shadow-xl shadow-[#1C2B8A]/15 aspect-[458/250]"
             >
               <img
                 src={image}
                 alt={imageAlt}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: "50% 40%" }}
+                className="absolute inset-0 w-full h-full object-cover object-[50%_40%]"
                 loading="lazy"
                 decoding="async"
               />
@@ -167,17 +165,7 @@ export default function ProblemSection({
 
             <div
               ref={cardRef}
-              className="rounded-2xl shadow-lg shadow-[#1C2B8A]/10 border border-[#eef0f8] px-5 py-4 flex items-center gap-4 self-start"
-              style={{
-                marginTop: "-28px",
-                marginLeft: "-20px",
-                width: "260px",
-                position: "relative",
-                zIndex: 10,
-                backgroundColor: "#EFEFF199",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
-              }}
+              className="rounded-2xl shadow-lg shadow-[#1C2B8A]/10 border border-[#eef0f8] px-5 py-4 flex items-center gap-4 self-start -mt-7 -ml-5 w-[260px] relative z-10 bg-[#EFEFF199] backdrop-blur-sm [-webkit-backdrop-filter:blur(8px)]"
             >
               <div className="w-10 h-10 rounded-xl bg-[#eef0fb] flex items-center justify-center flex-shrink-0">
                 <Lightbulb
