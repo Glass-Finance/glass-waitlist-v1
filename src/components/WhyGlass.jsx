@@ -9,11 +9,11 @@ const faqs = [
   },
   {
     q: "What happens if a payment fails?",
-    a: "Glass automatically retries the payment and sends a gentle SMS/WhatsApp reminder to the member. Your treasurer is notified immediately so nothing slips through the cracks.",
+    a: "The payment stays due and the member is notified in-app so they can pay manually — no expired card, insufficient funds, or declined transaction gets silently retried against a member's card. Your treasurer sees it too, so nothing slips through the cracks.",
   },
   {
     q: "Can members see all transactions?",
-    a: "Yes. Every member has access to a transparent ledger showing all income and expenditure for the organisation. Admins can control visibility settings per category.",
+    a: "Members see their own dues, payment history, and receipts in full. Your association's overall collected and outstanding totals are visible to admins on the dashboard.",
   },
   {
     q: "Is Glass secure?",
