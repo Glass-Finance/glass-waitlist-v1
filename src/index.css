@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
-/* LOAD THE FONTS */
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap");
+/* Fonts are self-hosted via @fontsource, imported in main.jsx (not here --
+   a plain @import url() in this position never actually loaded: @import
+   "tailwindcss" above expands to real CSS rules at build time, and any
+   @import positioned after another rule is silently dropped per spec). */
 
 /* Tailwind v4 Theme Configuration */
 @theme {
