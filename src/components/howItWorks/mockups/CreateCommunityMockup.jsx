@@ -1,19 +1,27 @@
 import useCardAnimation from "../useCardAnimation";
+import glassLogo from "../../../assets/howItWorks/glass-logo.png";
+import createCommunityIcon from "../../../assets/howItWorks/create-community.webp";
+import joinCommunityIcon from "../../../assets/howItWorks/join-community.webp";
 
-// 952x565 hug, per Figma Dev Mode. Choreography ported from the design
-// handoff's c1* keyframes, remapped from a looping preview into a one-shot
-// reveal that settles on "selected + Continue pressed" instead of
-// reverting back to the empty state (which the original loop needed for a
-// seamless restart, but a single scroll-triggered play should not undo).
+// 952x565 hug, per Figma Dev Mode. The "Create/Join Community" buttons and
+// their icons are ported at the exact size/spacing used by the real
+// onboarding page (glass-waitlist's ChoosePath.jsx: 380px cards, 56px
+// icons, px-10 py-8, rounded-2xl) rather than guessed proportions, since
+// this screen in the mockup *is* that same picker. Choreography ported
+// from the design handoff's c1* keyframes, remapped from a looping
+// preview into a one-shot reveal that settles on "selected + Continue
+// pressed" instead of reverting back to the empty state (which the
+// original loop needed for a seamless restart, but a single
+// scroll-triggered play should not undo).
 export default function CreateCommunityMockup() {
   const { ref, play } = useCardAnimation();
   const on = play === "running";
 
   return (
-    <div ref={ref} className="relative w-[952px] h-[565px]">
+    <div ref={ref} className="relative w-[952px]">
       <style>{`
         @keyframes hc1Sel {
-          0% { border-color: #e9eaf3; box-shadow: 0 0 0 0 rgba(11,47,168,0) }
+          0% { border-color: #ffffff; box-shadow: 0 0 0 0 rgba(11,47,168,0) }
           40%, 100% { border-color: #0b2fa8; box-shadow: 0 0 0 3px rgba(11,47,168,.09) }
         }
         @keyframes hc1Check {
@@ -33,40 +41,32 @@ export default function CreateCommunityMockup() {
         }
       `}</style>
 
-      <div className="relative w-[900px] bg-[#fdfdff] border border-[#edeef6] rounded-t-[16px] shadow-[0_-2px_60px_rgba(35,49,105,.10)] px-[26px] pt-[18px] pb-[30px]">
+      <div className="relative w-[900px] bg-[#fdfdff] border border-[#edeef6] rounded-t-[16px] shadow-[0_-2px_60px_rgba(35,49,105,.10)] px-[26px] pt-[18px] pb-[22px]">
         <div className="flex items-center gap-[9px]">
-          <div className="w-[22px] h-[22px] rounded-[6px] bg-[linear-gradient(135deg,#4b45c9,#7d55e0)]" />
+          <img src={glassLogo} alt="" className="w-[22px] h-[22px] object-contain" />
           <span className="text-[14px] font-semibold text-[#101322]">Glass</span>
         </div>
-        <div className="mt-[26px] text-center">
+        <div className="mt-5 text-center">
           <div className="text-[17px] font-bold text-[#0d0f1a]">What would you like to do?</div>
           <div className="text-[11.5px] text-[#8b90a4] mt-[5px]">Are you setting up a community, or joining one you've been invited to?</div>
         </div>
-        <div className="grid grid-cols-2 gap-[14px] mt-[20px]">
-          <div className={`relative border-[1.4px] border-[#e9eaf3] rounded-[12px] px-[14px] pt-[16px] pb-[14px] text-center bg-white ${on ? "animate-[hc1Sel_2.2s_cubic-bezier(.25,.8,.25,1)_1_both]" : ""}`}>
-            <div className={`absolute left-[12px] top-[12px] w-[17px] h-[17px] border-[1.4px] border-[#dcdde8] rounded-full grid place-items-center text-[10px] ${on ? "animate-[hc1Check_2.2s_cubic-bezier(.25,.9,.25,1)_1_both]" : ""}`}>
+        <div className="flex justify-center gap-5 mt-4">
+          <div className={`relative flex flex-col items-center text-center gap-0 px-10 py-6 rounded-2xl bg-white w-[380px] border-2 ${on ? "animate-[hc1Sel_2.2s_cubic-bezier(.25,.8,.25,1)_1_both]" : "border-white"}`}>
+            <div className={`absolute top-4 left-4 w-6 h-6 rounded-full flex items-center justify-center text-[10px] border-2 ${on ? "animate-[hc1Check_2.2s_cubic-bezier(.25,.9,.25,1)_1_both]" : "border-[#dcdde8]"}`}>
               ✓
             </div>
-            <div className="flex justify-center gap-[3px] items-end h-[26px] mt-[6px]">
-              <div className="w-[9px] h-[9px] rounded-full bg-[#0d0f1a]" />
-              <div className="w-[12px] h-[12px] rounded-full bg-[#0d0f1a] mb-[2px]" />
-              <div className="w-[9px] h-[9px] rounded-full bg-[#0d0f1a]" />
-            </div>
-            <div className="text-[12.5px] font-bold text-[#0d0f1a] mt-[8px]">Create Community</div>
-            <div className="text-[10.5px] text-[#8b90a4] mt-[4px] leading-[1.4]">No existing members or records. Start building your community on Glass.</div>
+            <img src={createCommunityIcon} alt="" className="w-14 h-14 object-contain mt-4 mb-3" />
+            <h3 className="font-semibold text-gray-900 text-base mb-2">Create Community</h3>
+            <p className="text-sm text-gray-500 leading-relaxed">No existing members or records. Start building your community on Glass.</p>
           </div>
-          <div className="relative border-[1.4px] border-[#e9eaf3] rounded-[12px] px-[14px] pt-[16px] pb-[14px] text-center bg-white">
-            <div className="absolute left-[12px] top-[12px] w-[17px] h-[17px] rounded-full border-[1.4px] border-[#dcdde8]" />
-            <div className="flex justify-center gap-[3px] items-end h-[26px] mt-[6px]">
-              <div className="w-[11px] h-[11px] rounded-full bg-[#0d0f1a]" />
-              <div className="w-[9px] h-[9px] rounded-full bg-[#0d0f1a] mb-[2px]" />
-              <div className="w-[14px] h-[14px] rounded-full bg-[#0d0f1a] grid place-items-center text-white text-[9px]">+</div>
-            </div>
-            <div className="text-[12.5px] font-bold text-[#0d0f1a] mt-[8px]">Join Community</div>
-            <div className="text-[10.5px] text-[#8b90a4] mt-[4px] leading-[1.4]">Your community already exists. Join Now.</div>
+          <div className="relative flex flex-col items-center text-center gap-0 px-10 py-6 rounded-2xl bg-white w-[380px] border-2 border-white">
+            <div className="absolute top-4 left-4 w-6 h-6 rounded-full border-2 border-[#dcdde8]" />
+            <img src={joinCommunityIcon} alt="" className="w-14 h-14 object-contain mt-4 mb-3" />
+            <h3 className="font-semibold text-gray-900 text-base mb-2">Join Community</h3>
+            <p className="text-sm text-gray-500 leading-relaxed">Your community already exists. Join Now.</p>
           </div>
         </div>
-        <div className="flex justify-center mt-[22px]">
+        <div className="flex justify-center mt-4">
           <div className={`relative w-[300px] h-[38px] rounded-[9px] bg-[#0b2fa8] text-white text-[12.5px] font-semibold grid place-items-center overflow-hidden ${on ? "animate-[hc1Btn_2.2s_cubic-bezier(.25,.8,.25,1)_1_both]" : ""}`}>
             Continue
             <div className={`absolute left-0 bottom-0 h-[3px] bg-white/60 ${on ? "animate-[hc1Load_2.2s_cubic-bezier(.25,.8,.25,1)_1_both]" : ""}`} />

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { goToApp } from "../../utils/deviceRedirect";
 import Card from "../howItWorks/Card";
+import MockupFrame from "../howItWorks/MockupFrame";
 import ScaledMockup from "../howItWorks/ScaledMockup";
 import MobileCarousel from "../howItWorks/MobileCarousel";
 import CreateCommunityMockup from "../howItWorks/mockups/CreateCommunityMockup";
@@ -10,42 +11,42 @@ import PaymentPlanMockup from "../howItWorks/mockups/PaymentPlanMockup";
 import LaunchMockup from "../howItWorks/mockups/LaunchMockup";
 import { CreateCommunityIcon, AddMembersIcon, PaymentPlanIcon, LaunchIcon } from "../howItWorks/icons/StepIcons";
 
-const HEADING_CLS = "m-0 text-[38px] leading-[1.15] font-semibold text-[#24417f] tracking-[-0.01em]";
+// font-medium, not -semibold -- the Figma reference weight is noticeably
+// lighter than the section's main heading.
+const HEADING_CLS = "m-0 text-[38px] leading-[1.15] font-medium text-[#24417f] tracking-[-0.01em]";
 const GRADIENT_30 = "bg-[conic-gradient(from_155deg,#6B2FB5_0%,rgba(107,47,181,0)_30%,#072EAB_100%)]";
-const GRADIENT_15 = "bg-[conic-gradient(from_155deg,#6B2FB5_0%,rgba(107,47,181,0)_15%,#072EAB_100%)]";
+const GRADIENT_BOLD = "bg-[conic-gradient(from_155deg,#6B2FB5_0%,rgba(107,47,181,0)_55%,#072EAB_100%)]";
+// Card 1/2 use a soft gradient, not a flat fill -- confirmed against the
+// actual Figma export (uploads/Frame 2121454425), which shows a subtle
+// lighter-to-lavender sweep, not solid #F9F9FB.
+const BG_CARD1 = "bg-[linear-gradient(155deg,#fcfcfe_0%,#f3f3fa_60%,#eeeef8_100%)]";
+const BG_CARD2 = "bg-[linear-gradient(200deg,#efedf9_0%,#f6f6fb_45%,#f4f4fa_100%)]";
 
-// Card 1 — Create Community (709x705, solid #F9F9FB, heading then mockup)
+// Card 1 — Create Community (709x705, heading then mockup)
 function CreateCommunityCard() {
   return (
-    <Card
-      className="w-[709px] h-[705px] min-w-[709px] max-w-[709px] min-h-[705px] max-h-[705px] bg-[#F9F9FB]"
-      blobs={
-        <>
-          <div className="absolute right-[-60px] top-[180px] w-[520px] h-[420px] rounded-full bg-[radial-gradient(circle_at_30%_30%,#ded8f4,rgba(222,216,244,0))]" />
-          <div className="absolute left-[-40px] bottom-10 w-[220px] h-[220px] rounded-full bg-[radial-gradient(circle,#e3ddf6,rgba(227,221,246,0))]" />
-        </>
-      }
-    >
+    <Card className={`w-[709px] h-[705px] min-w-[709px] max-w-[709px] min-h-[705px] max-h-[705px] ${BG_CARD1}`}>
       <div className="relative flex items-center gap-[22px] pt-11 px-11">
         <CreateCommunityIcon />
         <h3 className={HEADING_CLS}>Create your Community and get started</h3>
       </div>
-      <div className="relative mt-11 ml-6">
-        <CreateCommunityMockup />
+      <div className="relative mt-8 ml-6">
+        <MockupFrame padding="p-3">
+          <CreateCommunityMockup />
+        </MockupFrame>
       </div>
     </Card>
   );
 }
 
-// Card 2 — Add Your Members (480x705, solid #F9F9FB, mockup then heading)
+// Card 2 — Add Your Members (480x705, mockup then heading)
 function AddMembersCard() {
   return (
-    <Card
-      className="w-[480px] h-[705px] min-w-[480px] max-w-[480px] min-h-[705px] max-h-[705px] bg-[#F9F9FB]"
-      blobs={<div className="absolute right-[-70px] bottom-[60px] w-[340px] h-[300px] rounded-full bg-[radial-gradient(circle,#dcd6f3,rgba(220,214,243,0))]" />}
-    >
+    <Card className={`w-[480px] h-[705px] min-w-[480px] max-w-[480px] min-h-[705px] max-h-[705px] ${BG_CARD2}`}>
       <div className="relative mt-8 ml-6">
-        <AddMembersMockup />
+        <MockupFrame>
+          <AddMembersMockup />
+        </MockupFrame>
       </div>
       <div className="relative flex items-center gap-5 px-[34px] py-10">
         <AddMembersIcon />
@@ -55,27 +56,33 @@ function AddMembersCard() {
   );
 }
 
-// Card 3 — Create Payment Plan (594.5x727, purple->blue gradient 30%, heading then mockup)
+// Card 3 — Create Payment Plan (594.5x727, heading then mockup pinned to
+// the bottom of the card -- the Figma reference leaves the gradient
+// visible above the form, not butted up against the heading.
 function PaymentPlanCard() {
   return (
-    <Card className={`w-[594.5px] h-[727px] min-w-[594.5px] max-w-[594.5px] min-h-[727px] max-h-[727px] ${GRADIENT_30}`}>
+    <Card className={`w-[594.5px] h-[727px] min-w-[594.5px] max-w-[594.5px] min-h-[727px] max-h-[727px] ${GRADIENT_30} flex flex-col`}>
       <div className="relative flex items-center gap-5 pt-11 px-10">
         <PaymentPlanIcon />
         <h3 className={HEADING_CLS}>Create your payment plan</h3>
       </div>
-      <div className="relative mt-[38px] ml-[17px]">
-        <PaymentPlanMockup />
+      <div className="relative mt-auto ml-[17px]">
+        <MockupFrame>
+          <PaymentPlanMockup />
+        </MockupFrame>
       </div>
     </Card>
   );
 }
 
-// Card 4 — Launch Your Community (594.5x727, purple->blue gradient 15%, mockup then heading)
+// Card 4 — Launch Your Community (594.5x727, mockup then heading)
 function LaunchCard() {
   return (
-    <Card className={`w-[594.5px] h-[727px] min-w-[594.5px] max-w-[594.5px] min-h-[727px] max-h-[727px] ${GRADIENT_15}`}>
+    <Card className={`w-[594.5px] h-[727px] min-w-[594.5px] max-w-[594.5px] min-h-[727px] max-h-[727px] ${GRADIENT_BOLD}`}>
       <div className="relative -ml-px">
-        <LaunchMockup />
+        <MockupFrame>
+          <LaunchMockup />
+        </MockupFrame>
       </div>
       <div className="relative flex items-center gap-5 px-[34px] pt-11 pb-10">
         <LaunchIcon />
@@ -140,40 +147,48 @@ export default function OrganizationHowItWorks() {
       <div className="relative z-10 mt-2">
         <MobileCarousel>
           {[
-            <Card key="1" className="w-80 h-[646px] min-w-80 max-w-80 min-h-[646px] max-h-[646px] bg-[#F9F9FB]">
+            <Card key="1" className={`w-80 h-[646px] min-w-80 max-w-80 min-h-[646px] max-h-[646px] ${BG_CARD1}`}>
               <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6">
                 <CreateCommunityIcon />
-                <h3 className="m-0 text-2xl leading-[1.2] font-semibold text-[#24417f]">Create your Community and get started</h3>
+                <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Create your Community and get started</h3>
               </div>
               <div className="mt-5 -ml-5">
-                <ScaledMockup width={952} height={565} targetWidth={340}><CreateCommunityMockup /></ScaledMockup>
+                <MockupFrame>
+                  <ScaledMockup width={952} height={565} targetWidth={310}><CreateCommunityMockup /></ScaledMockup>
+                </MockupFrame>
               </div>
             </Card>,
-            <Card key="2" className="w-80 h-[560px] min-w-80 max-w-80 min-h-[560px] max-h-[560px] bg-[#F9F9FB]">
+            <Card key="2" className={`w-80 h-[560px] min-w-80 max-w-80 min-h-[560px] max-h-[560px] ${BG_CARD2}`}>
               <div className="mt-4 -ml-[10px]">
-                <ScaledMockup width={561} height={440} targetWidth={330}><AddMembersMockup /></ScaledMockup>
+                <MockupFrame>
+                  <ScaledMockup width={561} height={440} targetWidth={310}><AddMembersMockup /></ScaledMockup>
+                </MockupFrame>
               </div>
               <div className="relative flex flex-col items-start gap-[14px] pt-5 px-6 pb-7">
                 <AddMembersIcon />
-                <h3 className="m-0 text-2xl leading-[1.2] font-semibold text-[#24417f]">Add Your Members</h3>
+                <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Add Your Members</h3>
               </div>
             </Card>,
-            <Card key="3" className={`w-80 h-[620px] min-w-80 max-w-80 min-h-[620px] max-h-[620px] ${GRADIENT_30}`}>
+            <Card key="3" className={`w-80 h-[620px] min-w-80 max-w-80 min-h-[620px] max-h-[620px] ${GRADIENT_30} flex flex-col`}>
               <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6">
                 <PaymentPlanIcon />
-                <h3 className="m-0 text-2xl leading-[1.2] font-semibold text-[#24417f]">Create your payment plan</h3>
+                <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Create your payment plan</h3>
               </div>
-              <div className="mt-5 -ml-2">
-                <ScaledMockup width={561} height={544} targetWidth={330}><PaymentPlanMockup /></ScaledMockup>
+              <div className="mt-auto -ml-2">
+                <MockupFrame>
+                  <ScaledMockup width={561} height={544} targetWidth={310}><PaymentPlanMockup /></ScaledMockup>
+                </MockupFrame>
               </div>
             </Card>,
-            <Card key="4" className={`w-80 h-[600px] min-w-80 max-w-80 min-h-[600px] max-h-[600px] ${GRADIENT_15}`}>
+            <Card key="4" className={`w-80 h-[600px] min-w-80 max-w-80 min-h-[600px] max-h-[600px] ${GRADIENT_BOLD}`}>
               <div className="mt-5">
-                <ScaledMockup width={535} height={544} targetWidth={320}><LaunchMockup /></ScaledMockup>
+                <MockupFrame>
+                  <ScaledMockup width={535} height={544} targetWidth={300}><LaunchMockup /></ScaledMockup>
+                </MockupFrame>
               </div>
               <div className="relative flex flex-col items-start gap-[14px] pt-3 px-6 pb-7">
                 <LaunchIcon />
-                <h3 className="m-0 text-2xl leading-[1.2] font-semibold text-[#24417f]">Launch Your Community</h3>
+                <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Launch Your Community</h3>
               </div>
             </Card>,
           ]}

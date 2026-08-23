@@ -1,4 +1,5 @@
 import useCardAnimation from "../useCardAnimation";
+import glassLogo from "../../../assets/howItWorks/glass-logo.png";
 
 // 528px wide signup card. Choreography ported verbatim from the design
 // handoff's m1* keyframes (email types itself in, checkbox ticks,
@@ -17,7 +18,7 @@ export default function SignupMockup() {
         @keyframes hm1Btn { 0%,54%{transform:scale(1)} 58%{transform:scale(.962)} 62%,100%{transform:scale(1)} }
       `}</style>
       <div className="flex items-center gap-[9px]">
-        <div className="w-[22px] h-[22px] rounded-[6px] bg-[linear-gradient(135deg,#4b45c9,#7d55e0)]" />
+        <img src={glassLogo} alt="" className="w-[22px] h-[22px] object-contain" />
         <span className="text-[14px] font-semibold text-[#101322]">Glass</span>
       </div>
       <div className="border-t border-[#f0f1f7] -mx-[22px] mt-[14px]" />
