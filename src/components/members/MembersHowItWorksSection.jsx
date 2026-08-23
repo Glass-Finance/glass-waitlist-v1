@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { goToApp } from "../../utils/deviceRedirect";
+import GlowBorderCard from "../howItWorks/GlowBorderCard";
 import signupIcon from "../../assets/howItWorks/icon-signup.png";
 import signupMockup from "../../assets/howItWorks/member-signup-mockup.png";
 import memberAcceptInvite from "../../assets/howItWorks/member-accept-invite.png";
@@ -13,16 +14,18 @@ import memberAutopay from "../../assets/howItWorks/member-autopay.png";
 // with only the inner mockup card (528x669) as an image.
 function SignupRow() {
   return (
-    <div className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex items-center min-h-[470px] w-[1213px]">
-      <div className="absolute left-0 bottom-0 w-[56%] h-[62%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
-      <div className="relative flex items-center gap-5 px-10 flex-1">
-        <img src={signupIcon} alt="" className="w-[70px] h-[70px] shrink-0" />
-        <h3 className="m-0 text-[38px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]">Sign up for Glass in seconds.</h3>
+    <GlowBorderCard radius={24} className="w-[1213px]">
+      <div className="relative overflow-hidden bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex items-center min-h-[470px] w-[1213px]">
+        <div className="absolute left-0 bottom-0 w-[56%] h-[62%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
+        <div className="relative flex items-center gap-5 px-10 flex-1">
+          <img src={signupIcon} alt="" className="w-[70px] h-[70px] shrink-0" />
+          <h3 className="m-0 text-[38px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]">Sign up for Glass in seconds.</h3>
+        </div>
+        <div className="relative py-4 px-10 flex justify-center">
+          <img src={signupMockup} alt="Sign up for Glass" className="w-[528px] h-[669px] block" />
+        </div>
       </div>
-      <div className="relative py-[34px] px-10 flex justify-center">
-        <img src={signupMockup} alt="Sign up for Glass" className="w-[528px] h-[669px]" />
-      </div>
-    </div>
+    </GlowBorderCard>
   );
 }
 
@@ -72,24 +75,30 @@ export default function MembersHowItWorksSection() {
       <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[1261px]">
         <SignupRow />
         <div className="flex gap-6 mt-6">
-          <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
-          <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
+          <GlowBorderCard>
+            <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-[595px] h-[727px] block" />
+          </GlowBorderCard>
+          <GlowBorderCard>
+            <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-[595px] h-[727px] block" />
+          </GlowBorderCard>
         </div>
       </div>
 
       {/* Mobile — signup row stacks naturally; other two cards as full-width responsive images */}
       <div className="md:hidden relative z-10 px-4">
-        <div className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex flex-col items-center">
-          <div className="absolute left-0 bottom-0 w-[70%] h-[40%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
-          <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6 w-full">
-            <img src={signupIcon} alt="" className="w-[56px] h-[56px]" />
-            <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Sign up for Glass in seconds.</h3>
+        <GlowBorderCard radius={24} className="w-full">
+          <div className="relative overflow-hidden bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex flex-col items-center">
+            <div className="absolute left-0 bottom-0 w-[70%] h-[40%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
+            <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6 w-full">
+              <img src={signupIcon} alt="" className="w-[56px] h-[56px]" />
+              <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Sign up for Glass in seconds.</h3>
+            </div>
+            <img src={signupMockup} alt="Sign up for Glass" className="relative w-[85%] h-auto mt-6 mb-4 block" />
           </div>
-          <img src={signupMockup} alt="Sign up for Glass" className="relative w-[85%] h-auto my-6" />
-        </div>
+        </GlowBorderCard>
         <div className="flex flex-col gap-4 mt-4">
-          <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-full h-auto rounded-[8px]" />
-          <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-full h-auto rounded-[8px]" />
+          <GlowBorderCard className="w-full"><img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-full h-auto block" /></GlowBorderCard>
+          <GlowBorderCard className="w-full"><img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-full h-auto block" /></GlowBorderCard>
         </div>
       </div>
 
