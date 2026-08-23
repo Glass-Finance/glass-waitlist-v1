@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { goToApp } from "../../utils/deviceRedirect";
 import waveBg from "../../assets/hero/hero.webp";
 import BlurText from "../ui/BlurText";
@@ -12,11 +12,19 @@ export default function MembersHero() {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
+  // On the marketing host, goToApp does a hard window.location.href hop to
+  // a different origin -- there's a real (if brief) gap before the browser
+  // actually unloads this page, during which a click on this button
+  // previously gave no feedback at all. Local dev's plain SPA navigate()
+  // unmounts this component almost immediately either way, so this mostly
+  // matters for the real cross-origin case.
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   // Joining is a mobile-only flow — on desktop/tablet, hand off via QR
   // instead of sending the visitor into a registration form built for
   // a phone screen.
   function handleJoin() {
+    setIsRedirecting(true);
     goToApp("/member/join", navigate);
   }
 
@@ -177,9 +185,10 @@ export default function MembersHero() {
           >
             <button
               onClick={handleJoin}
-              className="inline-flex items-center gap-2 bg-white text-[#0c1020] text-[13px] px-5 py-2.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 cursor-pointer font-medium"
+              disabled={isRedirecting}
+              className="inline-flex items-center gap-2 bg-white text-[#0c1020] text-[13px] px-5 py-2.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 cursor-pointer font-medium disabled:opacity-70 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-lg"
             >
-              Join A Community
+              {isRedirecting ? "Redirecting…" : "Join A Community"}
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{
@@ -251,9 +260,10 @@ export default function MembersHero() {
           </p>
           <button
             onClick={handleJoin}
-            className="inline-flex items-center gap-2 bg-white text-[#0c1020] text-[13px] px-5 py-2.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 cursor-pointer font-medium"
+            disabled={isRedirecting}
+            className="inline-flex items-center gap-2 bg-white text-[#0c1020] text-[13px] px-5 py-2.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 cursor-pointer font-medium disabled:opacity-70 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:shadow-lg"
           >
-            Join A Community
+            {isRedirecting ? "Redirecting…" : "Join A Community"}
             <motion.span
               animate={{ x: [0, 5, 0] }}
               transition={{

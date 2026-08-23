@@ -178,6 +178,7 @@ export default function CTASection({
   buttonLabel,
   onButtonClick,
   buttonHoverVariant = "magnetic",
+  buttonDisabled = false,
 }) {
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
@@ -288,7 +289,8 @@ export default function CTASection({
           <button
             ref={btnRef}
             onClick={onButtonClick}
-            className="inline-flex items-center gap-2 bg-white text-[#0d1a6e] font-semibold rounded-full border-none cursor-pointer relative z-[5] [font-size:clamp(12px,3.5vw,15px)] [padding:clamp(10px,2.5vw,14px)_clamp(16px,5vw,32px)]"
+            disabled={buttonDisabled}
+            className="inline-flex items-center gap-2 bg-white text-[#0d1a6e] font-semibold rounded-full border-none cursor-pointer relative z-[5] [font-size:clamp(12px,3.5vw,15px)] [padding:clamp(10px,2.5vw,14px)_clamp(16px,5vw,32px)] disabled:opacity-70 disabled:cursor-default"
             style={{
               boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               transition:
@@ -326,7 +328,8 @@ export default function CTASection({
           <button
             ref={btnRef}
             onClick={onButtonClick}
-            className="inline-flex items-center gap-2 bg-white text-[#0d1a6e] text-[15px] font-semibold py-3.5 px-8 rounded-full border-none cursor-pointer relative z-[5]"
+            disabled={buttonDisabled}
+            className="inline-flex items-center gap-2 bg-white text-[#0d1a6e] text-[15px] font-semibold py-3.5 px-8 rounded-full border-none cursor-pointer relative z-[5] disabled:opacity-70 disabled:cursor-default"
             style={{
               boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               transition: "transform 0.2s ease, box-shadow 0.2s ease",
