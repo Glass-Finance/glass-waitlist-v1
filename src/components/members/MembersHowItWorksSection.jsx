@@ -1,71 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { goToApp } from "../../utils/deviceRedirect";
-import Card from "../howItWorks/Card";
-import MockupFrame from "../howItWorks/MockupFrame";
-import ScaledMockup from "../howItWorks/ScaledMockup";
-import MobileCarousel from "../howItWorks/MobileCarousel";
-import SignupMockup from "../howItWorks/mockups/SignupMockup";
-import InviteMockup from "../howItWorks/mockups/InviteMockup";
-import AutopayMockup from "../howItWorks/mockups/AutopayMockup";
-import { SignupIcon, AcceptInviteIcon, AutopayIcon } from "../howItWorks/icons/StepIcons";
+import signupIcon from "../../assets/howItWorks/icon-signup.png";
+import signupMockup from "../../assets/howItWorks/member-signup-mockup.png";
+import memberAcceptInvite from "../../assets/howItWorks/member-accept-invite.png";
+import memberAutopay from "../../assets/howItWorks/member-autopay.png";
 
-// font-medium, not -semibold -- the Figma reference weight is noticeably
-// lighter than the section's main heading.
-const HEADING_CLS = "m-0 text-[38px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]";
-const GRADIENT_30 = "bg-[conic-gradient(from_155deg,#6B2FB5_0%,rgba(107,47,181,0)_30%,#072EAB_100%)]";
-
-// Sign up row — full width 1213px, no card chrome, plain bg + wave decor,
-// icon+heading on the left, signup mockup card (528px) on the right.
+// Accept Invite / Autopay are single pixel-exact Figma exports (595x727
+// each) with background, icon, heading, and mockup all baked in -- no
+// hand-recreated CSS, no animation. The signup row is the one exception:
+// its heading/icon stay live (matching the original Figma layer split),
+// with only the inner mockup card (528x669) as an image.
 function SignupRow() {
   return (
     <div className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex items-center min-h-[470px] w-[1213px]">
       <div className="absolute left-0 bottom-0 w-[56%] h-[62%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
       <div className="relative flex items-center gap-5 px-10 flex-1">
-        <SignupIcon />
-        <h3 className={HEADING_CLS}>Sign up for Glass in seconds.</h3>
+        <img src={signupIcon} alt="" className="w-[70px] h-[70px] shrink-0" />
+        <h3 className="m-0 text-[38px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]">Sign up for Glass in seconds.</h3>
       </div>
       <div className="relative py-[34px] px-10 flex justify-center">
-        <MockupFrame>
-          <SignupMockup />
-        </MockupFrame>
+        <img src={signupMockup} alt="Sign up for Glass" className="w-[528px] h-[669px]" />
       </div>
     </div>
-  );
-}
-
-function AcceptInviteCard() {
-  return (
-    <Card className={`w-[594.5px] h-[727px] min-w-[594.5px] max-w-[594.5px] min-h-[727px] max-h-[727px] ${GRADIENT_30}`}>
-      <div className="relative flex items-center gap-5 pt-11 px-10">
-        <AcceptInviteIcon />
-        <h3 className={HEADING_CLS}>Accept Your Community Invite.</h3>
-      </div>
-      <div className="relative mt-[38px] mx-[26px]">
-        <MockupFrame>
-          <InviteMockup />
-        </MockupFrame>
-      </div>
-    </Card>
-  );
-}
-
-// Autopay card — the widget sits well down from the top of the card (not
-// hugging it), per the Figma reference, wrapped in the same translucent
-// film backing every other mockup gets.
-function AutopayCard() {
-  return (
-    <Card className="w-[594.5px] h-[727px] min-w-[594.5px] max-w-[594.5px] min-h-[727px] max-h-[727px] bg-[linear-gradient(200deg,#f1f0fa,#f7f7fc_60%,#efeff8)]">
-      <div className="relative pt-24 px-[34px] flex justify-center">
-        <MockupFrame>
-          <AutopayMockup />
-        </MockupFrame>
-      </div>
-      <div className="relative flex items-center gap-5 px-[34px] pt-11 pb-10">
-        <AutopayIcon />
-        <h3 className={HEADING_CLS}>Automate your dues. Never miss a payment.</h3>
-      </div>
-    </Card>
   );
 }
 
@@ -115,51 +72,25 @@ export default function MembersHowItWorksSection() {
       <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[1261px]">
         <SignupRow />
         <div className="flex gap-6 mt-6">
-          <AcceptInviteCard />
-          <AutopayCard />
+          <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
+          <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
         </div>
       </div>
 
-      {/* Mobile — horizontal snap carousel */}
-      <div className="relative z-10 mt-2">
-        <MobileCarousel>
-          {[
-            <div key="1" className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] w-80 min-h-[560px] flex flex-col">
-              <div className="absolute left-0 bottom-0 w-[70%] h-[40%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
-              <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6">
-                <SignupIcon />
-                <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Sign up for Glass in seconds.</h3>
-              </div>
-              <div className="relative p-6 flex justify-center">
-                <MockupFrame>
-                  <ScaledMockup width={528} height={470} targetWidth={260}><SignupMockup /></ScaledMockup>
-                </MockupFrame>
-              </div>
-            </div>,
-            <Card key="2" className={`w-80 h-[640px] min-w-80 max-w-80 min-h-[640px] max-h-[640px] ${GRADIENT_30}`}>
-              <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6">
-                <AcceptInviteIcon />
-                <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Accept Your Community Invite.</h3>
-              </div>
-              <div className="mt-5 -ml-[6px]">
-                <MockupFrame>
-                  <ScaledMockup width={548} height={330} targetWidth={310}><InviteMockup /></ScaledMockup>
-                </MockupFrame>
-              </div>
-            </Card>,
-            <Card key="3" className="w-80 h-[480px] min-w-80 max-w-80 min-h-[480px] max-h-[480px] bg-[linear-gradient(200deg,#f1f0fa,#f7f7fc_60%,#efeff8)]">
-              <div className="pt-10 px-5 flex justify-center">
-                <MockupFrame>
-                  <ScaledMockup width={568} height={261} targetWidth={260}><AutopayMockup /></ScaledMockup>
-                </MockupFrame>
-              </div>
-              <div className="relative flex flex-col items-start gap-[14px] pt-5 px-6 pb-7">
-                <AutopayIcon />
-                <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Automate your dues. Never miss a payment.</h3>
-              </div>
-            </Card>,
-          ]}
-        </MobileCarousel>
+      {/* Mobile — signup row stacks naturally; other two cards as full-width responsive images */}
+      <div className="md:hidden relative z-10 px-4">
+        <div className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex flex-col items-center">
+          <div className="absolute left-0 bottom-0 w-[70%] h-[40%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
+          <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6 w-full">
+            <img src={signupIcon} alt="" className="w-[56px] h-[56px]" />
+            <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Sign up for Glass in seconds.</h3>
+          </div>
+          <img src={signupMockup} alt="Sign up for Glass" className="relative w-[85%] h-auto my-6" />
+        </div>
+        <div className="flex flex-col gap-4 mt-4">
+          <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-full h-auto rounded-[8px]" />
+          <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-full h-auto rounded-[8px]" />
+        </div>
       </div>
 
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
