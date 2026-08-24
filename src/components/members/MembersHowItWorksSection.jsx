@@ -19,8 +19,8 @@ function SignupRow() {
         <img src={signupIcon} alt="" className="w-[70px] h-[70px] shrink-0" />
         <h3 className="m-0 text-[38px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]">Sign up for Glass in seconds.</h3>
       </div>
-      <div className="relative py-4 px-10 flex justify-center">
-        <img src={signupMockup} alt="Sign up for Glass" className="w-[528px] h-[669px] block" />
+      <div className="relative py-2 px-10 flex justify-center">
+        <img src={signupMockup} alt="Sign up for Glass" className="w-[528px] h-[658px] block" />
       </div>
     </div>
   );
