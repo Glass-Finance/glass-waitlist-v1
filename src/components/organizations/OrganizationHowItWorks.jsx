@@ -51,9 +51,12 @@ export default function OrganizationHowItWorks() {
         </div>
       </div>
 
-      {/* Desktop — 2x2 grid, 1213px content width matching Figma */}
-      <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[1261px]">
-        <div className="flex gap-6">
+      {/* Desktop — 2x2 grid, 1213px content width matching Figma. Extra
+          gap/padding here (beyond the Figma spec) gives the glow behind
+          each card room to actually show instead of being clipped by a
+          neighbor or the section edge. */}
+      <div className="hidden md:block relative z-10 mx-auto px-6 py-6 max-w-[1330px]">
+        <div className="flex gap-14 justify-center">
           <GlowBorderCard>
             <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-[709px] h-[705px] block" />
           </GlowBorderCard>
@@ -61,7 +64,7 @@ export default function OrganizationHowItWorks() {
             <img src={orgAddMembers} alt="Add Your Members" className="w-[480px] h-[705px] block" />
           </GlowBorderCard>
         </div>
-        <div className="flex gap-6 mt-6">
+        <div className="flex gap-14 justify-center mt-14">
           <GlowBorderCard>
             <img src={orgPaymentPlan} alt="Create your payment plan" className="w-[595px] h-[727px] block" />
           </GlowBorderCard>
@@ -72,7 +75,7 @@ export default function OrganizationHowItWorks() {
       </div>
 
       {/* Mobile — each card as a full-width responsive image, stacked */}
-      <div className="md:hidden relative z-10 flex flex-col gap-4 px-4">
+      <div className="md:hidden relative z-10 flex flex-col gap-10 px-8 py-4">
         <GlowBorderCard className="w-full"><img src={orgCreateCommunity} alt="Create your Community and get started" className="w-full h-auto block" /></GlowBorderCard>
         <GlowBorderCard className="w-full"><img src={orgAddMembers} alt="Add Your Members" className="w-full h-auto block" /></GlowBorderCard>
         <GlowBorderCard className="w-full"><img src={orgPaymentPlan} alt="Create your payment plan" className="w-full h-auto block" /></GlowBorderCard>

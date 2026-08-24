@@ -72,9 +72,11 @@ export default function MembersHowItWorksSection() {
       </div>
 
       {/* Desktop — full-width signup row + 2-card row, 1213px content width matching Figma */}
-      <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[1261px]">
-        <SignupRow />
-        <div className="flex gap-6 mt-6">
+      <div className="hidden md:block relative z-10 mx-auto px-6 py-6 max-w-[1330px]">
+        <div className="flex justify-center">
+          <SignupRow />
+        </div>
+        <div className="flex gap-14 justify-center mt-14">
           <GlowBorderCard>
             <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-[595px] h-[727px] block" />
           </GlowBorderCard>
@@ -85,7 +87,7 @@ export default function MembersHowItWorksSection() {
       </div>
 
       {/* Mobile — signup row stacks naturally; other two cards as full-width responsive images */}
-      <div className="md:hidden relative z-10 px-4">
+      <div className="md:hidden relative z-10 px-8 py-4">
         <GlowBorderCard radius={24} className="w-full">
           <div className="relative overflow-hidden bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex flex-col items-center">
             <div className="absolute left-0 bottom-0 w-[70%] h-[40%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
@@ -96,7 +98,7 @@ export default function MembersHowItWorksSection() {
             <img src={signupMockup} alt="Sign up for Glass" className="relative w-[85%] h-auto mt-6 mb-4 block" />
           </div>
         </GlowBorderCard>
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="flex flex-col gap-10 mt-10">
           <GlowBorderCard className="w-full"><img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-full h-auto block" /></GlowBorderCard>
           <GlowBorderCard className="w-full"><img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-full h-auto block" /></GlowBorderCard>
         </div>
