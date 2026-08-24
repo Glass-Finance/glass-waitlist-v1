@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { goToApp } from "../../utils/deviceRedirect";
-import GlowBorderCard from "../howItWorks/GlowBorderCard";
 import orgCreateCommunity from "../../assets/howItWorks/org-create-community.png";
 import orgAddMembers from "../../assets/howItWorks/org-add-members.png";
 import orgPaymentPlan from "../../assets/howItWorks/org-payment-plan.png";
@@ -51,35 +50,24 @@ export default function OrganizationHowItWorks() {
         </div>
       </div>
 
-      {/* Desktop — 2x2 grid, 1213px content width matching Figma. Extra
-          gap/padding here (beyond the Figma spec) gives the glow behind
-          each card room to actually show instead of being clipped by a
-          neighbor or the section edge. */}
-      <div className="hidden md:block relative z-10 mx-auto px-6 py-6 max-w-[1330px]">
-        <div className="flex gap-14 justify-center">
-          <GlowBorderCard>
-            <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-[709px] h-[705px] block" />
-          </GlowBorderCard>
-          <GlowBorderCard>
-            <img src={orgAddMembers} alt="Add Your Members" className="w-[480px] h-[705px] block" />
-          </GlowBorderCard>
+      {/* Desktop — 2x2 grid, 1213px content width matching Figma */}
+      <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[1261px]">
+        <div className="flex gap-6">
+          <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-[709px] h-[705px] shrink-0 rounded-[8px]" />
+          <img src={orgAddMembers} alt="Add Your Members" className="w-[480px] h-[705px] shrink-0 rounded-[8px]" />
         </div>
-        <div className="flex gap-14 justify-center mt-14">
-          <GlowBorderCard>
-            <img src={orgPaymentPlan} alt="Create your payment plan" className="w-[595px] h-[727px] block" />
-          </GlowBorderCard>
-          <GlowBorderCard>
-            <img src={orgLaunch} alt="Launch Your Community" className="w-[595px] h-[727px] block" />
-          </GlowBorderCard>
+        <div className="flex gap-6 mt-6">
+          <img src={orgPaymentPlan} alt="Create your payment plan" className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
+          <img src={orgLaunch} alt="Launch Your Community" className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
         </div>
       </div>
 
       {/* Mobile — each card as a full-width responsive image, stacked */}
-      <div className="md:hidden relative z-10 flex flex-col gap-10 px-8 py-4">
-        <GlowBorderCard className="w-full"><img src={orgCreateCommunity} alt="Create your Community and get started" className="w-full h-auto block" /></GlowBorderCard>
-        <GlowBorderCard className="w-full"><img src={orgAddMembers} alt="Add Your Members" className="w-full h-auto block" /></GlowBorderCard>
-        <GlowBorderCard className="w-full"><img src={orgPaymentPlan} alt="Create your payment plan" className="w-full h-auto block" /></GlowBorderCard>
-        <GlowBorderCard className="w-full"><img src={orgLaunch} alt="Launch Your Community" className="w-full h-auto block" /></GlowBorderCard>
+      <div className="md:hidden relative z-10 flex flex-col gap-4 px-4">
+        <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-full h-auto rounded-[8px]" />
+        <img src={orgAddMembers} alt="Add Your Members" className="w-full h-auto rounded-[8px]" />
+        <img src={orgPaymentPlan} alt="Create your payment plan" className="w-full h-auto rounded-[8px]" />
+        <img src={orgLaunch} alt="Launch Your Community" className="w-full h-auto rounded-[8px]" />
       </div>
 
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
