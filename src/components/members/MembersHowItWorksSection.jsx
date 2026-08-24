@@ -15,15 +15,15 @@ import memberAutopay from "../../assets/howItWorks/member-autopay.png";
 function SignupRow() {
   return (
     <div
-      className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-white bg-cover bg-bottom bg-no-repeat flex items-center min-h-[470px] w-[1213px]"
+      className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-white bg-cover bg-bottom bg-no-repeat flex items-center min-h-[282px] w-[728px] lg:min-h-[470px] lg:w-[1213px]"
       style={{ backgroundImage: `url(${signupCardBg})` }}
     >
-      <div className="relative flex items-center gap-5 px-10 flex-1">
-        <img src={signupIcon} alt="" className="w-[70px] h-[70px] shrink-0" />
-        <h3 className="m-0 text-[38px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]">Sign up for Glass in seconds.</h3>
+      <div className="relative flex items-center gap-3 lg:gap-5 px-6 lg:px-10 flex-1">
+        <img src={signupIcon} alt="" className="w-[42px] h-[42px] lg:w-[70px] lg:h-[70px] shrink-0" />
+        <h3 className="m-0 text-[23px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]">Sign up for Glass in seconds.</h3>
       </div>
-      <div className="relative pt-6 pb-0 px-10 flex justify-center">
-        <img src={signupMockup} alt="Sign up for Glass" className="w-[528px] h-[658px] block" />
+      <div className="relative pt-4 lg:pt-6 pb-0 px-6 lg:px-10 flex justify-center">
+        <img src={signupMockup} alt="Sign up for Glass" className="w-[317px] h-[395px] lg:w-[528px] lg:h-[658px] block" />
       </div>
     </div>
   );
@@ -71,12 +71,15 @@ export default function MembersHowItWorksSection() {
         </div>
       </div>
 
-      {/* Desktop — full-width signup row + 2-card row, 1213px content width matching Figma */}
-      <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[1261px]">
+      {/* Tablet/Desktop — full-width signup row + 2-card row, 1213px content
+          width matching Figma at lg+. Scaled ~0.6x at md (iPad-width
+          viewports) so the whole card, baked-in heading text included,
+          actually fits instead of overflowing/reading oversized. */}
+      <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[800px] lg:max-w-[1330px]">
         <SignupRow />
         <div className="flex gap-6 mt-6">
-          <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
-          <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
+          <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]" />
+          <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]" />
         </div>
       </div>
 

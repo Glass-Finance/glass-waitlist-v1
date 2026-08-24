@@ -50,15 +50,20 @@ export default function OrganizationHowItWorks() {
         </div>
       </div>
 
-      {/* Desktop — 2x2 grid, 1213px content width matching Figma */}
-      <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[1261px]">
+      {/* Tablet/Desktop — 2x2 grid, 1213px content width matching Figma at
+          lg+. Below that (iPad-width viewports), the fixed Figma pixel
+          sizes don't fit the screen at all, which is what was making the
+          baked-in heading text read oversized -- scaled down ~0.6x at md
+          so the whole card (text included) fits the viewport, full size
+          restored at lg. */}
+      <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[800px] lg:max-w-[1330px]">
         <div className="flex gap-6">
-          <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-[709px] h-[705px] shrink-0 rounded-[8px]" />
-          <img src={orgAddMembers} alt="Add Your Members" className="w-[480px] h-[705px] shrink-0 rounded-[8px]" />
+          <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-[425px] h-[423px] lg:w-[709px] lg:h-[705px] shrink-0 rounded-[8px]" />
+          <img src={orgAddMembers} alt="Add Your Members" className="w-[288px] h-[423px] lg:w-[480px] lg:h-[705px] shrink-0 rounded-[8px]" />
         </div>
         <div className="flex gap-6 mt-6">
-          <img src={orgPaymentPlan} alt="Create your payment plan" className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
-          <img src={orgLaunch} alt="Launch Your Community" className="w-[595px] h-[727px] shrink-0 rounded-[8px]" />
+          <img src={orgPaymentPlan} alt="Create your payment plan" className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]" />
+          <img src={orgLaunch} alt="Launch Your Community" className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]" />
         </div>
       </div>
 
