@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { goToApp } from "../../utils/deviceRedirect";
 import signupIcon from "../../assets/howItWorks/icon-signup.png";
+import signupCardBg from "../../assets/howItWorks/signup-card-bg.png";
 import signupMockup from "../../assets/howItWorks/member-signup-mockup.png";
 import memberAcceptInvite from "../../assets/howItWorks/member-accept-invite.png";
 import memberAutopay from "../../assets/howItWorks/member-autopay.png";
@@ -13,8 +14,10 @@ import memberAutopay from "../../assets/howItWorks/member-autopay.png";
 // with only the inner mockup card (528x669) as an image.
 function SignupRow() {
   return (
-    <div className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex items-center min-h-[470px] w-[1213px]">
-      <div className="absolute left-0 bottom-0 w-[56%] h-[62%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
+    <div
+      className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-white bg-cover bg-bottom bg-no-repeat flex items-center min-h-[470px] w-[1213px]"
+      style={{ backgroundImage: `url(${signupCardBg})` }}
+    >
       <div className="relative flex items-center gap-5 px-10 flex-1">
         <img src={signupIcon} alt="" className="w-[70px] h-[70px] shrink-0" />
         <h3 className="m-0 text-[38px] leading-[1.12] font-medium text-[#24417f] tracking-[-0.01em]">Sign up for Glass in seconds.</h3>
@@ -79,8 +82,10 @@ export default function MembersHowItWorksSection() {
 
       {/* Mobile — signup row stacks naturally; other two cards as full-width responsive images */}
       <div className="md:hidden relative z-10 px-4">
-        <div className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-[linear-gradient(150deg,#fbfbfe,#f3f3fa)] flex flex-col items-center">
-          <div className="absolute left-0 bottom-0 w-[70%] h-[40%] bg-[linear-gradient(180deg,rgba(214,207,240,0),#d9d3f0)] rounded-tr-full" />
+        <div
+          className="relative overflow-hidden border border-[#E9EAF4] rounded-3xl bg-white bg-cover bg-bottom bg-no-repeat flex flex-col items-center"
+          style={{ backgroundImage: `url(${signupCardBg})` }}
+        >
           <div className="relative flex flex-col items-start gap-[14px] pt-7 px-6 w-full">
             <img src={signupIcon} alt="" className="w-[56px] h-[56px]" />
             <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Sign up for Glass in seconds.</h3>
