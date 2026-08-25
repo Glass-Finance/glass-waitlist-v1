@@ -6,6 +6,7 @@ import signupCardBg from "../../assets/howItWorks/signup-card-bg.png";
 import signupMockup from "../../assets/howItWorks/member-signup-mockup.png";
 import memberAcceptInvite from "../../assets/howItWorks/member-accept-invite.png";
 import memberAutopay from "../../assets/howItWorks/member-autopay.png";
+import memberAutopayMobile from "../../assets/howItWorks/member-autopay-mobile.png";
 
 // Accept Invite / Autopay are single pixel-exact Figma exports (595x727
 // each) with background, icon, heading, and mockup all baked in -- no
@@ -97,7 +98,7 @@ export default function MembersHowItWorksSection() {
         </div>
         <div className="flex flex-col gap-4 mt-4">
           <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-full h-auto rounded-[8px]" />
-          <img src={memberAutopay} alt="Automate your dues. Never miss a payment." className="w-full h-auto rounded-[8px]" />
+          <img src={memberAutopayMobile} alt="Automate your dues. Never miss a payment." className="w-full h-auto rounded-[8px]" />
         </div>
       </div>
 

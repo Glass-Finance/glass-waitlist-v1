@@ -5,6 +5,7 @@ import orgCreateCommunity from "../../assets/howItWorks/org-create-community.png
 import orgAddMembers from "../../assets/howItWorks/org-add-members.png";
 import orgPaymentPlan from "../../assets/howItWorks/org-payment-plan.png";
 import orgLaunch from "../../assets/howItWorks/org-launch.png";
+import orgLaunchMobile from "../../assets/howItWorks/org-launch-mobile.png";
 
 // Each card below is a single pixel-exact Figma export (709x705 / 480x705
 // / 595x727 / 595x727) -- background gradient, icon, heading, and mockup
@@ -72,7 +73,7 @@ export default function OrganizationHowItWorks() {
         <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-full h-auto rounded-[8px]" />
         <img src={orgAddMembers} alt="Add Your Members" className="w-full h-auto rounded-[8px]" />
         <img src={orgPaymentPlan} alt="Create your payment plan" className="w-full h-auto rounded-[8px]" />
-        <img src={orgLaunch} alt="Launch Your Community" className="w-full h-auto rounded-[8px]" />
+        <img src={orgLaunchMobile} alt="Launch Your Community" className="w-full h-auto rounded-[8px]" />
       </div>
 
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
