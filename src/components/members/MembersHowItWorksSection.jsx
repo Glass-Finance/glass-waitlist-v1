@@ -5,6 +5,7 @@ import signupIcon from "../../assets/howItWorks/icon-signup.png";
 import signupCardBg from "../../assets/howItWorks/signup-card-bg.png";
 import signupMockup from "../../assets/howItWorks/member-signup-mockup.png";
 import memberAcceptInvite from "../../assets/howItWorks/member-accept-invite.png";
+import memberAcceptInviteMobile from "../../assets/howItWorks/member-accept-invite-mobile.png";
 import memberAutopay from "../../assets/howItWorks/member-autopay.png";
 import memberAutopayMobile from "../../assets/howItWorks/member-autopay-mobile.png";
 
@@ -94,10 +95,10 @@ export default function MembersHowItWorksSection() {
             <img src={signupIcon} alt="" className="w-[56px] h-[56px]" />
             <h3 className="m-0 text-2xl leading-[1.2] font-medium text-[#24417f]">Sign up for Glass in seconds.</h3>
           </div>
-          <img src={signupMockup} alt="Sign up for Glass" className="relative w-[85%] h-auto mt-6 mb-4 block" />
+          <img src={signupMockup} alt="Sign up for Glass" className="relative w-[85%] h-auto mt-6 block" />
         </div>
         <div className="flex flex-col gap-4 mt-4">
-          <img src={memberAcceptInvite} alt="Accept Your Community Invite" className="w-full h-auto rounded-[8px]" />
+          <img src={memberAcceptInviteMobile} alt="Accept Your Community Invite" className="w-full h-auto rounded-[8px]" />
           <img src={memberAutopayMobile} alt="Automate your dues. Never miss a payment." className="w-full h-auto rounded-[8px]" />
         </div>
       </div>

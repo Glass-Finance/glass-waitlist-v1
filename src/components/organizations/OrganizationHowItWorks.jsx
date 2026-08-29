@@ -2,7 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { goToApp } from "../../utils/deviceRedirect";
 import orgCreateCommunity from "../../assets/howItWorks/org-create-community.png";
+import orgCreateCommunityMobile from "../../assets/howItWorks/org-create-community-mobile.png";
 import orgAddMembers from "../../assets/howItWorks/org-add-members.png";
+import orgAddMembersMobile from "../../assets/howItWorks/org-add-members-mobile.png";
 import orgPaymentPlan from "../../assets/howItWorks/org-payment-plan.png";
 import orgLaunch from "../../assets/howItWorks/org-launch.png";
 import orgLaunchMobile from "../../assets/howItWorks/org-launch-mobile.png";
@@ -70,8 +72,8 @@ export default function OrganizationHowItWorks() {
 
       {/* Mobile — each card as a full-width responsive image, stacked */}
       <div className="md:hidden relative z-10 flex flex-col gap-4 px-4">
-        <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-full h-auto rounded-[8px]" />
-        <img src={orgAddMembers} alt="Add Your Members" className="w-full h-auto rounded-[8px]" />
+        <img src={orgCreateCommunityMobile} alt="Create your Community and get started" className="w-full h-auto rounded-[8px]" />
+        <img src={orgAddMembersMobile} alt="Add Your Members" className="w-full h-auto rounded-[8px]" />
         <img src={orgPaymentPlan} alt="Create your payment plan" className="w-full h-auto rounded-[8px]" />
         <img src={orgLaunchMobile} alt="Launch Your Community" className="w-full h-auto rounded-[8px]" />
       </div>
