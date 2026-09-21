@@ -56,9 +56,7 @@ export default function Security() {
           const { rotate, y } = TILTS[idx];
 
           entry.target.style.transform =
-            window.innerWidth >= 1024
-              ? `rotateZ(${rotate}deg) translateY(${y}px)`
-              : "none";
+            window.innerWidth >= 1024 ? `rotateZ(${rotate}deg) translateY(${y}px)` : "none";
 
           observer.unobserve(entry.target);
         });
@@ -74,10 +72,7 @@ export default function Security() {
   }, []);
 
   return (
-    <section
-      className="relative isolate overflow-hidden py-20 md:py-28"
-      id="security"
-    >
+    <section className="relative isolate overflow-hidden py-20 md:py-28" id="security">
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         {/* ── Header ── */}
         <div className="mb-8 md:mb-16" style={{ textAlign: "center" }}>
@@ -134,8 +129,8 @@ export default function Security() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              We protect your funds with encryption in transit and at rest,
-              strict access controls, and continuous security monitoring.
+              We protect your funds with encryption in transit and at rest, strict access controls,
+              and continuous security monitoring.
             </motion.p>
           </div>
         </div>

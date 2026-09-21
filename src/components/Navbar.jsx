@@ -6,9 +6,7 @@ import { motion, useScroll, useSpring } from "motion/react";
 import { cldUrl, cldSrcSet } from "../lib/cloudinary";
 
 const scrollTo = (id) =>
-  document
-    .getElementById(id)
-    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
 // Same Cloudinary asset used by BrandedSpinner/Footer/ErrorBoundary/
 // LegalPageLayout — was previously a separate hand-coded inline <svg> here,
@@ -25,11 +23,8 @@ const glassLogo = {
 // is why it read as a bolted-on, mismatched element rather than part of
 // one cohesive nav. `compact` only changes sizing, never the visual style.
 function ViewToggle({ viewMode, onChange, compact = false }) {
-  const base =
-    "rounded-full font-medium transition-all duration-200 cursor-pointer";
-  const size = compact
-    ? "px-3 py-1.5 text-[12px]"
-    : "px-[13px] py-[9px] text-[13.5px]";
+  const base = "rounded-full font-medium transition-all duration-200 cursor-pointer";
+  const size = compact ? "px-3 py-1.5 text-[12px]" : "px-[13px] py-[9px] text-[13.5px]";
   // Selected state uses a flat white fill, unselected a soft white/45 —
   // reverted to the original (non-gradient) treatment per feedback.
   const selected = "bg-white/20 text-white shadow-sm";
@@ -69,8 +64,7 @@ export default function Navbar() {
     restDelta: 0.001,
   });
 
-  const viewMode =
-    location.pathname === "/members" ? "members" : "organizations";
+  const viewMode = location.pathname === "/members" ? "members" : "organizations";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -91,8 +85,7 @@ export default function Navbar() {
         style={{
           scaleX,
           transformOrigin: "0% 50%",
-          background:
-            "linear-gradient(90deg, #002FA7 0%, #4f46e5 60%, #7c3aed 100%)",
+          background: "linear-gradient(90deg, #002FA7 0%, #4f46e5 60%, #7c3aed 100%)",
           height: 3,
           position: "fixed",
           top: 0,
@@ -121,10 +114,7 @@ export default function Navbar() {
         >
           <div className="flex items-center justify-between lg:justify-start gap-3 sm:gap-4 lg:gap-6 px-4 sm:px-5 lg:px-6 h-[58px] sm:h-[64px]">
             {/* ── Logo ── */}
-            <Link
-              to="/"
-              className="flex items-center gap-2.5 no-underline shrink-0"
-            >
+            <Link to="/" className="flex items-center gap-2.5 no-underline shrink-0">
               <img
                 src={glassLogo.src}
                 srcSet={glassLogo.srcSet}
@@ -195,22 +185,14 @@ export default function Navbar() {
                 instead — see below. ── */}
             <div className="flex lg:hidden items-center gap-2.5">
               <div className="hidden sm:block">
-                <ViewToggle
-                  viewMode={viewMode}
-                  onChange={handleViewModeChange}
-                  compact
-                />
+                <ViewToggle viewMode={viewMode} onChange={handleViewModeChange} compact />
               </div>
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 border border-white/[0.15] text-white/80 hover:text-white hover:bg-white/15 transition-colors cursor-pointer shrink-0"
               >
-                {menuOpen ? (
-                  <X className="w-4 h-4" />
-                ) : (
-                  <Menu className="w-4 h-4" />
-                )}
+                {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </button>
             </div>
           </div>
@@ -229,11 +211,7 @@ export default function Navbar() {
                   keeps it sized to content, centered here instead of
                   stretching edge-to-edge. */}
               <div className="sm:hidden pb-1 flex justify-center">
-                <ViewToggle
-                  viewMode={viewMode}
-                  onChange={handleViewModeChange}
-                  compact
-                />
+                <ViewToggle viewMode={viewMode} onChange={handleViewModeChange} compact />
               </div>
 
               <div className="space-y-1 pt-1">

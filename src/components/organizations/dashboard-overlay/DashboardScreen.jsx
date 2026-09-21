@@ -18,7 +18,13 @@ function PayDuesBanner() {
       }}
     >
       <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          style={{ flexShrink: 0, marginTop: 1 }}
+        >
           <path d="M12 3l10 18H2L12 3z" stroke="#002FA7" strokeWidth="1.6" strokeLinejoin="round" />
           <path d="M12 10v4" stroke="#002FA7" strokeWidth="1.6" strokeLinecap="round" />
           <circle cx="12" cy="17" r="0.9" fill="#002FA7" />
@@ -28,7 +34,8 @@ function PayDuesBanner() {
             Your School Fees Support payment is due in 3 days
           </div>
           <div style={{ fontSize: 10, color: "#64748b", marginTop: 2 }}>
-            ₦5,000 due Apr 1, 2025 · <span style={{ color: "#002FA7", fontWeight: 600 }}>Auto-Pay is off</span>
+            ₦5,000 due Apr 1, 2025 ·{" "}
+            <span style={{ color: "#002FA7", fontWeight: 600 }}>Auto-Pay is off</span>
           </div>
         </div>
       </div>

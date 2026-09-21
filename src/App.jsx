@@ -1,15 +1,15 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Analytics } from '@vercel/analytics/react';
-import LoadingScreen from './components/LoadingScreen';
+import { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
+import LoadingScreen from "./components/LoadingScreen";
 
-const Home = lazy(() => import('./pages/index'));
-const MembersHome = lazy(() => import('./pages/MembersHome'));
-const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'));
-const TermsOfService = lazy(() => import('./pages/legal/TermsOfService'));
-const CookiePolicy = lazy(() => import('./pages/legal/CookiePolicy'));
-const AcceptableUsePolicy = lazy(() => import('./pages/legal/AcceptableUsePolicy'));
-const RefundPolicy = lazy(() => import('./pages/legal/RefundPolicy'));
+const Home = lazy(() => import("./pages/index"));
+const MembersHome = lazy(() => import("./pages/MembersHome"));
+const PrivacyPolicy = lazy(() => import("./pages/legal/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/legal/TermsOfService"));
+const CookiePolicy = lazy(() => import("./pages/legal/CookiePolicy"));
+const AcceptableUsePolicy = lazy(() => import("./pages/legal/AcceptableUsePolicy"));
+const RefundPolicy = lazy(() => import("./pages/legal/RefundPolicy"));
 
 function App() {
   return (

@@ -10,12 +10,7 @@ const glassLogo = {
 // approach as ErrorBoundary.jsx's background.
 const backgroundUrl = cldUrl("glass/background", { width: 1920, dpr: 2 });
 
-export default function LegalPageLayout({
-  title,
-  effectiveDate,
-  lastUpdated,
-  children,
-}) {
+export default function LegalPageLayout({ title, effectiveDate, lastUpdated, children }) {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div
@@ -27,10 +22,7 @@ export default function LegalPageLayout({
       <div className="relative z-10">
         <header className="border-b border-gray-100">
           <div className="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 no-underline"
-            >
+            <Link to="/" className="inline-flex items-center gap-2 no-underline">
               <img
                 src={glassLogo.src}
                 srcSet={glassLogo.srcSet}
@@ -50,12 +42,9 @@ export default function LegalPageLayout({
         </header>
 
         <main className="max-w-3xl mx-auto px-6 py-12">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            {title}
-          </h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{title}</h1>
           <p className="text-xs text-gray-500 mb-10">
-            Effective Date: {effectiveDate} &nbsp;·&nbsp; Last Updated:{" "}
-            {lastUpdated}
+            Effective Date: {effectiveDate} &nbsp;·&nbsp; Last Updated: {lastUpdated}
           </p>
           <div className="legal-prose">{children}</div>
         </main>

@@ -99,8 +99,14 @@ function describeError(err) {
 }
 
 async function main() {
-  if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-    console.error("Missing CLOUDINARY_CLOUD_NAME / CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET in .env");
+  if (
+    !process.env.CLOUDINARY_CLOUD_NAME ||
+    !process.env.CLOUDINARY_API_KEY ||
+    !process.env.CLOUDINARY_API_SECRET
+  ) {
+    console.error(
+      "Missing CLOUDINARY_CLOUD_NAME / CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET in .env",
+    );
     process.exit(1);
   }
 
@@ -109,7 +115,9 @@ async function main() {
   console.log(`Found ${allFiles.length} image files.`);
 
   const deduped = dedupeByPublicId(allFiles);
-  console.log(`Uploading ${deduped.length} unique assets (after de-duping same-name .png/.webp pairs).`);
+  console.log(
+    `Uploading ${deduped.length} unique assets (after de-duping same-name .png/.webp pairs).`,
+  );
 
   let uploaded = 0;
   let failed = 0;
@@ -134,7 +142,9 @@ async function main() {
     }
   }
 
-  console.log(`\nDone. Uploaded: ${uploaded}, Failed: ${failed}, Skipped (collisions): ${allFiles.length - deduped.length}`);
+  console.log(
+    `\nDone. Uploaded: ${uploaded}, Failed: ${failed}, Skipped (collisions): ${allFiles.length - deduped.length}`,
+  );
 }
 
 main();

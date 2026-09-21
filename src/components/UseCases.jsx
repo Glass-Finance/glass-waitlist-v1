@@ -114,9 +114,7 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
         {title}
       </h3>
 
-      <p className="text-lg text-black/50 leading-[1.6] m-0 max-w-[360px]">
-        {desc}
-      </p>
+      <p className="text-lg text-black/50 leading-[1.6] m-0 max-w-[360px]">{desc}</p>
     </div>
   );
 }
@@ -225,8 +223,7 @@ export default function UseCases() {
 
             <div className="flex justify-center">
               <p className="text-[clamp(15px,2vw,17px)] text-black/60 max-w-[700px] leading-[1.7] text-center">
-                Whether you run a small club or a national association, Glass
-                scales with you.
+                Whether you run a small club or a national association, Glass scales with you.
               </p>
             </div>
           </div>

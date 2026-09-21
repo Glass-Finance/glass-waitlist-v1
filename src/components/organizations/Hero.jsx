@@ -83,8 +83,7 @@ export default function Hero() {
           <div
             className="absolute bottom-0 left-0 w-[500px] h-[320px]"
             style={{
-              background:
-                "radial-gradient(ellipse at bottom left, #6b0a4a 0%, transparent 60%)",
+              background: "radial-gradient(ellipse at bottom left, #6b0a4a 0%, transparent 60%)",
               filter: "blur(80px)",
               opacity: 0.45,
             }}
@@ -92,8 +91,7 @@ export default function Hero() {
           <div
             className="absolute top-0 left-0 right-0 h-[200px]"
             style={{
-              background:
-                "linear-gradient(to bottom, rgba(2,3,16,0.85) 0%, transparent 100%)",
+              background: "linear-gradient(to bottom, rgba(2,3,16,0.85) 0%, transparent 100%)",
             }}
           />
         </div>
@@ -113,8 +111,8 @@ export default function Hero() {
           </Reveal>
           <Reveal variant="up" delay={160}>
             <p className="text-[15px] sm:text-[16px] text-white/55 leading-relaxed max-w-[540px] mx-auto mb-8 sm:mb-6">
-              Save 15–20 hours monthly chasing payments. The transparent way for
-              Nigerian associations, clubs, and schools to manage funds.
+              Save 15–20 hours monthly chasing payments. The transparent way for Nigerian
+              associations, clubs, and schools to manage funds.
             </p>
           </Reveal>
           <Reveal variant="up" delay={240}>
@@ -125,15 +123,12 @@ export default function Hero() {
                 style={{
                   fontFamily: "Inter,sans-serif",
                   fontWeight: 500,
-                  transition:
-                    "transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease",
+                  transition: "transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease",
                 }}
                 onMouseMove={(e) => {
                   const r = e.currentTarget.getBoundingClientRect();
-                  const dx =
-                    ((e.clientX - (r.left + r.width / 2)) / (r.width / 2)) * 10;
-                  const dy =
-                    ((e.clientY - (r.top + r.height / 2)) / (r.height / 2)) * 6;
+                  const dx = ((e.clientX - (r.left + r.width / 2)) / (r.width / 2)) * 10;
+                  const dy = ((e.clientY - (r.top + r.height / 2)) / (r.height / 2)) * 6;
                   e.currentTarget.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(1.04)`;
                   e.currentTarget.style.boxShadow =
                     "0 18px 48px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.4)";

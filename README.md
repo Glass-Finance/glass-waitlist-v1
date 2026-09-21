@@ -6,14 +6,15 @@ This is the public marketing site for Glass, deployed at **glasspay.app**. It's 
 
 ## Two-repo setup — read this before touching landing-page components
 
-| Repo | Deploys to | What it is |
-|---|---|---|
+| Repo                                                                | Deploys to         | What it is                                                                                                      |
+| ------------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
 | [`glass-waitlist`](https://github.com/Glass-Finance/glass-waitlist) | `app.glasspay.app` | The actual product — auth, onboarding, dashboards, member app. **Source of truth for landing-page components.** |
-| `glass-waitlist-v1` (this repo) | `glasspay.app` | This repo — the public marketing site only. |
+| `glass-waitlist-v1` (this repo)                                     | `glasspay.app`     | This repo — the public marketing site only.                                                                     |
 
 **This repo does not independently design its landing pages.** Every component under `src/components/` (Navbar, Footer, Hero, ProblemSection, OurSolution, GetStarted, CTA, Usecases, TrustedBy, Security, Pricing, WhyGlass, the `howItWorks/` and `members/` trees, the legal pages) is a port of the same component in `glass-waitlist`. If the two ever look different, it's because a change landed in `glass-waitlist` and didn't get copied over here yet — that's a bug to fix, not an intentional difference, unless a specific instruction says otherwise.
 
 **When `glass-waitlist`'s landing pages change, do this:**
+
 1. Diff the changed component(s) against this repo's copy (same relative path under `src/components/`, `src/hooks/`, `src/pages/legal/`).
 2. Copy the file over as-is. Almost everything ports with **zero changes** because both repos use an identically-named `goToApp(path, navigate)` helper (`src/utils/deviceRedirect.js` in both) — it does an internal SPA navigate on `app.glasspay.app` and a hard cross-origin redirect to `app.glasspay.app` from `glasspay.app`.
 3. **The one thing to check on every port:** if the component calls `navigate("/some-app-route")` directly instead of through `goToApp`, that route doesn't exist on this domain — rewrite it to `goToApp("/some-app-route", navigate)`. (This bit `membersHero.jsx`, `membersHowItWorks.jsx`, and `membersCTA.jsx` the first time — they called `navigate(isMobileDevice() ? "/member/join" : mobileRequiredPath(...))` directly.)
@@ -46,18 +47,18 @@ Runs at `http://localhost:5173` by default.
 
 Neither of these is required to run locally — both have safe fallbacks baked in.
 
-| Variable | Required | Purpose |
-|---|---|---|
-| `VITE_APP_URL` | No | Origin of the real application that "Get Started" / "Sign In" / "Join a Community" buttons redirect to. Defaults to `https://app.glasspay.app` if unset — so it's safe to skip even in production unless you specifically need to point at a different app deployment (e.g. a staging environment). |
-| `VITE_SENTRY_DSN` | No | Enables crash/error reporting (`src/utils/monitoring.js`). Leave unset to run with monitoring silently disabled — the current default everywhere including production, until/unless a Sentry project is set up for this site specifically. |
+| Variable          | Required | Purpose                                                                                                                                                                                                                                                                                             |
+| ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `VITE_APP_URL`    | No       | Origin of the real application that "Get Started" / "Sign In" / "Join a Community" buttons redirect to. Defaults to `https://app.glasspay.app` if unset — so it's safe to skip even in production unless you specifically need to point at a different app deployment (e.g. a staging environment). |
+| `VITE_SENTRY_DSN` | No       | Enables crash/error reporting (`src/utils/monitoring.js`). Leave unset to run with monitoring silently disabled — the current default everywhere including production, until/unless a Sentry project is set up for this site specifically.                                                          |
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start the Vite dev server |
-| `npm run build` | Production build to `dist/` |
-| `npm run lint` | Run ESLint over the project |
+| Command           | Description                        |
+| ----------------- | ---------------------------------- |
+| `npm run dev`     | Start the Vite dev server          |
+| `npm run build`   | Production build to `dist/`        |
+| `npm run lint`    | Run ESLint over the project        |
 | `npm run preview` | Serve the production build locally |
 
 ## Project structure

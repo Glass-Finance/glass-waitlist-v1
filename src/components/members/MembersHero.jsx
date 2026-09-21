@@ -197,10 +197,7 @@ export default function MembersHero() {
             naturally on wider tablet widths without needing a third set
             of breakpoint-specific values. */}
         <div className="lg:hidden absolute top-[68px] left-0 right-0 bottom-0 z-10 flex flex-col">
-          <div
-            ref={containerRef}
-            className="px-6 sm:px-12 pt-20 sm:pt-16 relative"
-          >
+          <div ref={containerRef} className="px-6 sm:px-12 pt-20 sm:pt-16 relative">
             <div className="text-[clamp(38px,10vw,68px)] font-semibold leading-[1.05] tracking-[-0.03em] mb-0.5">
               <BlurText
                 text="Pay Your Dues"
@@ -222,8 +219,8 @@ export default function MembersHero() {
               />
             </div>
             <p className="text-[15px] sm:text-[18px] leading-relaxed mb-8 max-w-[300px] sm:max-w-[480px] text-white/50">
-              Stop sending screenshots of receipts. Get instant proof of
-              payment, track your history, and never miss a deadline again.
+              Stop sending screenshots of receipts. Get instant proof of payment, track your
+              history, and never miss a deadline again.
             </p>
             <button
               onClick={handleJoin}

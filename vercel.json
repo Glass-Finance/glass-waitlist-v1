@@ -4,36 +4,62 @@
   "framework": "vite",
   "outputDirectory": "dist",
   "redirects": [
-    { "source": "/member/:path*", "destination": "https://app.glasspay.app/member/:path*", "permanent": false },
+    {
+      "source": "/member/:path*",
+      "destination": "https://app.glasspay.app/member/:path*",
+      "permanent": false
+    },
     { "source": "/invite", "destination": "https://app.glasspay.app/invite", "permanent": false },
     { "source": "/invites", "destination": "https://app.glasspay.app/invites", "permanent": false },
     { "source": "/sign-up", "destination": "https://app.glasspay.app/sign-up", "permanent": false },
     { "source": "/sign-in", "destination": "https://app.glasspay.app/sign-in", "permanent": false },
-    { "source": "/forgot-password", "destination": "https://app.glasspay.app/forgot-password", "permanent": false },
-    { "source": "/reset-password", "destination": "https://app.glasspay.app/reset-password", "permanent": false },
-    { "source": "/check-email", "destination": "https://app.glasspay.app/check-email", "permanent": false },
-    { "source": "/onboarding/:path*", "destination": "https://app.glasspay.app/onboarding/:path*", "permanent": false },
-    { "source": "/dashboard/:path*", "destination": "https://app.glasspay.app/dashboard/:path*", "permanent": false }
+    {
+      "source": "/forgot-password",
+      "destination": "https://app.glasspay.app/forgot-password",
+      "permanent": false
+    },
+    {
+      "source": "/reset-password",
+      "destination": "https://app.glasspay.app/reset-password",
+      "permanent": false
+    },
+    {
+      "source": "/check-email",
+      "destination": "https://app.glasspay.app/check-email",
+      "permanent": false
+    },
+    {
+      "source": "/onboarding/:path*",
+      "destination": "https://app.glasspay.app/onboarding/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/dashboard/:path*",
+      "destination": "https://app.glasspay.app/dashboard/:path*",
+      "permanent": false
+    }
   ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Content-Security-Policy", "value": "frame-ancestors 'self' https://www.upwork.com https://upwork.com" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self' https://www.upwork.com https://upwork.com"
+        },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
       ]
     },
     {
       "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
     {
       "source": "/(.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.webp|.*\\.svg|.*\\.ico)",
@@ -43,9 +69,7 @@
     },
     {
       "source": "/(.*)\\.html",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
     }
   ]
 }

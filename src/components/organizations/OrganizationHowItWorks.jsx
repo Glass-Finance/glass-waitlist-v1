@@ -6,10 +6,9 @@ import { cldUrl } from "../../lib/cloudinary";
 const orgCreateCommunity = cldUrl("glass/howItWorks/org-create-community", {
   width: 2100,
 });
-const orgCreateCommunityMobile = cldUrl(
-  "glass/howItWorks/org-create-community-mobile",
-  { width: 1600 },
-);
+const orgCreateCommunityMobile = cldUrl("glass/howItWorks/org-create-community-mobile", {
+  width: 1600,
+});
 const orgAddMembers = cldUrl("glass/howItWorks/org-add-members", {
   width: 1440,
 });
@@ -19,10 +18,7 @@ const orgAddMembersMobile = cldUrl("glass/howItWorks/org-add-members-mobile", {
 const orgPaymentPlan = cldUrl("glass/howItWorks/org-payment-plan", {
   width: 1780,
 });
-const orgPaymentPlanMobile = cldUrl(
-  "glass/howItWorks/org-payment-plan-mobile",
-  { width: 1600 },
-);
+const orgPaymentPlanMobile = cldUrl("glass/howItWorks/org-payment-plan-mobile", { width: 1600 });
 const orgLaunch = cldUrl("glass/howItWorks/org-launch", { width: 1780 });
 const orgLaunchMobile = cldUrl("glass/howItWorks/org-launch-mobile", {
   width: 1600,
@@ -33,10 +29,7 @@ export default function OrganizationHowItWorks() {
   const onCtaClick = () => goToApp("/sign-up", navigate);
 
   return (
-    <section
-      className="relative isolate overflow-hidden py-24"
-      id="how-it-works"
-    >
+    <section className="relative isolate overflow-hidden py-24" id="how-it-works">
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
         <div className="text-center mb-12 md:mb-20">
           <motion.span
@@ -65,8 +58,7 @@ export default function OrganizationHowItWorks() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            Set up your community, link member payment methods, and let Glass
-            handle the rest.
+            Set up your community, link member payment methods, and let Glass handle the rest.
           </motion.p>
         </div>
       </div>

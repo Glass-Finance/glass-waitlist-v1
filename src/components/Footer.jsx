@@ -80,10 +80,7 @@ export default function Footer() {
       <div className="max-w-[1140px] mx-auto px-6 pt-14 pb-8">
         {/* Brand */}
         <div className="mb-8">
-          <a
-            href="/"
-            className="inline-flex items-center gap-2 no-underline mb-3"
-          >
+          <a href="/" className="inline-flex items-center gap-2 no-underline mb-3">
             <img src={glassLogoUrl} alt="Glass" className="w-7 h-7" />
             <span className="font-bold text-[22px] text-white">Glass</span>
           </a>
@@ -106,9 +103,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 mb-12">
           {Object.entries(links).map(([section, items]) => (
             <div key={section}>
-              <p className="text-[14px] sm:text-[15px] font-bold text-white mb-4">
-                {section}
-              </p>
+              <p className="text-[14px] sm:text-[15px] font-bold text-white mb-4">{section}</p>
               <ul className="space-y-3 sm:space-y-2.5 list-none p-0 m-0">
                 {items.map(({ label, href }) => (
                   <li key={label}>
@@ -134,8 +129,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-white/10 pt-7 text-center">
           <p className="text-[13px] sm:text-[14px] text-white/50">
-            Copyright © {new Date().getFullYear()} Glass Limited | Made for
-            Nigerian communities
+            Copyright © {new Date().getFullYear()} Glass Limited | Made for Nigerian communities
           </p>
         </div>
       </div>

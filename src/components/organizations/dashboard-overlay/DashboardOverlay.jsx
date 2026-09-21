@@ -247,8 +247,7 @@ export default function DashboardOverlay() {
             background: "#3a3a3a",
             borderRadius: 16,
             padding: "14px 14px 0",
-            boxShadow:
-              "0 32px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)",
+            boxShadow: "0 32px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)",
             border: "1px solid rgba(255,255,255,0.08)",
           }}
         >
@@ -270,7 +269,14 @@ export default function DashboardOverlay() {
 
             <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
               <TopBar />
-              <div style={{ position: "relative", flex: 1, padding: "14px 16px 0", overflow: "hidden" }}>
+              <div
+                style={{
+                  position: "relative",
+                  flex: 1,
+                  padding: "14px 16px 0",
+                  overflow: "hidden",
+                }}
+              >
                 <DashboardScreen />
                 <PaymentsScreen active={nav === "payments"} />
                 <MembersScreen active={nav === "members"} />

@@ -238,8 +238,7 @@ export default function CTASection({
     if (!inView || !btnRef.current) return;
     const btn = btnRef.current;
     btn.style.transform = "scale(0.88)";
-    btn.style.transition =
-      "transform 0.65s cubic-bezier(0.34,1.56,0.64,1) 700ms";
+    btn.style.transition = "transform 0.65s cubic-bezier(0.34,1.56,0.64,1) 700ms";
     requestAnimationFrame(() =>
       requestAnimationFrame(() => {
         btn.style.transform = "scale(1)";
@@ -259,10 +258,7 @@ export default function CTASection({
   const magnetic = buttonHoverVariant === "magnetic";
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative isolate py-14 px-6 overflow-hidden"
-    >
+    <section ref={sectionRef} className="relative isolate py-14 px-6 overflow-hidden">
       <div
         ref={cardRef}
         className="max-w-[1140px] mx-auto rounded-3xl overflow-hidden relative bg-[#0d1a6e] text-center min-h-[300px] flex flex-col items-center justify-center [padding:clamp(40px,7vw,88px)_clamp(24px,10vw,200px)]"
@@ -306,8 +302,7 @@ export default function CTASection({
             className="inline-flex items-center gap-2 bg-white text-[#0d1a6e] font-semibold rounded-full border-none cursor-pointer relative z-[5] [font-size:clamp(12px,3.5vw,15px)] [padding:clamp(10px,2.5vw,14px)_clamp(16px,5vw,32px)] disabled:opacity-70 disabled:cursor-default"
             style={{
               boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
-              transition:
-                "transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease",
+              transition: "transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease",
             }}
             onMouseMove={(e) => {
               const btn = e.currentTarget;

@@ -95,7 +95,8 @@ function DashboardContent() {
         await sw(i === 0 ? 0 : i < 5 ? 100 : 130);
         const el = $(ELEM_IDS[i]);
         if (!el) continue;
-        el.style.transition = "opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1)";
+        el.style.transition =
+          "opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1)";
         setRi(el, true);
         if (i >= 5 && i <= 7) {
           const bar = $(PBARS[i - 5].id);
@@ -173,8 +174,12 @@ function DashboardContent() {
       requests: { x: 138, y: 199 },
     };
 
-    const move = (p) => { if (aliveRef.current) setCursor({ x: p.x, y: p.y, visible: true }); };
-    const clickFx = (p) => { if (aliveRef.current) setRing({ x: p.x, y: p.y, key: Date.now() }); };
+    const move = (p) => {
+      if (aliveRef.current) setCursor({ x: p.x, y: p.y, visible: true });
+    };
+    const clickFx = (p) => {
+      if (aliveRef.current) setRing({ x: p.x, y: p.y, key: Date.now() });
+    };
 
     // One tour lap: dashboard reveals element-by-element, then the cursor
     // walks the sidebar — Payments, Members, back to Dashboard — with the
@@ -260,7 +265,9 @@ function DashboardContent() {
     };
 
     main();
-    return () => { aliveRef.current = false; };
+    return () => {
+      aliveRef.current = false;
+    };
   }, []);
 
   const F = { fontFamily: "Inter,-apple-system,sans-serif" };
@@ -269,7 +276,16 @@ function DashboardContent() {
     <div style={{ position: "relative", width: "100%", height: "100%", ...F }}>
       <div
         ref={toastRef}
-        style={{ position: "absolute", top: 90, right: -30, display: "flex", flexDirection: "column", pointerEvents: "none", zIndex: 200, width: 220 }}
+        style={{
+          position: "absolute",
+          top: 90,
+          right: -30,
+          display: "flex",
+          flexDirection: "column",
+          pointerEvents: "none",
+          zIndex: 200,
+          width: 220,
+        }}
       />
       <div
         style={{
@@ -285,15 +301,20 @@ function DashboardContent() {
           // paint outside this div's own overflow:hidden. clip-path on the
           // DIRECT parent (this div), not just further-up ancestors, is
           // what actually contains it.
-          clipPath: "inset(0)", WebkitClipPath: "inset(0)",
+          clipPath: "inset(0)",
+          WebkitClipPath: "inset(0)",
         }}
       >
         <style>{`@keyframes gh-click { 0% { transform: scale(0.35); opacity: 0.9; } 100% { transform: scale(1.9); opacity: 0; } }`}</style>
         {/* Pay-dues modal -- admin paying their own recurring due from the dashboard */}
         <div
           style={{
-            position: "absolute", inset: 0, zIndex: 400,
-            display: "flex", alignItems: "center", justifyContent: "center",
+            position: "absolute",
+            inset: 0,
+            zIndex: 400,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             background: "rgba(15,20,50,0.42)",
             opacity: payModal === "closed" ? 0 : 1,
             pointerEvents: "none",
@@ -302,45 +323,127 @@ function DashboardContent() {
         >
           <div
             style={{
-              width: 320, background: "#fff", borderRadius: 14, padding: "20px 22px",
+              width: 320,
+              background: "#fff",
+              borderRadius: 14,
+              padding: "20px 22px",
               boxShadow: "0 24px 60px rgba(0,0,0,0.28)",
-              transform: payModal === "closed" ? "scale(0.94) translateY(8px)" : "scale(1) translateY(0)",
+              transform:
+                payModal === "closed" ? "scale(0.94) translateY(8px)" : "scale(1) translateY(0)",
               transition: "transform 260ms cubic-bezier(.22,1,.36,1)",
             }}
           >
             {payModal !== "success" ? (
               <>
-                <div style={{ fontSize: 14, fontWeight: 800, color: "#0f1d6e", marginBottom: 3 }}>Pay Now</div>
-                <div style={{ fontSize: 11, color: "#9ca3af", marginBottom: 16 }}>Association Dues · Recurring</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: "#0f1d6e", marginBottom: 3 }}>
+                  Pay Now
+                </div>
+                <div style={{ fontSize: 11, color: "#9ca3af", marginBottom: 16 }}>
+                  Association Dues · Recurring
+                </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 16 }}>
                   <span style={{ fontSize: 24, fontWeight: 800, color: "#0f1d6e" }}>₦5,000</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#F7F8FC", border: "1px solid #eef0f8", borderRadius: 9, padding: "9px 12px", marginBottom: 10 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    background: "#F7F8FC",
+                    border: "1px solid #eef0f8",
+                    borderRadius: 9,
+                    padding: "9px 12px",
+                    marginBottom: 10,
+                  }}
+                >
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ width: 26, height: 18, borderRadius: 4, background: "linear-gradient(135deg,#002FA7,#4f6fe5)" }} />
+                    <div
+                      style={{
+                        width: 26,
+                        height: 18,
+                        borderRadius: 4,
+                        background: "linear-gradient(135deg,#002FA7,#4f6fe5)",
+                      }}
+                    />
                     <span style={{ fontSize: 11, color: "#374151" }}>•••• 4242</span>
                   </div>
                   <span style={{ fontSize: 10, color: "#002FA7", fontWeight: 600 }}>Change</span>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "2px 2px 16px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "2px 2px 16px",
+                  }}
+                >
                   <span style={{ fontSize: 11, color: "#374151" }}>Turn on Auto-Pay?</span>
-                  <div style={{ width: 30, height: 17, borderRadius: 99, background: "#002FA7", position: "relative" }}>
-                    <div style={{ position: "absolute", top: 2, right: 2, width: 13, height: 13, borderRadius: "50%", background: "#fff" }} />
+                  <div
+                    style={{
+                      width: 30,
+                      height: 17,
+                      borderRadius: 99,
+                      background: "#002FA7",
+                      position: "relative",
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 2,
+                        right: 2,
+                        width: 13,
+                        height: 13,
+                        borderRadius: "50%",
+                        background: "#fff",
+                      }}
+                    />
                   </div>
                 </div>
-                <div style={{ textAlign: "center", padding: "10px 0", borderRadius: 9, background: "#002FA7", color: "#fff", fontSize: 12, fontWeight: 700 }}>
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px 0",
+                    borderRadius: 9,
+                    background: "#002FA7",
+                    color: "#fff",
+                    fontSize: 12,
+                    fontWeight: 700,
+                  }}
+                >
                   Pay ₦5,000
                 </div>
               </>
             ) : (
               <div style={{ textAlign: "center", padding: "10px 0" }}>
-                <div style={{ width: 46, height: 46, borderRadius: "50%", background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
+                <div
+                  style={{
+                    width: 46,
+                    height: 46,
+                    borderRadius: "50%",
+                    background: "#ecfdf5",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 auto 12px",
+                  }}
+                >
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17l-5-5" stroke="#059669" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M20 6L9 17l-5-5"
+                      stroke="#059669"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: "#0f1d6e", marginBottom: 4 }}>Payment Successful</div>
-                <div style={{ fontSize: 11, color: "#6b7280" }}>You've paid ₦5,000 for Association Dues</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: "#0f1d6e", marginBottom: 4 }}>
+                  Payment Successful
+                </div>
+                <div style={{ fontSize: 11, color: "#6b7280" }}>
+                  You've paid ₦5,000 for Association Dues
+                </div>
               </div>
             )}
           </div>
@@ -352,56 +455,173 @@ function DashboardContent() {
             left: cursor.x,
             top: cursor.y,
             opacity: cursor.visible ? 1 : 0,
-            transition: "left 0.9s cubic-bezier(0.22,1,0.36,1), top 0.9s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease",
+            transition:
+              "left 0.9s cubic-bezier(0.22,1,0.36,1), top 0.9s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease",
             zIndex: 300,
             pointerEvents: "none",
           }}
         >
-          <svg width="17" height="17" viewBox="0 0 24 24" style={{ display: "block", filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.35))" }}>
-            <path d="M4 2v16.5l4.4-3.6 2.4 5.6 2.8-1.2-2.4-5.5 5.8-0.6z" fill="#fff" stroke="#111" strokeWidth="1.4" strokeLinejoin="round" />
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 24 24"
+            style={{ display: "block", filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.35))" }}
+          >
+            <path
+              d="M4 2v16.5l4.4-3.6 2.4 5.6 2.8-1.2-2.4-5.5 5.8-0.6z"
+              fill="#fff"
+              stroke="#111"
+              strokeWidth="1.4"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
         {ring && (
           <span
             key={ring.key}
             style={{
-              position: "absolute", left: ring.x - 11, top: ring.y - 11, width: 22, height: 22,
-              borderRadius: "50%", border: "2px solid rgba(0,47,167,0.65)", background: "rgba(0,47,167,0.18)",
-              animation: "gh-click 0.55s ease-out forwards", zIndex: 290, pointerEvents: "none",
+              position: "absolute",
+              left: ring.x - 11,
+              top: ring.y - 11,
+              width: 22,
+              height: 22,
+              borderRadius: "50%",
+              border: "2px solid rgba(0,47,167,0.65)",
+              background: "rgba(0,47,167,0.18)",
+              animation: "gh-click 0.55s ease-out forwards",
+              zIndex: 290,
+              pointerEvents: "none",
             }}
           />
         )}
         {/* Blue rail */}
-        <div style={{ width: 48, background: "#002FA7", display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 12, flexShrink: 0 }}>
+        <div
+          style={{
+            width: 48,
+            background: "#002FA7",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingTop: 12,
+            flexShrink: 0,
+          }}
+        >
           <div style={{ marginBottom: 14 }}>
             <img
               src="/Glass.webp"
               alt=""
-              style={{ width: 24, height: 24, objectFit: "contain", filter: "brightness(0) invert(1)" }}
-              onError={(e) => { e.target.style.display = "none"; }}
+              style={{
+                width: 24,
+                height: 24,
+                objectFit: "contain",
+                filter: "brightness(0) invert(1)",
+              }}
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
             />
           </div>
-          <div style={{ width: 30, height: 30, borderRadius: 8, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
+          <div
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 8,
+              background: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: 12,
+            }}
+          >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z" stroke="#002FA7" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M9 21V12h6v9" stroke="#002FA7" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"
+                stroke="#002FA7"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M9 21V12h6v9"
+                stroke="#002FA7"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </div>
-          <div style={{ width: 20, height: 1, background: "rgba(255,255,255,0.2)", marginBottom: 12 }} />
-          <div style={{ width: 30, height: 30, borderRadius: 8, background: "#fff", color: "#002FA7", fontSize: 10, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 7 }}>
+          <div
+            style={{ width: 20, height: 1, background: "rgba(255,255,255,0.2)", marginBottom: 12 }}
+          />
+          <div
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 8,
+              background: "#fff",
+              color: "#002FA7",
+              fontSize: 10,
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: 7,
+            }}
+          >
             KC
           </div>
-          <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.18)", color: "#fff", fontSize: 10, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 8,
+              background: "rgba(255,255,255,0.18)",
+              color: "#fff",
+              fontSize: 10,
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             C1
           </div>
         </div>
 
         {/* White sidebar */}
-        <div style={{ width: 180, background: "#fff", borderRight: "1px solid #eef0f8", flexShrink: 0 }}>
-          <div style={{ padding: "14px 12px", borderBottom: "1px solid #eef0f8", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div
+          style={{
+            width: 180,
+            background: "#fff",
+            borderRight: "1px solid #eef0f8",
+            flexShrink: 0,
+          }}
+        >
+          <div
+            style={{
+              padding: "14px 12px",
+              borderBottom: "1px solid #eef0f8",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", lineHeight: 1.3 }}>Kings College Alumni</div>
-              <span style={{ fontSize: 9, fontWeight: 700, color: "#e85d04", background: "#fff4ee", borderRadius: 99, padding: "1px 6px", display: "inline-block", marginTop: 2 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", lineHeight: 1.3 }}>
+                Kings College Alumni
+              </div>
+              <span
+                style={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  color: "#e85d04",
+                  background: "#fff4ee",
+                  borderRadius: 99,
+                  padding: "1px 6px",
+                  display: "inline-block",
+                  marginTop: 2,
+                }}
+              >
                 Admin
               </span>
             </div>
@@ -415,51 +635,142 @@ function DashboardContent() {
           <div style={{ padding: "10px 8px" }}>
             {[
               {
-                label: "Dashboard", active: nav === "dashboard",
-                icon: (<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
-                  <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.8" />
-                </svg>),
+                label: "Dashboard",
+                active: nav === "dashboard",
+                icon: (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <rect
+                      x="3"
+                      y="3"
+                      width="7"
+                      height="7"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <rect
+                      x="14"
+                      y="3"
+                      width="7"
+                      height="7"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <rect
+                      x="3"
+                      y="14"
+                      width="7"
+                      height="7"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <rect
+                      x="14"
+                      y="14"
+                      width="7"
+                      height="7"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                  </svg>
+                ),
               },
               {
-                label: "Payments", active: nav === "payments",
-                icon: (<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
-                  <path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>),
+                label: "Payments",
+                active: nav === "payments",
+                icon: (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <rect
+                      x="2"
+                      y="5"
+                      width="20"
+                      height="14"
+                      rx="2"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <path
+                      d="M2 10h20M6 15h4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                ),
               },
               {
-                label: "Members", active: nav === "members",
-                icon: (<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                  <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.8" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>),
+                label: "Members",
+                active: nav === "members",
+                icon: (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.8" />
+                    <path
+                      d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                ),
               },
               {
-                label: "Join Requests", active: nav === "requests",
-                icon: (<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                  <circle cx="8.5" cy="7" r="4" stroke="currentColor" strokeWidth="1.8" />
-                  <path d="M20 8v6M23 11h-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>),
+                label: "Join Requests",
+                active: nav === "requests",
+                icon: (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="8.5" cy="7" r="4" stroke="currentColor" strokeWidth="1.8" />
+                    <path
+                      d="M20 8v6M23 11h-6"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                ),
               },
               {
-                label: "Settings", active: false,
-                icon: (<svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" strokeWidth="1.8" />
-                </svg>),
+                label: "Settings",
+                active: false,
+                icon: (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
+                    <path
+                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                  </svg>
+                ),
               },
             ].map((item) => (
               <div
                 key={item.label}
                 style={{
-                  display: "flex", alignItems: "center", gap: 8, padding: "9px 10px", borderRadius: 8, marginBottom: 3,
-                  background: item.active ? "#e6eeff" : "transparent", color: item.active ? "#002FA7" : "#6b7280",
-                  fontSize: 12, fontWeight: item.active ? 700 : 500,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "9px 10px",
+                  borderRadius: 8,
+                  marginBottom: 3,
+                  background: item.active ? "#e6eeff" : "transparent",
+                  color: item.active ? "#002FA7" : "#6b7280",
+                  fontSize: 12,
+                  fontWeight: item.active ? 700 : 500,
                 }}
               >
                 {item.icon}
@@ -471,44 +782,143 @@ function DashboardContent() {
 
         {/* Main area */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-          <div style={{ background: "#fff", borderBottom: "1px solid #eef0f8", padding: "8px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#f5f6fa", borderRadius: 7, padding: "6px 12px", border: "1px solid #eef0f8", flex: 1, maxWidth: 340 }}>
+          <div
+            style={{
+              background: "#fff",
+              borderBottom: "1px solid #eef0f8",
+              padding: "8px 16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                background: "#f5f6fa",
+                borderRadius: 7,
+                padding: "6px 12px",
+                border: "1px solid #eef0f8",
+                flex: 1,
+                maxWidth: 340,
+              }}
+            >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                 <circle cx="11" cy="11" r="8" stroke="#9ca3af" strokeWidth="1.8" />
-                <path d="M21 21l-4.35-4.35" stroke="#9ca3af" strokeWidth="1.8" strokeLinecap="round" />
+                <path
+                  d="M21 21l-4.35-4.35"
+                  stroke="#9ca3af"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
               </svg>
-              <span style={{ fontSize: 11, color: "#9ca3af" }}>Search members, payments, receipts...</span>
+              <span style={{ fontSize: 11, color: "#9ca3af" }}>
+                Search members, payments, receipts...
+              </span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ position: "relative" }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="#6b7280" strokeWidth="1.8" strokeLinecap="round" />
-                  <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="#6b7280" strokeWidth="1.8" strokeLinecap="round" />
+                  <path
+                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+                    stroke="#6b7280"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M13.73 21a2 2 0 0 1-3.46 0"
+                    stroke="#6b7280"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
                 </svg>
-                <div style={{ position: "absolute", top: 0, right: 0, width: 5, height: 5, background: "#e11d48", borderRadius: "50%", border: "1px solid #fff" }} />
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    width: 5,
+                    height: 5,
+                    background: "#e11d48",
+                    borderRadius: "50%",
+                    border: "1px solid #fff",
+                  }}
+                />
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <div style={{ width: 26, height: 26, borderRadius: "50%", background: "linear-gradient(135deg,#002FA7,#4f6fe5)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 9, fontWeight: 700 }}>
+                <div
+                  style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: "50%",
+                    background: "linear-gradient(135deg,#002FA7,#4f6fe5)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    fontSize: 9,
+                    fontWeight: 700,
+                  }}
+                >
                   AA
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: "#0f1d6e", lineHeight: 1.2 }}>Amina Agrawal</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "#0f1d6e", lineHeight: 1.2 }}>
+                    Amina Agrawal
+                  </div>
                   <div style={{ fontSize: 9, color: "#9ca3af" }}>amina@gmail.com</div>
                 </div>
               </div>
             </div>
           </div>
-          <div style={{ position: "relative", flex: 1, padding: "14px 16px 0", overflow: "hidden" }}>
-            <div id="dbo-e0" style={{ opacity: 0, transform: "translateY(10px)", transition: "opacity .5s ease, transform .5s ease", display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 14 }}>
+          <div
+            style={{ position: "relative", flex: 1, padding: "14px 16px 0", overflow: "hidden" }}
+          >
+            <div
+              id="dbo-e0"
+              style={{
+                opacity: 0,
+                transform: "translateY(10px)",
+                transition: "opacity .5s ease, transform .5s ease",
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                marginBottom: 14,
+              }}
+            >
               <div>
                 <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Dashboard</div>
-                <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>A full picture of your community's financial activity.</div>
+                <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
+                  A full picture of your community's financial activity.
+                </div>
               </div>
               <div style={{ display: "flex", gap: 7 }}>
-                <button style={{ padding: "6px 12px", borderRadius: 7, border: "1.5px solid #e0e3f0", background: "#fff", color: "#0f1d6e", fontSize: 11, fontWeight: 600 }}>
+                <button
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: 7,
+                    border: "1.5px solid #e0e3f0",
+                    background: "#fff",
+                    color: "#0f1d6e",
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
+                >
                   Create Payment Plan
                 </button>
-                <button style={{ padding: "6px 12px", borderRadius: 7, border: "none", background: "#002FA7", color: "#fff", fontSize: 11, fontWeight: 600 }}>
+                <button
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: 7,
+                    border: "none",
+                    background: "#002FA7",
+                    color: "#fff",
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
+                >
                   + Add Member
                 </button>
               </div>
@@ -517,141 +927,480 @@ function DashboardContent() {
                 Payment Plans they manage for members */}
             <div
               style={{
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                background: "#FFF4E5", border: "1px solid #FCE3B8", borderRadius: 10,
-                padding: "10px 14px", marginBottom: 10,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                background: "#FFF4E5",
+                border: "1px solid #FCE3B8",
+                borderRadius: 10,
+                padding: "10px 14px",
+                marginBottom: 10,
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#FCE3B8", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <div
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: "50%",
+                    background: "#FCE3B8",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="10" stroke="#b45309" strokeWidth="1.8" />
-                    <path d="M12 7v5l3.5 2" stroke="#b45309" strokeWidth="1.8" strokeLinecap="round" />
+                    <path
+                      d="M12 7v5l3.5 2"
+                      stroke="#b45309"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 </div>
                 <div style={{ fontSize: 12, color: "#78350f" }}>
                   Your <b>Association Dues</b> payment of <b>₦5,000</b> is due in 3 days
                 </div>
               </div>
-              <button style={{ padding: "6px 16px", borderRadius: 7, border: "none", background: "#002FA7", color: "#fff", fontSize: 11, fontWeight: 700 }}>
+              <button
+                style={{
+                  padding: "6px 16px",
+                  borderRadius: 7,
+                  border: "none",
+                  background: "#002FA7",
+                  color: "#fff",
+                  fontSize: 11,
+                  fontWeight: 700,
+                }}
+              >
                 Pay Now
               </button>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 12 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4,1fr)",
+                gap: 8,
+                marginBottom: 12,
+              }}
+            >
               {[
                 {
-                  id: "e1", label: "Total Members", value: "209", color: "#002FA7",
-                  icon: (<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#002FA7" strokeWidth="1.8" strokeLinecap="round" />
-                    <circle cx="9" cy="7" r="4" stroke="#002FA7" strokeWidth="1.8" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#002FA7" strokeWidth="1.8" strokeLinecap="round" />
-                  </svg>),
+                  id: "e1",
+                  label: "Total Members",
+                  value: "209",
+                  color: "#002FA7",
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                        stroke="#002FA7"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="9" cy="7" r="4" stroke="#002FA7" strokeWidth="1.8" />
+                      <path
+                        d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                        stroke="#002FA7"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  ),
                 },
                 {
-                  id: "e2", label: "Inactive Members", value: "12", color: "#e85d04",
-                  icon: (<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#e85d04" strokeWidth="1.8" strokeLinecap="round" />
-                    <circle cx="9" cy="7" r="4" stroke="#e85d04" strokeWidth="1.8" />
-                    <line x1="17" y1="11" x2="23" y2="17" stroke="#e85d04" strokeWidth="1.8" strokeLinecap="round" />
-                    <line x1="23" y1="11" x2="17" y2="17" stroke="#e85d04" strokeWidth="1.8" strokeLinecap="round" />
-                  </svg>),
+                  id: "e2",
+                  label: "Inactive Members",
+                  value: "12",
+                  color: "#e85d04",
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                        stroke="#e85d04"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                      <circle cx="9" cy="7" r="4" stroke="#e85d04" strokeWidth="1.8" />
+                      <line
+                        x1="17"
+                        y1="11"
+                        x2="23"
+                        y2="17"
+                        stroke="#e85d04"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                      <line
+                        x1="23"
+                        y1="11"
+                        x2="17"
+                        y2="17"
+                        stroke="#e85d04"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  ),
                 },
                 {
-                  id: "e3", label: "Total Contributions", value: "₦ 2,002,490", color: "#d4a017", small: true,
-                  icon: (<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="#d4a017" strokeWidth="1.8" />
-                    <path d="M12 6v2m0 8v2M9 9h4.5a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15" stroke="#d4a017" strokeWidth="1.8" strokeLinecap="round" />
-                  </svg>),
+                  id: "e3",
+                  label: "Total Contributions",
+                  value: "₦ 2,002,490",
+                  color: "#d4a017",
+                  small: true,
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" stroke="#d4a017" strokeWidth="1.8" />
+                      <path
+                        d="M12 6v2m0 8v2M9 9h4.5a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"
+                        stroke="#d4a017"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  ),
                 },
                 {
-                  id: "e4", label: "Active Plans", value: "05", color: "#7c3aed",
-                  icon: (<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <rect x="2" y="5" width="20" height="14" rx="2" stroke="#7c3aed" strokeWidth="1.8" />
-                    <path d="M2 10h20M6 15h4" stroke="#7c3aed" strokeWidth="1.8" strokeLinecap="round" />
-                  </svg>),
+                  id: "e4",
+                  label: "Active Plans",
+                  value: "05",
+                  color: "#7c3aed",
+                  icon: (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <rect
+                        x="2"
+                        y="5"
+                        width="20"
+                        height="14"
+                        rx="2"
+                        stroke="#7c3aed"
+                        strokeWidth="1.8"
+                      />
+                      <path
+                        d="M2 10h20M6 15h4"
+                        stroke="#7c3aed"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  ),
                 },
               ].map((s) => (
-                <div key={s.id} id={"dbo-" + s.id} style={{ opacity: 0, transform: "translateY(10px)", transition: "opacity .5s ease, transform .5s ease", background: "#fff", borderRadius: 10, padding: "12px 14px", border: "1px solid #eef0f8", boxShadow: "0 1px 4px rgba(0,47,167,0.05)" }}>
-                  <div style={{ fontSize: 10, color: "#6b7280", fontWeight: 500, marginBottom: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div
+                  key={s.id}
+                  id={"dbo-" + s.id}
+                  style={{
+                    opacity: 0,
+                    transform: "translateY(10px)",
+                    transition: "opacity .5s ease, transform .5s ease",
+                    background: "#fff",
+                    borderRadius: 10,
+                    padding: "12px 14px",
+                    border: "1px solid #eef0f8",
+                    boxShadow: "0 1px 4px rgba(0,47,167,0.05)",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: 10,
+                      color: "#6b7280",
+                      fontWeight: 500,
+                      marginBottom: 8,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     {s.label}
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
                       <circle cx="12" cy="12" r="10" stroke="#c4c9e0" strokeWidth="1.8" />
-                      <path d="M12 8v4M12 16h.01" stroke="#c4c9e0" strokeWidth="1.8" strokeLinecap="round" />
+                      <path
+                        d="M12 8v4M12 16h.01"
+                        stroke="#c4c9e0"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
                     </svg>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     {s.icon}
-                    <span style={{ fontSize: s.small ? 12 : 16, fontWeight: 800, color: "#0f1d6e" }}>{s.value}</span>
+                    <span
+                      style={{ fontSize: s.small ? 12 : 16, fontWeight: 800, color: "#0f1d6e" }}
+                    >
+                      {s.value}
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-              <div style={{ background: "rgba(204,219,255,0.4)", borderRadius: 10, border: "1px solid #eef0f8", padding: "12px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>Payment Plans</span>
-                  <span style={{ fontSize: 11, color: "#002FA7", fontWeight: 600 }}>Manage All</span>
+              <div
+                style={{
+                  background: "rgba(204,219,255,0.4)",
+                  borderRadius: 10,
+                  border: "1px solid #eef0f8",
+                  padding: "12px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                  }}
+                >
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>
+                    Payment Plans
+                  </span>
+                  <span style={{ fontSize: 11, color: "#002FA7", fontWeight: 600 }}>
+                    Manage All
+                  </span>
                 </div>
                 {[
-                  { id: "e5", pb: "pb0", name: "Association Dues", freq: "Monthly", fColor: "#d4a017", fBg: "#fff8e7", amt: "₦1.2M", paid: "24 / 120", bar: "#d4a017", pct: "60%" },
-                  { id: "e6", pb: "pb1", name: "Infrastructure Development", freq: "One-Time", fColor: "#7c3aed", fBg: "#f3eeff", amt: "₦300,000", paid: "24 / 120", bar: "#7c3aed", pct: "74%" },
-                  { id: "e7", pb: "pb2", name: "End Of The Year Party", freq: "Weekly", fColor: "#059669", fBg: "#ecfdf5", amt: "₦400,500", paid: "24 / 120", bar: "#059669", pct: "20%" },
+                  {
+                    id: "e5",
+                    pb: "pb0",
+                    name: "Association Dues",
+                    freq: "Monthly",
+                    fColor: "#d4a017",
+                    fBg: "#fff8e7",
+                    amt: "₦1.2M",
+                    paid: "24 / 120",
+                    bar: "#d4a017",
+                    pct: "60%",
+                  },
+                  {
+                    id: "e6",
+                    pb: "pb1",
+                    name: "Infrastructure Development",
+                    freq: "One-Time",
+                    fColor: "#7c3aed",
+                    fBg: "#f3eeff",
+                    amt: "₦300,000",
+                    paid: "24 / 120",
+                    bar: "#7c3aed",
+                    pct: "74%",
+                  },
+                  {
+                    id: "e7",
+                    pb: "pb2",
+                    name: "End Of The Year Party",
+                    freq: "Weekly",
+                    fColor: "#059669",
+                    fBg: "#ecfdf5",
+                    amt: "₦400,500",
+                    paid: "24 / 120",
+                    bar: "#059669",
+                    pct: "20%",
+                  },
                 ].map((p) => (
-                  <div key={p.id} id={"dbo-" + p.id} style={{ opacity: 0, transform: "translateY(10px)", transition: "opacity .5s ease, transform .5s ease", background: "#fff", borderRadius: 8, padding: "10px 12px", marginBottom: 6, border: "1px solid rgba(204,219,255,0.6)" }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 3 }}>
+                  <div
+                    key={p.id}
+                    id={"dbo-" + p.id}
+                    style={{
+                      opacity: 0,
+                      transform: "translateY(10px)",
+                      transition: "opacity .5s ease, transform .5s ease",
+                      background: "#fff",
+                      borderRadius: 8,
+                      padding: "10px 12px",
+                      marginBottom: 6,
+                      border: "1px solid rgba(204,219,255,0.6)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: 3,
+                      }}
+                    >
                       <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                        <span style={{ fontSize: 11, fontWeight: 700, color: "#0f1d6e" }}>{p.name}</span>
-                        <span style={{ fontSize: 9, fontWeight: 700, color: p.fColor, background: p.fBg, borderRadius: 99, padding: "1px 6px" }}>{p.freq}</span>
+                        <span style={{ fontSize: 11, fontWeight: 700, color: "#0f1d6e" }}>
+                          {p.name}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 9,
+                            fontWeight: 700,
+                            color: p.fColor,
+                            background: p.fBg,
+                            borderRadius: 99,
+                            padding: "1px 6px",
+                          }}
+                        >
+                          {p.freq}
+                        </span>
                       </div>
-                      <span style={{ fontSize: 11, fontWeight: 800, color: "#0f1d6e" }}>{p.amt}</span>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: "#0f1d6e" }}>
+                        {p.amt}
+                      </span>
                     </div>
-                    <div style={{ fontSize: 9, color: "#9ca3af", marginBottom: 5 }}>{p.paid} members paid</div>
-                    <div style={{ height: 4, borderRadius: 99, background: "#eef0f8", overflow: "hidden" }}>
-                      <div id={"dbo-" + p.pb} style={{ height: "100%", borderRadius: 99, background: p.bar, width: 0 }} />
+                    <div style={{ fontSize: 9, color: "#9ca3af", marginBottom: 5 }}>
+                      {p.paid} members paid
                     </div>
-                    <div style={{ fontSize: 9, color: "#9ca3af", textAlign: "right", marginTop: 2 }}>{p.pct} Collected</div>
+                    <div
+                      style={{
+                        height: 4,
+                        borderRadius: 99,
+                        background: "#eef0f8",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        id={"dbo-" + p.pb}
+                        style={{ height: "100%", borderRadius: 99, background: p.bar, width: 0 }}
+                      />
+                    </div>
+                    <div
+                      style={{ fontSize: 9, color: "#9ca3af", textAlign: "right", marginTop: 2 }}
+                    >
+                      {p.pct} Collected
+                    </div>
                   </div>
                 ))}
               </div>
-              <div style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "12px" }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", marginBottom: 10 }}>Recent Activity</div>
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: 10,
+                  border: "1px solid #eef0f8",
+                  padding: "12px",
+                }}
+              >
+                <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", marginBottom: 10 }}>
+                  Recent Activity
+                </div>
                 {[
-                  { id: "e8", aBg: "#ecfdf5", aColor: "#059669", type: "payment", name: "Joseph Alabi", action: "paid", detail: "₦20,200 for Infrastructure..." },
-                  { id: "e9", aBg: "#e6eeff", aColor: "#002FA7", type: "member", name: "Grace Adekunle", action: "joined the community", detail: "" },
-                  { id: "e10", aBg: "#ecfdf5", aColor: "#059669", type: "payment", name: "Emeka Nwosu", action: "paid Event Fee", detail: "₦15,000" },
-                  { id: "e11", aBg: "#fff8e7", aColor: "#d4a017", type: "reminder", name: null, action: "Dues Reminder Sent to", detail: "12 members" },
+                  {
+                    id: "e8",
+                    aBg: "#ecfdf5",
+                    aColor: "#059669",
+                    type: "payment",
+                    name: "Joseph Alabi",
+                    action: "paid",
+                    detail: "₦20,200 for Infrastructure...",
+                  },
+                  {
+                    id: "e9",
+                    aBg: "#e6eeff",
+                    aColor: "#002FA7",
+                    type: "member",
+                    name: "Grace Adekunle",
+                    action: "joined the community",
+                    detail: "",
+                  },
+                  {
+                    id: "e10",
+                    aBg: "#ecfdf5",
+                    aColor: "#059669",
+                    type: "payment",
+                    name: "Emeka Nwosu",
+                    action: "paid Event Fee",
+                    detail: "₦15,000",
+                  },
+                  {
+                    id: "e11",
+                    aBg: "#fff8e7",
+                    aColor: "#d4a017",
+                    type: "reminder",
+                    name: null,
+                    action: "Dues Reminder Sent to",
+                    detail: "12 members",
+                  },
                 ].map((a, i, arr) => (
-                  <div key={a.id} id={"dbo-" + a.id} style={{ opacity: 0, transform: "translateY(10px)", transition: "opacity .5s ease, transform .5s ease", display: "flex", alignItems: "flex-start", gap: 9, padding: "9px 0", borderBottom: i < arr.length - 1 ? "1px solid #f3f4f8" : "none" }}>
-                    <div style={{ width: 28, height: 28, borderRadius: "50%", flexShrink: 0, background: a.aBg, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div
+                    key={a.id}
+                    id={"dbo-" + a.id}
+                    style={{
+                      opacity: 0,
+                      transform: "translateY(10px)",
+                      transition: "opacity .5s ease, transform .5s ease",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 9,
+                      padding: "9px 0",
+                      borderBottom: i < arr.length - 1 ? "1px solid #f3f4f8" : "none",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: "50%",
+                        flexShrink: 0,
+                        background: a.aBg,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
                       {a.type === "payment" && (
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
                           <circle cx="12" cy="12" r="10" stroke={a.aColor} strokeWidth="1.8" />
-                          <path d="M12 6v2m0 8v2M9 9h4.5a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15" stroke={a.aColor} strokeWidth="1.8" strokeLinecap="round" />
+                          <path
+                            d="M12 6v2m0 8v2M9 9h4.5a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"
+                            stroke={a.aColor}
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
                         </svg>
                       )}
                       {a.type === "member" && (
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke={a.aColor} strokeWidth="1.8" strokeLinecap="round" />
+                          <path
+                            d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                            stroke={a.aColor}
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
                           <circle cx="12" cy="7" r="4" stroke={a.aColor} strokeWidth="1.8" />
                         </svg>
                       )}
                       {a.type === "reminder" && (
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke={a.aColor} strokeWidth="1.8" strokeLinecap="round" />
-                          <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke={a.aColor} strokeWidth="1.8" strokeLinecap="round" />
+                          <path
+                            d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+                            stroke={a.aColor}
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
+                          <path
+                            d="M13.73 21a2 2 0 0 1-3.46 0"
+                            stroke={a.aColor}
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
                         </svg>
                       )}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p style={{ fontSize: 11, color: "#374151", margin: 0, lineHeight: 1.45 }}>
-                        {a.name && <strong style={{ color: "#002FA7", fontWeight: 700 }}>{a.name} </strong>}
+                        {a.name && (
+                          <strong style={{ color: "#002FA7", fontWeight: 700 }}>{a.name} </strong>
+                        )}
                         {a.action}
-                        {a.detail && (<> <strong style={{ color: "#0f1d6e" }}>{a.detail}</strong></>)}
+                        {a.detail && (
+                          <>
+                            {" "}
+                            <strong style={{ color: "#0f1d6e" }}>{a.detail}</strong>
+                          </>
+                        )}
                       </p>
                       <div style={{ display: "flex", alignItems: "center", gap: 3, marginTop: 3 }}>
                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none">
                           <circle cx="12" cy="12" r="10" stroke="#9ca3af" strokeWidth="1.8" />
-                          <path d="M12 6v6l4 2" stroke="#9ca3af" strokeWidth="1.8" strokeLinecap="round" />
+                          <path
+                            d="M12 6v6l4 2"
+                            stroke="#9ca3af"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                          />
                         </svg>
                         <span style={{ fontSize: 9, color: "#9ca3af" }}>5 hours ago</span>
                       </div>
@@ -664,72 +1413,269 @@ function DashboardContent() {
             {/* ── Payments screen (tour overlay) ── */}
             <div
               style={{
-                position: "absolute", inset: 0, background: "#F7F8FC", padding: "14px 16px 0",
+                position: "absolute",
+                inset: 0,
+                background: "#F7F8FC",
+                padding: "14px 16px 0",
                 transform: nav === "payments" ? "translateX(0)" : "translateX(105%)",
                 transition: "transform 480ms cubic-bezier(0.32,0.72,0.3,1)",
-                boxShadow: "-24px 0 48px rgba(0,0,0,0.14)", willChange: "transform", overflow: "hidden",
+                boxShadow: "-24px 0 48px rgba(0,0,0,0.14)",
+                willChange: "transform",
+                overflow: "hidden",
               }}
             >
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 10 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                  marginBottom: 10,
+                }}
+              >
                 <div>
                   <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Payments</div>
-                  <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>A full picture of all payments created in your community.</div>
+                  <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
+                    A full picture of all payments created in your community.
+                  </div>
                 </div>
-                <button style={{ padding: "6px 12px", borderRadius: 7, border: "none", background: "#002FA7", color: "#fff", fontSize: 11, fontWeight: 600 }}>
+                <button
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: 7,
+                    border: "none",
+                    background: "#002FA7",
+                    color: "#fff",
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
+                >
                   + Create Payment Plan
                 </button>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 10 }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(4,1fr)",
+                  gap: 8,
+                  marginBottom: 10,
+                }}
+              >
                 {[
-                  { label: "Total Amount Collected", value: "₦4,800,040", color: "#d4a017", small: true },
+                  {
+                    label: "Total Amount Collected",
+                    value: "₦4,800,040",
+                    color: "#d4a017",
+                    small: true,
+                  },
                   { label: "Active Plans", value: "04", color: "#e11d48" },
                   { label: "Yet to pay", value: "36", color: "#d4a017" },
                   { label: "Failed Payments", value: "08", color: "#c026d3" },
                 ].map((s) => (
-                  <div key={s.label} style={{ background: "#fff", borderRadius: 10, padding: "9px 11px", border: "1px solid #eef0f8", boxShadow: "0 1px 4px rgba(0,47,167,0.05)" }}>
-                    <div style={{ fontSize: 9, color: "#6b7280", fontWeight: 500, marginBottom: 6 }}>{s.label}</div>
+                  <div
+                    key={s.label}
+                    style={{
+                      background: "#fff",
+                      borderRadius: 10,
+                      padding: "9px 11px",
+                      border: "1px solid #eef0f8",
+                      boxShadow: "0 1px 4px rgba(0,47,167,0.05)",
+                    }}
+                  >
+                    <div
+                      style={{ fontSize: 9, color: "#6b7280", fontWeight: 500, marginBottom: 6 }}
+                    >
+                      {s.label}
+                    </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                      <span style={{ fontSize: s.small ? 12 : 14, fontWeight: 800, color: "#0f1d6e" }}>{s.value}</span>
+                      <span
+                        style={{
+                          width: 8,
+                          height: 8,
+                          borderRadius: "50%",
+                          background: s.color,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span
+                        style={{ fontSize: s.small ? 12 : 14, fontWeight: 800, color: "#0f1d6e" }}
+                      >
+                        {s.value}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
-              <div style={{ display: "inline-flex", background: "#eef0f8", borderRadius: 8, padding: 2, marginBottom: 10 }}>
+              <div
+                style={{
+                  display: "inline-flex",
+                  background: "#eef0f8",
+                  borderRadius: 8,
+                  padding: 2,
+                  marginBottom: 10,
+                }}
+              >
                 {["All Plans", "Recurring", "One Time"].map((t, i) => (
-                  <span key={t} style={{ fontSize: 10, fontWeight: 600, padding: "4px 10px", borderRadius: 6, background: i === 0 ? "#fff" : "transparent", color: i === 0 ? "#0f1d6e" : "#6b7280" }}>{t}</span>
+                  <span
+                    key={t}
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      padding: "4px 10px",
+                      borderRadius: 6,
+                      background: i === 0 ? "#fff" : "transparent",
+                      color: i === 0 ? "#0f1d6e" : "#6b7280",
+                    }}
+                  >
+                    {t}
+                  </span>
                 ))}
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 {[
-                  { st: "Active", stc: "#059669", stb: "#ecfdf5", name: "Association Dues", freq: "Monthly", fc: "#d4a017", fb: "#fff8e7", bar: "#d4a017", pct: "60%" },
-                  { st: "Active", stc: "#059669", stb: "#ecfdf5", name: "Infrastructure Development", freq: "Monthly", fc: "#c026d3", fb: "#fdf0ff", bar: "#c026d3", pct: "74%" },
-                  { st: "Inactive", stc: "#e11d48", stb: "#fff1f2", name: "End Of The Year Party", freq: "One-Time", fc: "#9C27B0", fb: "#F3E5F5", bar: "#2547D0", pct: "100%" },
-                  { st: "Paused", stc: "#6b7280", stb: "#f3f4f6", name: "Association Dues", freq: "Weekly", fc: "#1C2B8A", fb: "#E8ECF8", bar: "#e88504", pct: "45%" },
+                  {
+                    st: "Active",
+                    stc: "#059669",
+                    stb: "#ecfdf5",
+                    name: "Association Dues",
+                    freq: "Monthly",
+                    fc: "#d4a017",
+                    fb: "#fff8e7",
+                    bar: "#d4a017",
+                    pct: "60%",
+                  },
+                  {
+                    st: "Active",
+                    stc: "#059669",
+                    stb: "#ecfdf5",
+                    name: "Infrastructure Development",
+                    freq: "Monthly",
+                    fc: "#c026d3",
+                    fb: "#fdf0ff",
+                    bar: "#c026d3",
+                    pct: "74%",
+                  },
+                  {
+                    st: "Inactive",
+                    stc: "#e11d48",
+                    stb: "#fff1f2",
+                    name: "End Of The Year Party",
+                    freq: "One-Time",
+                    fc: "#9C27B0",
+                    fb: "#F3E5F5",
+                    bar: "#2547D0",
+                    pct: "100%",
+                  },
+                  {
+                    st: "Paused",
+                    stc: "#6b7280",
+                    stb: "#f3f4f6",
+                    name: "Association Dues",
+                    freq: "Weekly",
+                    fc: "#1C2B8A",
+                    fb: "#E8ECF8",
+                    bar: "#e88504",
+                    pct: "45%",
+                  },
                 ].map((p, i) => (
-                  <div key={i} style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "10px 12px" }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-                      <span style={{ fontSize: 9, fontWeight: 700, color: p.stc, background: p.stb, borderRadius: 99, padding: "2px 8px", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                        <span style={{ width: 5, height: 5, borderRadius: "50%", background: p.stc }} />
+                  <div
+                    key={i}
+                    style={{
+                      background: "#fff",
+                      borderRadius: 10,
+                      border: "1px solid #eef0f8",
+                      padding: "10px 12px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: 6,
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: 9,
+                          fontWeight: 700,
+                          color: p.stc,
+                          background: p.stb,
+                          borderRadius: 99,
+                          padding: "2px 8px",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 4,
+                        }}
+                      >
+                        <span
+                          style={{ width: 5, height: 5, borderRadius: "50%", background: p.stc }}
+                        />
                         {p.st}
                       </span>
                       <span style={{ fontSize: 12, color: "#9ca3af", letterSpacing: 1 }}>•••</span>
                     </div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", marginBottom: 4 }}>{p.name}</div>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                    <div
+                      style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e", marginBottom: 4 }}
+                    >
+                      {p.name}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: 6,
+                      }}
+                    >
                       <span style={{ fontSize: 11, fontWeight: 800, color: "#0f1d6e" }}>
                         ₦5,000
-                        <span style={{ fontSize: 9, fontWeight: 700, color: p.fc, background: p.fb, borderRadius: 99, padding: "1px 7px", marginLeft: 4 }}>{p.freq}</span>
+                        <span
+                          style={{
+                            fontSize: 9,
+                            fontWeight: 700,
+                            color: p.fc,
+                            background: p.fb,
+                            borderRadius: 99,
+                            padding: "1px 7px",
+                            marginLeft: 4,
+                          }}
+                        >
+                          {p.freq}
+                        </span>
                       </span>
                       <span style={{ fontSize: 9, color: "#9ca3af" }}>
                         <b style={{ color: "#0f1d6e" }}>N1.2M</b>/N2M Collected
                       </span>
                     </div>
-                    <div style={{ height: 4, borderRadius: 99, background: "#eef0f8", overflow: "hidden", marginBottom: 5 }}>
-                      <div style={{ height: "100%", width: p.pct, borderRadius: 99, background: p.bar }} />
+                    <div
+                      style={{
+                        height: 4,
+                        borderRadius: 99,
+                        background: "#eef0f8",
+                        overflow: "hidden",
+                        marginBottom: 5,
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "100%",
+                          width: p.pct,
+                          borderRadius: 99,
+                          background: p.bar,
+                        }}
+                      />
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 9, color: "#9ca3af" }}>
-                      <span><b style={{ color: "#374151" }}>24 / 120</b> members paid</span>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        fontSize: 9,
+                        color: "#9ca3af",
+                      }}
+                    >
+                      <span>
+                        <b style={{ color: "#374151" }}>24 / 120</b> members paid
+                      </span>
                       <span>Due Apr 1</span>
                     </div>
                   </div>
@@ -740,55 +1686,173 @@ function DashboardContent() {
             {/* ── Members screen (tour overlay) ── */}
             <div
               style={{
-                position: "absolute", inset: 0, background: "#F7F8FC", padding: "14px 16px 0",
+                position: "absolute",
+                inset: 0,
+                background: "#F7F8FC",
+                padding: "14px 16px 0",
                 transform: nav === "members" ? "translateX(0)" : "translateX(105%)",
                 transition: "transform 480ms cubic-bezier(0.32,0.72,0.3,1)",
-                boxShadow: "-24px 0 48px rgba(0,0,0,0.14)", willChange: "transform", overflow: "hidden",
+                boxShadow: "-24px 0 48px rgba(0,0,0,0.14)",
+                willChange: "transform",
+                overflow: "hidden",
               }}
             >
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 10 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  justifyContent: "space-between",
+                  marginBottom: 10,
+                }}
+              >
                 <div>
                   <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Members</div>
-                  <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>A full picture of the members of your community.</div>
+                  <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
+                    A full picture of the members of your community.
+                  </div>
                 </div>
-                <button style={{ padding: "6px 12px", borderRadius: 7, border: "none", background: "#002FA7", color: "#fff", fontSize: 11, fontWeight: 600 }}>
+                <button
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: 7,
+                    border: "none",
+                    background: "#002FA7",
+                    color: "#fff",
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
+                >
                   + Add Member
                 </button>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 10 }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(4,1fr)",
+                  gap: 8,
+                  marginBottom: 10,
+                }}
+              >
                 {[
                   { label: "Total Members", value: "209", color: "#002FA7" },
                   { label: "Active Members", value: "212", color: "#e11d48" },
                   { label: "Inactive", value: "36", color: "#d4a017" },
                   { label: "Admins", value: "02", color: "#c026d3" },
                 ].map((s) => (
-                  <div key={s.label} style={{ background: "#fff", borderRadius: 10, padding: "9px 11px", border: "1px solid #eef0f8", boxShadow: "0 1px 4px rgba(0,47,167,0.05)" }}>
-                    <div style={{ fontSize: 9, color: "#6b7280", fontWeight: 500, marginBottom: 6 }}>{s.label}</div>
+                  <div
+                    key={s.label}
+                    style={{
+                      background: "#fff",
+                      borderRadius: 10,
+                      padding: "9px 11px",
+                      border: "1px solid #eef0f8",
+                      boxShadow: "0 1px 4px rgba(0,47,167,0.05)",
+                    }}
+                  >
+                    <div
+                      style={{ fontSize: 9, color: "#6b7280", fontWeight: 500, marginBottom: 6 }}
+                    >
+                      {s.label}
+                    </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                      <span style={{ fontSize: 14, fontWeight: 800, color: "#0f1d6e" }}>{s.value}</span>
+                      <span
+                        style={{
+                          width: 8,
+                          height: 8,
+                          borderRadius: "50%",
+                          background: s.color,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span style={{ fontSize: 14, fontWeight: 800, color: "#0f1d6e" }}>
+                        {s.value}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
-              <div style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "10px 14px 6px" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>Member Payments</span>
-                  <button style={{ padding: "5px 11px", borderRadius: 7, border: "1.5px solid #e0e3f0", background: "#fff", color: "#002FA7", fontSize: 10, fontWeight: 600 }}>
+              <div
+                style={{
+                  background: "#fff",
+                  borderRadius: 10,
+                  border: "1px solid #eef0f8",
+                  padding: "10px 14px 6px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 8,
+                  }}
+                >
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>
+                    Member Payments
+                  </span>
+                  <button
+                    style={{
+                      padding: "5px 11px",
+                      borderRadius: 7,
+                      border: "1.5px solid #e0e3f0",
+                      background: "#fff",
+                      color: "#002FA7",
+                      fontSize: 10,
+                      fontWeight: 600,
+                    }}
+                  >
                     Export Csv
                   </button>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#f5f6fa", borderRadius: 7, padding: "5px 11px", border: "1px solid #eef0f8", flex: 1, maxWidth: 220 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginBottom: 6,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      background: "#f5f6fa",
+                      borderRadius: 7,
+                      padding: "5px 11px",
+                      border: "1px solid #eef0f8",
+                      flex: 1,
+                      maxWidth: 220,
+                    }}
+                  >
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
                       <circle cx="11" cy="11" r="8" stroke="#9ca3af" strokeWidth="1.8" />
-                      <path d="M21 21l-4.35-4.35" stroke="#9ca3af" strokeWidth="1.8" strokeLinecap="round" />
+                      <path
+                        d="M21 21l-4.35-4.35"
+                        stroke="#9ca3af"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
                     </svg>
                     <span style={{ fontSize: 10, color: "#9ca3af" }}>Search members…</span>
                   </div>
-                  <span style={{ fontSize: 10, color: "#6b7280" }}>Sort by: <b style={{ color: "#0f1d6e" }}>Recent</b></span>
+                  <span style={{ fontSize: 10, color: "#6b7280" }}>
+                    Sort by: <b style={{ color: "#0f1d6e" }}>Recent</b>
+                  </span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1.6fr 0.6fr 1fr 1.2fr 1.8fr", gap: 8, padding: "7px 0", borderBottom: "1px solid #f3f4f8", fontSize: 10, color: "#9ca3af", fontWeight: 600, background: "#F9F9FB" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1.6fr 0.6fr 1fr 1.2fr 1.8fr",
+                    gap: 8,
+                    padding: "7px 0",
+                    borderBottom: "1px solid #f3f4f8",
+                    fontSize: 10,
+                    color: "#9ca3af",
+                    fontWeight: 600,
+                    background: "#F9F9FB",
+                  }}
+                >
                   <span>Members</span>
                   <span>Plans</span>
                   <span>Status</span>
@@ -796,15 +1860,70 @@ function DashboardContent() {
                   <span>Email</span>
                 </div>
                 {[
-                  { n: "Adebayor Okafor", plans: "2", st: "2/2 Paid", sc: "#059669", sb: "#ecfdf5", d: "Mar 12, 2025", e: "adebayor@gmail.com" },
-                  { n: "Chisom Eze", plans: "2", st: "1/2 Paid", sc: "#b45309", sb: "#fffbeb", d: "Mar 12, 2025", e: "chisom@gmail.com" },
-                  { n: "Tunde Nwosu", plans: "3", st: "0/3 Paid", sc: "#e11d48", sb: "#fff1f2", d: "Mar 12, 2025", e: "tunde@gmail.com" },
-                  { n: "Blessing Igwe", plans: "2", st: "2/2 Paid", sc: "#059669", sb: "#ecfdf5", d: "Mar 12, 2025", e: "blessing@gmail.com" },
+                  {
+                    n: "Adebayor Okafor",
+                    plans: "2",
+                    st: "2/2 Paid",
+                    sc: "#059669",
+                    sb: "#ecfdf5",
+                    d: "Mar 12, 2025",
+                    e: "adebayor@gmail.com",
+                  },
+                  {
+                    n: "Chisom Eze",
+                    plans: "2",
+                    st: "1/2 Paid",
+                    sc: "#b45309",
+                    sb: "#fffbeb",
+                    d: "Mar 12, 2025",
+                    e: "chisom@gmail.com",
+                  },
+                  {
+                    n: "Tunde Nwosu",
+                    plans: "3",
+                    st: "0/3 Paid",
+                    sc: "#e11d48",
+                    sb: "#fff1f2",
+                    d: "Mar 12, 2025",
+                    e: "tunde@gmail.com",
+                  },
+                  {
+                    n: "Blessing Igwe",
+                    plans: "2",
+                    st: "2/2 Paid",
+                    sc: "#059669",
+                    sb: "#ecfdf5",
+                    d: "Mar 12, 2025",
+                    e: "blessing@gmail.com",
+                  },
                 ].map((m, i, arr) => (
-                  <div key={m.n} style={{ display: "grid", gridTemplateColumns: "1.6fr 0.6fr 1fr 1.2fr 1.8fr", gap: 8, alignItems: "center", padding: "9px 0", borderBottom: i < arr.length - 1 ? "1px solid #f3f4f8" : "none" }}>
+                  <div
+                    key={m.n}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1.6fr 0.6fr 1fr 1.2fr 1.8fr",
+                      gap: 8,
+                      alignItems: "center",
+                      padding: "9px 0",
+                      borderBottom: i < arr.length - 1 ? "1px solid #f3f4f8" : "none",
+                    }}
+                  >
                     <span style={{ fontSize: 11, fontWeight: 700, color: "#002FA7" }}>{m.n}</span>
                     <span style={{ fontSize: 11, color: "#374151" }}>{m.plans}</span>
-                    <span><span style={{ fontSize: 9, fontWeight: 700, color: m.sc, background: m.sb, borderRadius: 99, padding: "1px 8px" }}>{m.st}</span></span>
+                    <span>
+                      <span
+                        style={{
+                          fontSize: 9,
+                          fontWeight: 700,
+                          color: m.sc,
+                          background: m.sb,
+                          borderRadius: 99,
+                          padding: "1px 8px",
+                        }}
+                      >
+                        {m.st}
+                      </span>
+                    </span>
                     <span style={{ fontSize: 11, color: "#374151" }}>{m.d}</span>
                     <span style={{ fontSize: 11, color: "#6b7280" }}>{m.e}</span>
                   </div>
@@ -815,52 +1934,190 @@ function DashboardContent() {
             {/* ── Join Requests screen (tour overlay) ── */}
             <div
               style={{
-                position: "absolute", inset: 0, background: "#F7F8FC", padding: "14px 16px 0",
+                position: "absolute",
+                inset: 0,
+                background: "#F7F8FC",
+                padding: "14px 16px 0",
                 transform: nav === "requests" ? "translateX(0)" : "translateX(105%)",
                 transition: "transform 480ms cubic-bezier(0.32,0.72,0.3,1)",
-                boxShadow: "-24px 0 48px rgba(0,0,0,0.14)", willChange: "transform", overflow: "hidden",
+                boxShadow: "-24px 0 48px rgba(0,0,0,0.14)",
+                willChange: "transform",
+                overflow: "hidden",
               }}
             >
               <div style={{ marginBottom: 14 }}>
                 <div style={{ fontSize: 16, fontWeight: 800, color: "#0f1d6e" }}>Join Requests</div>
-                <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>Review who wants to join before letting them into your community.</div>
+                <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
+                  Review who wants to join before letting them into your community.
+                </div>
               </div>
               {requestStatus === "pending" ? (
                 <>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-                    <span style={{ fontSize: 10, fontWeight: 700, color: "#6b7280", letterSpacing: 0.5 }}>AWAITING REVIEW</span>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: "#002FA7", background: "#e6eeff", borderRadius: 99, padding: "1px 7px" }}>1</span>
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        color: "#6b7280",
+                        letterSpacing: 0.5,
+                      }}
+                    >
+                      AWAITING REVIEW
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        fontWeight: 700,
+                        color: "#002FA7",
+                        background: "#e6eeff",
+                        borderRadius: 99,
+                        padding: "1px 7px",
+                      }}
+                    >
+                      1
+                    </span>
                   </div>
-                  <div style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "14px 16px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#EEF2FF", color: "#1C2B8A", fontSize: 13, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>GA</div>
+                  <div
+                    style={{
+                      background: "#fff",
+                      borderRadius: 10,
+                      border: "1px solid #eef0f8",
+                      padding: "14px 16px",
+                    }}
+                  >
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}
+                    >
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: "50%",
+                          background: "#EEF2FF",
+                          color: "#1C2B8A",
+                          fontSize: 13,
+                          fontWeight: 700,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}
+                      >
+                        GA
+                      </div>
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>Grace Adekunle</div>
-                        <div style={{ fontSize: 10, color: "#9ca3af" }}>grace.adekunle@gmail.com · 0803 221 4590</div>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>
+                          Grace Adekunle
+                        </div>
+                        <div style={{ fontSize: 10, color: "#9ca3af" }}>
+                          grace.adekunle@gmail.com · 0803 221 4590
+                        </div>
                       </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <span style={{ fontSize: 10, color: "#9ca3af" }}>Requested 2 hours ago</span>
                       <div style={{ display: "flex", gap: 8 }}>
-                        <div style={{ padding: "6px 14px", borderRadius: 7, border: "1.5px solid #fecaca", color: "#dc2626", fontSize: 11, fontWeight: 600 }}>Reject</div>
-                        <div style={{ padding: "6px 14px", borderRadius: 7, background: "#002FA7", color: "#fff", fontSize: 11, fontWeight: 600 }}>Approve</div>
+                        <div
+                          style={{
+                            padding: "6px 14px",
+                            borderRadius: 7,
+                            border: "1.5px solid #fecaca",
+                            color: "#dc2626",
+                            fontSize: 11,
+                            fontWeight: 600,
+                          }}
+                        >
+                          Reject
+                        </div>
+                        <div
+                          style={{
+                            padding: "6px 14px",
+                            borderRadius: 7,
+                            background: "#002FA7",
+                            color: "#fff",
+                            fontSize: 11,
+                            fontWeight: 600,
+                          }}
+                        >
+                          Approve
+                        </div>
                       </div>
                     </div>
                   </div>
                 </>
               ) : (
                 <>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "#6b7280", letterSpacing: 0.5, marginBottom: 8 }}>RECENTLY PROCESSED</div>
-                  <div style={{ background: "#fff", borderRadius: 10, border: "1px solid #eef0f8", padding: "14px 16px" }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      color: "#6b7280",
+                      letterSpacing: 0.5,
+                      marginBottom: 8,
+                    }}
+                  >
+                    RECENTLY PROCESSED
+                  </div>
+                  <div
+                    style={{
+                      background: "#fff",
+                      borderRadius: 10,
+                      border: "1px solid #eef0f8",
+                      padding: "14px 16px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                        <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#EEF2FF", color: "#1C2B8A", fontSize: 13, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>GA</div>
+                        <div
+                          style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: "50%",
+                            background: "#EEF2FF",
+                            color: "#1C2B8A",
+                            fontSize: 13,
+                            fontWeight: 700,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                          }}
+                        >
+                          GA
+                        </div>
                         <div>
-                          <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>Grace Adekunle</div>
-                          <div style={{ fontSize: 10, color: "#9ca3af" }}>grace.adekunle@gmail.com</div>
+                          <div style={{ fontSize: 12, fontWeight: 700, color: "#0f1d6e" }}>
+                            Grace Adekunle
+                          </div>
+                          <div style={{ fontSize: 10, color: "#9ca3af" }}>
+                            grace.adekunle@gmail.com
+                          </div>
                         </div>
                       </div>
-                      <span style={{ fontSize: 9, fontWeight: 700, color: "#059669", background: "#ecfdf5", borderRadius: 99, padding: "3px 10px" }}>Approved</span>
+                      <span
+                        style={{
+                          fontSize: 9,
+                          fontWeight: 700,
+                          color: "#059669",
+                          background: "#ecfdf5",
+                          borderRadius: 99,
+                          padding: "3px 10px",
+                        }}
+                      >
+                        Approved
+                      </span>
                     </div>
                   </div>
                 </>
@@ -898,16 +2155,25 @@ function ScaledDashboardContent() {
     <div
       ref={outerRef}
       style={{
-        width: "100%", height: "100%", overflow: "hidden",
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
         // Same defensive clip as the outer homography screen div -- this
         // wrapper has its OWN scale() transform nested inside that one, and
         // the double transform stack is enough for composited children
         // (reveal-in transitions, willChange:transform overlays) to escape
         // just overflow:hidden even with the outer clip-path in place.
-        clipPath: "inset(0)", WebkitClipPath: "inset(0)",
+        clipPath: "inset(0)",
+        WebkitClipPath: "inset(0)",
       }}
     >
-      <div style={{ width: DASHBOARD_NATURAL_WIDTH, transform: `scale(${scale})`, transformOrigin: "top left" }}>
+      <div
+        style={{
+          width: DASHBOARD_NATURAL_WIDTH,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        }}
+      >
         <DashboardContent />
       </div>
     </div>
@@ -917,18 +2183,39 @@ function ScaledDashboardContent() {
 // ─── The auto-playing laptop demo ────────────────────────────────────────────
 export default function LaptopHeroDemo({ className = "" }) {
   return (
-    <div className={className} style={{ position: "relative", width: LAPTOP_W, height: LAPTOP_H, flexShrink: 0 }}>
-      <img src={laptopImg} alt="Laptop showing the Glass admin dashboard" style={{ position: "absolute", inset: 0, width: LAPTOP_W, height: LAPTOP_H, objectFit: "cover" }} draggable={false} />
+    <div
+      className={className}
+      style={{ position: "relative", width: LAPTOP_W, height: LAPTOP_H, flexShrink: 0 }}
+    >
+      <img
+        src={laptopImg}
+        alt="Laptop showing the Glass admin dashboard"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: LAPTOP_W,
+          height: LAPTOP_H,
+          objectFit: "cover",
+        }}
+        draggable={false}
+      />
       <div
         style={{
-          position: "absolute", left: 0, top: 0, width: SCREEN_W, height: SCREEN_H,
-          transformOrigin: "0 0", transform: SCREEN_TRANSFORM,
-          overflow: "hidden", background: "#F7F8FC",
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: SCREEN_W,
+          height: SCREEN_H,
+          transformOrigin: "0 0",
+          transform: SCREEN_TRANSFORM,
+          overflow: "hidden",
+          background: "#F7F8FC",
           // clip-path, not just overflow -- Chromium doesn't reliably clip
           // GPU-composited children (the will-change/transform screens) to
           // an ancestor's overflow:hidden under a matrix3d perspective
           // transform. Same fix as the phone demo's screen div.
-          clipPath: "inset(0)", WebkitClipPath: "inset(0)",
+          clipPath: "inset(0)",
+          WebkitClipPath: "inset(0)",
         }}
       >
         <ScaledDashboardContent />
@@ -954,7 +2241,11 @@ export function ScaledLaptopHeroDemo({ maxWidth, className = "" }) {
   }, []);
 
   return (
-    <div ref={outerRef} className={className} style={{ width: "100%", maxWidth, overflow: "hidden", height: LAPTOP_H * scale }}>
+    <div
+      ref={outerRef}
+      className={className}
+      style={{ width: "100%", maxWidth, overflow: "hidden", height: LAPTOP_H * scale }}
+    >
       <div style={{ width: LAPTOP_W, transform: `scale(${scale})`, transformOrigin: "top left" }}>
         <LaptopHeroDemo />
       </div>

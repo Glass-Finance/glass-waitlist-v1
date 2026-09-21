@@ -36,16 +36,8 @@ function useTilt(strength = 14) {
     const sheen = sheenRef.current;
     if (!card) return;
 
-    cur.current.rotX = lerp(
-      cur.current.rotX,
-      tgt.current.rotX,
-      hovering.current ? 0.12 : 0.08,
-    );
-    cur.current.rotY = lerp(
-      cur.current.rotY,
-      tgt.current.rotY,
-      hovering.current ? 0.12 : 0.08,
-    );
+    cur.current.rotX = lerp(cur.current.rotX, tgt.current.rotX, hovering.current ? 0.12 : 0.08);
+    cur.current.rotY = lerp(cur.current.rotY, tgt.current.rotY, hovering.current ? 0.12 : 0.08);
 
     const { rotX, rotY } = cur.current;
     const scale = hovering.current ? 1.03 : 1;
@@ -68,8 +60,7 @@ function useTilt(strength = 14) {
       Math.abs(cur.current.rotX - tgt.current.rotX) > 0.01 ||
       Math.abs(cur.current.rotY - tgt.current.rotY) > 0.01;
 
-    if (moving || hovering.current)
-      rafRef.current = requestAnimationFrame(animate);
+    if (moving || hovering.current) rafRef.current = requestAnimationFrame(animate);
     else rafRef.current = null;
   }, [strength]);
 
@@ -79,11 +70,8 @@ function useTilt(strength = 14) {
       if (!card) return;
       const rect = card.getBoundingClientRect();
       tgt.current.rotX =
-        -((e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)) *
-        strength;
-      tgt.current.rotY =
-        ((e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)) *
-        strength;
+        -((e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)) * strength;
+      tgt.current.rotY = ((e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)) * strength;
     },
     [strength],
   );
@@ -110,16 +98,8 @@ function useTilt(strength = 14) {
 }
 
 // ─── Feature card ─────────────────────────────────────────────────────────────
-function FeatureCard({
-  icon,
-  title,
-  desc,
-  illustration,
-  illustrationScale = "85%",
-  entryDelay,
-}) {
-  const { cardRef, sheenRef, onMouseMove, onMouseEnter, onMouseLeave } =
-    useTilt(14);
+function FeatureCard({ icon, title, desc, illustration, illustrationScale = "85%", entryDelay }) {
+  const { cardRef, sheenRef, onMouseMove, onMouseEnter, onMouseLeave } = useTilt(14);
 
   return (
     <div
@@ -152,9 +132,7 @@ function FeatureCard({
           <h3 className="text-[clamp(16px,2.5vw,18px)] font-bold text-[#0f1d6e] leading-[1.3] mb-1.5">
             {title}
           </h3>
-          <p className="text-[clamp(14px,2vw,14px)] text-black/60 leading-[1.6] m-0">
-            {desc}
-          </p>
+          <p className="text-[clamp(14px,2vw,14px)] text-black/60 leading-[1.6] m-0">{desc}</p>
         </div>
       </div>
 
@@ -240,19 +218,17 @@ export default function SolutionSection({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {features.map(
-              ({ icon, title, desc, illustration, illustrationScale }, i) => (
-                <FeatureCard
-                  key={title}
-                  icon={icon}
-                  title={title}
-                  desc={desc}
-                  illustration={illustration}
-                  illustrationScale={illustrationScale}
-                  entryDelay={200 + i * 120}
-                />
-              ),
-            )}
+            {features.map(({ icon, title, desc, illustration, illustrationScale }, i) => (
+              <FeatureCard
+                key={title}
+                icon={icon}
+                title={title}
+                desc={desc}
+                illustration={illustration}
+                illustrationScale={illustrationScale}
+                entryDelay={200 + i * 120}
+              />
+            ))}
           </div>
         </div>
       </section>

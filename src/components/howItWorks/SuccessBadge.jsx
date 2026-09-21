@@ -91,7 +91,9 @@ export default function SuccessBadge({ message, subMessage, badgeDelay = 0.1 }) 
             className={`absolute opacity-0 origin-center ${a.cls}`}
             style={
               inView
-                ? { animation: `sbAccentPop ${ACCENT_DUR}s cubic-bezier(0.34,1.56,0.64,1) ${accentStart + i * STAGGER}s both` }
+                ? {
+                    animation: `sbAccentPop ${ACCENT_DUR}s cubic-bezier(0.34,1.56,0.64,1) ${accentStart + i * STAGGER}s both`,
+                  }
                 : undefined
             }
           >
@@ -101,13 +103,22 @@ export default function SuccessBadge({ message, subMessage, badgeDelay = 0.1 }) 
 
         <div
           className="relative w-[112px] h-[112px] opacity-0"
-          style={inView ? { animation: `sbBadgePop 0.65s cubic-bezier(0.34,1.56,0.64,1) ${badgeDelay}s both` } : undefined}
+          style={
+            inView
+              ? { animation: `sbBadgePop 0.65s cubic-bezier(0.34,1.56,0.64,1) ${badgeDelay}s both` }
+              : undefined
+          }
         >
           <svg width="112" height="112" viewBox="0 0 24 24" className="block">
             <defs>
               <filter id="sbRoundBadge" x="-30%" y="-30%" width="160%" height="160%">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="0.7" result="blur" />
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" result="goo" />
+                <feColorMatrix
+                  in="blur"
+                  mode="matrix"
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"
+                  result="goo"
+                />
               </filter>
             </defs>
             <path
@@ -116,7 +127,12 @@ export default function SuccessBadge({ message, subMessage, badgeDelay = 0.1 }) 
               filter="url(#sbRoundBadge)"
             />
           </svg>
-          <svg width="50" height="39" viewBox="0 0 44 34" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <svg
+            width="50"
+            height="39"
+            viewBox="0 0 44 34"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
             <path
               d="M4 17 L17 29 L40 4"
               fill="none"

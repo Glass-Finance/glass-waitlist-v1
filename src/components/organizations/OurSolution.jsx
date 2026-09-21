@@ -4,14 +4,38 @@ import SolutionSection from "../common/SolutionSection";
 const ICON_WIDTHS = [50, 100, 150];
 const ILLUS_WIDTHS = [400, 800, 1200, 1600];
 
-const icon1 = { src: cldUrl("glass/icon/frame1", { width: 100 }), srcSet: cldSrcSet("glass/icon/frame1", ICON_WIDTHS) };
-const icon2 = { src: cldUrl("glass/icon/frame2", { width: 100 }), srcSet: cldSrcSet("glass/icon/frame2", ICON_WIDTHS) };
-const icon3 = { src: cldUrl("glass/icon/frame3", { width: 100 }), srcSet: cldSrcSet("glass/icon/frame3", ICON_WIDTHS) };
-const icon4 = { src: cldUrl("glass/icon/frame4", { width: 100 }), srcSet: cldSrcSet("glass/icon/frame4", ICON_WIDTHS) };
-const featureAutomate = { src: cldUrl("glass/solution/automate", { width: 800 }), srcSet: cldSrcSet("glass/solution/automate", ILLUS_WIDTHS) };
-const featureRecover = { src: cldUrl("glass/solution/recover", { width: 800 }), srcSet: cldSrcSet("glass/solution/recover", ILLUS_WIDTHS) };
-const featureProof = { src: cldUrl("glass/solution/proof", { width: 800 }), srcSet: cldSrcSet("glass/solution/proof", ILLUS_WIDTHS) };
-const featureMonitor = { src: cldUrl("glass/solution/monitor", { width: 800 }), srcSet: cldSrcSet("glass/solution/monitor", ILLUS_WIDTHS) };
+const icon1 = {
+  src: cldUrl("glass/icon/frame1", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame1", ICON_WIDTHS),
+};
+const icon2 = {
+  src: cldUrl("glass/icon/frame2", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame2", ICON_WIDTHS),
+};
+const icon3 = {
+  src: cldUrl("glass/icon/frame3", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame3", ICON_WIDTHS),
+};
+const icon4 = {
+  src: cldUrl("glass/icon/frame4", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame4", ICON_WIDTHS),
+};
+const featureAutomate = {
+  src: cldUrl("glass/solution/automate", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/automate", ILLUS_WIDTHS),
+};
+const featureRecover = {
+  src: cldUrl("glass/solution/recover", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/recover", ILLUS_WIDTHS),
+};
+const featureProof = {
+  src: cldUrl("glass/solution/proof", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/proof", ILLUS_WIDTHS),
+};
+const featureMonitor = {
+  src: cldUrl("glass/solution/monitor", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/monitor", ILLUS_WIDTHS),
+};
 
 // illustrationScale started at 65%, bumped to 75% — the org illustration
 // source files have less built-in padding than the members' ones, so at

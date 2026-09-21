@@ -6,17 +6,15 @@ import { cldUrl } from "../../lib/cloudinary";
 const memberSignupCard = cldUrl("glass/howItWorks/member-signup-card", {
   width: 2400,
 });
-const memberSignupCardMobile = cldUrl(
-  "glass/howItWorks/member-signup-card-mobile",
-  { width: 1600 },
-);
+const memberSignupCardMobile = cldUrl("glass/howItWorks/member-signup-card-mobile", {
+  width: 1600,
+});
 const memberAcceptInvite = cldUrl("glass/howItWorks/member-accept-invite", {
   width: 1600,
 });
-const memberAcceptInviteMobile = cldUrl(
-  "glass/howItWorks/member-accept-invite-mobile",
-  { width: 1600 },
-);
+const memberAcceptInviteMobile = cldUrl("glass/howItWorks/member-accept-invite-mobile", {
+  width: 1600,
+});
 const memberAutopay = cldUrl("glass/howItWorks/member-autopay", {
   width: 1600,
 });
@@ -32,10 +30,7 @@ export default function MembersHowItWorksSection() {
   }
 
   return (
-    <section
-      className="relative isolate overflow-hidden py-24"
-      id="how-it-works"
-    >
+    <section className="relative isolate overflow-hidden py-24" id="how-it-works">
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
         <div className="text-center mb-12 md:mb-20">
           <motion.span
@@ -64,8 +59,7 @@ export default function MembersHowItWorksSection() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            Set up your community, link member payment methods, and let Glass
-            handle the rest.
+            Set up your community, link member payment methods, and let Glass handle the rest.
           </motion.p>
         </div>
       </div>

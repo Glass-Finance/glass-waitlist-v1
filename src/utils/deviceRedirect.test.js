@@ -27,9 +27,7 @@ afterEach(() => {
 
 describe("isMobileDevice", () => {
   it("detects a real iPhone UA as mobile", () => {
-    setUserAgent(
-      "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15",
-    );
+    setUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15");
     expect(isMobileDevice()).toBe(true);
   });
 
@@ -49,9 +47,7 @@ describe("isMobileDevice", () => {
   });
 
   it("treats a desktop UA as desktop even at a narrow viewport with a fine pointer", () => {
-    setUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0",
-    );
+    setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0");
     setViewport({ width: 400, coarsePointer: false });
     expect(isMobileDevice()).toBe(false);
   });
@@ -65,9 +61,7 @@ describe("isMobileDevice", () => {
   });
 
   it("treats a desktop UA at a narrow, touch-primary viewport as mobile (viewport-only device simulator)", () => {
-    setUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0",
-    );
+    setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0");
     setViewport({ width: 400, coarsePointer: true });
     expect(isMobileDevice()).toBe(true);
   });
