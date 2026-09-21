@@ -1,19 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import BlurText from "./ui/BlurText";
-// import case1 from "../assets/usecase/case1.webp";
-// import case2 from "../assets/usecase/case2.webp";
-// import case3 from "../assets/usecase/case3.webp";
-// import case4 from "../assets/usecase/case4.webp";
+import { cldUrl, cldSrcSet } from "../lib/cloudinary";
 
-// ── Import your real icons ──────────────────────────────────────────────────
-// Place your 4 card icons in src/assets/usecase/
-import iconSchools from "../assets/usecase/icon-schools.webp";
-import iconProfessional from "../assets/usecase/icon-professional.webp";
-import iconClubs from "../assets/usecase/icon-clubs.webp";
-import iconReligious from "../assets/usecase/icon-religious.webp";
+const ICON_WIDTHS = [72, 144, 216];
+const iconSchools = {
+  src: cldUrl("glass/usecase/icon-schools", { width: 150 }),
+  srcSet: cldSrcSet("glass/usecase/icon-schools", ICON_WIDTHS),
+};
+const iconProfessional = {
+  src: cldUrl("glass/usecase/icon-professional", { width: 150 }),
+  srcSet: cldSrcSet("glass/usecase/icon-professional", ICON_WIDTHS),
+};
+const iconClubs = {
+  src: cldUrl("glass/usecase/icon-clubs", { width: 150 }),
+  srcSet: cldSrcSet("glass/usecase/icon-clubs", ICON_WIDTHS),
+};
+const iconReligious = {
+  src: cldUrl("glass/usecase/icon-religious", { width: 150 }),
+  srcSet: cldSrcSet("glass/usecase/icon-religious", ICON_WIDTHS),
+};
 
-// ─── Card icon map — uses your imported images ────────────────────────────────
 const CARD_ICONS = {
   schools: iconSchools,
   professional: iconProfessional,
@@ -21,12 +28,7 @@ const CARD_ICONS = {
   religious: iconReligious,
 };
 
-// ─── Corner accent — inline SVG (not a raster image), so it stays crisp at any
-// size/DPI and can carry a live "traveling light" animation along the line,
-// plus a pulsing diamond. `rotate-180` on the wrapper turns the top-left
-// variant into the bottom-right one.
 function CornerAccent({ className = "" }) {
-  // vertical -> bend -> short horizontal run -> bend -> vertical again -> sparkle
   const d = "M12 0 L12 44 Q12 54 22 54 L36 54 Q46 54 46 64 L46 84";
   return (
     <svg
@@ -54,12 +56,6 @@ function CornerAccent({ className = "" }) {
         strokeDasharray="16 84"
         className="uc-corner-travel"
       />
-      {/* Sparkle marker — same 4-point star path as Lucide's Sparkle icon.
-          The static position/size lives on this outer <g> (an SVG transform
-          attribute); the pulse animation's CSS transform goes on the <path>
-          itself instead of here, since a CSS transform on an element wins
-          outright over that same element's transform attribute -- nesting
-          keeps the two from fighting over one element. */}
       <g transform="translate(41,82) scale(0.4167)">
         <path
           d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
@@ -72,7 +68,6 @@ function CornerAccent({ className = "" }) {
   );
 }
 
-// ─── Use case card ──────────────────────────────────────────────────────────
 function UseCaseCard({ title, desc, variant, entryDelay }) {
   const cardRef = useRef(null);
   const [inView, setInView] = useState(false);
@@ -90,6 +85,8 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
     return () => obs.disconnect();
   }, []);
 
+  const iconImg = CARD_ICONS[variant];
+
   return (
     <div
       ref={cardRef}
@@ -100,27 +97,23 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
           : "none",
       }}
     >
-      {/* Top-left corner line */}
       <CornerAccent className="absolute top-0 left-0 w-20 h-20" />
-
-      {/* Bottom-right corner line — same accent, rotated 180° */}
       <CornerAccent className="absolute bottom-0 right-0 w-20 h-20 rotate-180" />
 
-      {/* Icon circle — your imported image */}
       <img
-        src={CARD_ICONS[variant]}
+        src={iconImg.src}
+        srcSet={iconImg.srcSet}
+        sizes="72px"
         alt={title}
         className="w-[72px] h-[72px] object-contain mb-1"
         loading="lazy"
         decoding="async"
       />
 
-      {/* Title */}
       <h3 className="text-[clamp(20px,4vw,24px)] font-medium text-[#001F6E] leading-[1.25] m-0">
         {title}
       </h3>
 
-      {/* Desc */}
       <p className="text-lg text-black/50 leading-[1.6] m-0 max-w-[360px]">
         {desc}
       </p>
@@ -128,7 +121,6 @@ function UseCaseCard({ title, desc, variant, entryDelay }) {
   );
 }
 
-// ─── Cases data ───────────────────────────────────────────────────────────────
 const cases = [
   {
     title: "Schools & Alumni",
@@ -152,7 +144,6 @@ const cases = [
   },
 ];
 
-// ─── Main export ──────────────────────────────────────────────────────────────
 export default function UseCases() {
   const containerRef = useRef(null);
 
@@ -179,8 +170,6 @@ export default function UseCases() {
         .uc-corner-diamond {
           animation: ucCornerDiamondPulse 2.4s ease-in-out infinite;
         }
-        /* On hover, the ambient travel/pulse hand off to a single full
-           draw-out-and-retract-in cycle on the line + sparkle together. */
         @keyframes ucCornerDrawInOut {
           0%   { stroke-dashoffset: 100; }
           50%  { stroke-dashoffset: 0; }
@@ -213,18 +202,14 @@ export default function UseCases() {
         className="py-20 md:py-28 relative isolate overflow-hidden"
         id="use-cases"
       >
-
         <div className="max-w-[1140px] mx-auto px-6 relative z-10">
-          {/* ── Header ── */}
           <div className="text-center mb-14">
-            {/* Badge */}
             <div className="mb-5 flex justify-center">
               <span className="inline-flex items-center border border-[#1C2B8A]/25 text-[#1C2B8A] text-[13px] font-medium px-5 py-2 rounded-full">
                 Use Cases
               </span>
             </div>
 
-            {/* Headline */}
             <div className="flex justify-center mb-4">
               <h2 className="text-[clamp(26px,5.5vw,64px)] font-bold text-[#0f1d6e] leading-[1.15] tracking-[-0.02em] max-w-[1080px] text-center">
                 <BlurText
@@ -238,15 +223,14 @@ export default function UseCases() {
               </h2>
             </div>
 
-            {/* Subtext */}
             <div className="flex justify-center">
               <p className="text-[clamp(15px,2vw,17px)] text-black/60 max-w-[700px] leading-[1.7] text-center">
-                Whether you run a small club or a national association, Glass scales with you.
+                Whether you run a small club or a national association, Glass
+                scales with you.
               </p>
             </div>
           </div>
 
-          {/* ── Cards ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             {cases.map(({ title, desc, variant }, i) => (
               <UseCaseCard

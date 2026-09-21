@@ -1,10 +1,20 @@
-import GlassLogo from "../../assets/Glass.webp";
+import { cldUrl, cldSrcSet } from "../../lib/cloudinary";
+
+const LOGO_WIDTHS = [32, 64, 96, 128, 192];
+const glassLogo = {
+  src: cldUrl("glass/Glass", { width: 128 }),
+  srcSet: cldSrcSet("glass/Glass", LOGO_WIDTHS),
+};
 
 // The app's one branded loading indicator -- a spinning ring around the
 // logo mark, previously only used for the full-screen route-transition
 // fallback (LoadingScreen.jsx). Factored out so other loading states
 // (e.g. member Home's) can use the same visual instead of a generic
 // spinner icon.
+//
+// `size` is a caller-supplied prop (varies per usage site), so `sizes`
+// below is computed from it directly rather than a fixed breakpoint list
+// -- the browser always knows the exact rendered width for this instance.
 export default function BrandedSpinner({ size = 64 }) {
   const logoSize = Math.round(size * 0.44);
   return (
@@ -14,7 +24,9 @@ export default function BrandedSpinner({ size = 64 }) {
     >
       <div className="absolute inset-0 rounded-full border-[1.5px] border-[#1C2B8A]/10 border-t-[#1C2B8A] animate-spin" />
       <img
-        src={GlassLogo}
+        src={glassLogo.src}
+        srcSet={glassLogo.srcSet}
+        sizes={`${logoSize}px`}
         alt=""
         className="object-contain"
         style={{ width: logoSize, height: logoSize }}

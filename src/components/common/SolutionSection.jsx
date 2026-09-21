@@ -4,11 +4,21 @@
  * and layout are identical between them; only the badge/copy/feature
  * list vary — see organizations/OurSolution.jsx and
  * members/MembersSolution.jsx for the per-audience data.
+ *
+ * icon/illustration/lightBg props are now {src, srcSet} objects (not
+ * plain URL strings) so each <img> can ship a real srcSet for high-DPI
+ * screens. Callers (MembersSolution.jsx, org OurSolution.jsx) must be
+ * updated to pass that shape.
  */
 
 import { useCallback, useEffect, useRef } from "react";
 import BlurText from "../ui/BlurText";
-import lightBg from "../../assets/solution/bg-light.webp";
+import { cldUrl, cldSrcSet } from "../../lib/cloudinary";
+
+const lightBg = {
+  src: cldUrl("glass/solution/bg-light", { width: 1200 }),
+  srcSet: cldSrcSet("glass/solution/bg-light", [600, 1200, 1800, 2400]),
+};
 
 // ─── Per-card tilt hook ───────────────────────────────────────────────────────
 function useTilt(strength = 14) {
@@ -100,7 +110,14 @@ function useTilt(strength = 14) {
 }
 
 // ─── Feature card ─────────────────────────────────────────────────────────────
-function FeatureCard({ icon, title, desc, illustration, entryDelay }) {
+function FeatureCard({
+  icon,
+  title,
+  desc,
+  illustration,
+  illustrationScale = "85%",
+  entryDelay,
+}) {
   const { cardRef, sheenRef, onMouseMove, onMouseEnter, onMouseLeave } =
     useTilt(14);
 
@@ -123,7 +140,9 @@ function FeatureCard({ icon, title, desc, illustration, entryDelay }) {
 
       <div className="flex items-start gap-3 [padding:clamp(16px,3vw,28px)_clamp(14px,2.5vw,20px)_0px]">
         <img
-          src={icon}
+          src={icon.src}
+          srcSet={icon.srcSet}
+          sizes="50px"
           alt=""
           className="[width:clamp(36px,5vw,50px)] [height:clamp(36px,5vw,50px)] object-contain flex-shrink-0"
           loading="lazy"
@@ -139,16 +158,15 @@ function FeatureCard({ icon, title, desc, illustration, entryDelay }) {
         </div>
       </div>
 
-      {/* Illustration — flex-1 (not a fixed height) so this box absorbs
-          whatever extra height CSS Grid's row-stretch adds when a sibling
-          card's longer description wraps to more lines; a fixed height
-          here left that leftover space as a visible gap below the image,
-          which also made the bottom-anchored image read as too small/cut
-          off short of the card's real bottom edge (#151). The clamp still
-          sets the natural/minimum size when no stretch is happening. */}
+      {/* Illustration box — sizes below are approximate: actual rendered
+          width = illustrationScale% of the card, which itself varies by
+          grid breakpoint. Treat as a reasonable default and eyeball once
+          live; tighten if it's noticeably picking the wrong srcSet entry. */}
       <div className="solution-illus relative flex-1 [min-height:clamp(160px,45vw,240px)] overflow-hidden">
         <img
-          src={lightBg}
+          src={lightBg.src}
+          srcSet={lightBg.srcSet}
+          sizes="(min-width: 768px) 570px, 100vw"
           alt=""
           className="absolute inset-0 w-full h-full object-cover opacity-30"
           draggable={false}
@@ -157,9 +175,12 @@ function FeatureCard({ icon, title, desc, illustration, entryDelay }) {
         />
         <div className="solution-fade absolute top-0 left-0 right-0 h-[18%] bg-[linear-gradient(to_bottom,#EFEFF1_0%,rgba(239,239,241,0.7)_55%,transparent_100%)] pointer-events-none z-[5]" />
         <img
-          src={illustration}
+          src={illustration.src}
+          srcSet={illustration.srcSet}
+          sizes="(min-width: 768px) 480px, 320px"
           alt={title}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] h-auto object-contain z-10"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-auto object-contain z-10"
+          style={{ width: illustrationScale }}
           draggable={false}
           loading="lazy"
           decoding="async"
@@ -192,7 +213,6 @@ export default function SolutionSection({
 
       <section className="py-20 md:py-28 relative isolate" id="solution">
         <div className="max-w-[1140px] mx-auto px-6 relative z-30">
-          {/* ── Header — BlurText on all three elements ── */}
           <div className="text-center mb-12">
             <div className="mb-5 flex justify-center">
               <span className="inline-flex items-center border border-[#1C2B8A]/25 text-[#1C2B8A] text-[13px] font-medium px-5 py-2 rounded-full">
@@ -219,18 +239,20 @@ export default function SolutionSection({
             </p>
           </div>
 
-          {/* ── Cards ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {features.map(({ icon, title, desc, illustration }, i) => (
-              <FeatureCard
-                key={title}
-                icon={icon}
-                title={title}
-                desc={desc}
-                illustration={illustration}
-                entryDelay={200 + i * 120}
-              />
-            ))}
+            {features.map(
+              ({ icon, title, desc, illustration, illustrationScale }, i) => (
+                <FeatureCard
+                  key={title}
+                  icon={icon}
+                  title={title}
+                  desc={desc}
+                  illustration={illustration}
+                  illustrationScale={illustrationScale}
+                  entryDelay={200 + i * 120}
+                />
+              ),
+            )}
           </div>
         </div>
       </section>

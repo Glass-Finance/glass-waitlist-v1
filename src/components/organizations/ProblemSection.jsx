@@ -1,6 +1,11 @@
 import { Clock, Eye } from "lucide-react";
-import Problem from "../../assets/problem/problem.webp";
+import { cldUrl, cldSrcSet } from "../../lib/cloudinary";
 import SharedProblemSection from "../common/ProblemSection";
+
+const Problem = {
+  src: cldUrl("glass/problem/problem", { width: 900 }),
+  srcSet: cldSrcSet("glass/problem/problem", [640, 900, 1280, 1800]),
+};
 
 const problems = [
   {

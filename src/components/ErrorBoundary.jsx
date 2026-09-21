@@ -1,7 +1,69 @@
+// import { Component } from "react";
+// import { captureRenderError } from "../utils/monitoring";
+// import GlassLogo from "../assets/Glass.webp";
+// import Background from "../assets/background.webp";
+
+// export default class ErrorBoundary extends Component {
+//   state = { error: null };
+
+//   static getDerivedStateFromError(error) {
+//     return { error };
+//   }
+
+//   componentDidCatch(error, info) {
+//     captureRenderError(error, info?.componentStack);
+//   }
+
+//   render() {
+//     if (this.state.error) {
+//       return (
+//         <div
+//           className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-cover bg-center"
+//           style={{ backgroundImage: `url(${Background})` }}
+//         >
+//           <img src={GlassLogo} alt="Glass" className="w-10 h-10 object-contain mb-8" />
+
+//           <h1 className="text-[22px] font-bold text-gray-900 mb-2">Something went wrong</h1>
+//           <p className="text-sm text-gray-500 max-w-[320px] leading-relaxed mb-8">
+//             An unexpected error occurred. Try refreshing the page — if it keeps happening,
+//             contact support.
+//           </p>
+
+//           <div className="flex gap-3">
+//             <a
+//               href="/"
+//               className="px-5 py-2.5 rounded-full text-[13px] font-medium text-gray-700 no-underline cursor-pointer transition-colors bg-[#FFFFFF99] border border-[#E5E7EB] backdrop-blur-[4px]"
+//             >
+//               Go home
+//             </a>
+//             <button
+//               onClick={() => window.location.reload()}
+//               className="px-5 py-2.5 rounded-full text-[13px] font-semibold text-white cursor-pointer border-none transition-opacity hover:opacity-90 bg-[#002FA7]"
+//             >
+//               Refresh page
+//             </button>
+//           </div>
+//         </div>
+//       );
+//     }
+//     return this.props.children;
+//   }
+// }
+
 import { Component } from "react";
 import { captureRenderError } from "../utils/monitoring";
-import GlassLogo from "../assets/Glass.webp";
-import Background from "../assets/background.webp";
+import { cldUrl, cldSrcSet } from "../lib/cloudinary";
+
+// Plain cldUrl() strings, not the CloudImage component, on purpose: this
+// is the error fallback UI — it should render with the absolute minimum
+// of moving parts, not depend on more client-side logic than necessary.
+const glassLogo = {
+  src: cldUrl("glass/Glass", { width: 40 }),
+  srcSet: cldSrcSet("glass/Glass", [40, 80, 120]),
+};
+// Background is a CSS background-image, so srcSet doesn't apply here —
+// requesting a flat 2x (dpr) instead of a responsive width ladder.
+const backgroundUrl = cldUrl("glass/background", { width: 1920, dpr: 2 });
 
 export default class ErrorBoundary extends Component {
   state = { error: null };
@@ -19,14 +81,22 @@ export default class ErrorBoundary extends Component {
       return (
         <div
           className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-cover bg-center"
-          style={{ backgroundImage: `url(${Background})` }}
+          style={{ backgroundImage: `url(${backgroundUrl})` }}
         >
-          <img src={GlassLogo} alt="Glass" className="w-10 h-10 object-contain mb-8" />
+          <img
+            src={glassLogo.src}
+            srcSet={glassLogo.srcSet}
+            sizes="40px"
+            alt="Glass"
+            className="w-10 h-10 object-contain mb-8"
+          />
 
-          <h1 className="text-[22px] font-bold text-gray-900 mb-2">Something went wrong</h1>
+          <h1 className="text-[22px] font-bold text-gray-900 mb-2">
+            Something went wrong
+          </h1>
           <p className="text-sm text-gray-500 max-w-[320px] leading-relaxed mb-8">
-            An unexpected error occurred. Try refreshing the page — if it keeps happening,
-            contact support.
+            An unexpected error occurred. Try refreshing the page — if it keeps
+            happening, contact support.
           </p>
 
           <div className="flex gap-3">

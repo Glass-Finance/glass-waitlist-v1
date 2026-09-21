@@ -1,12 +1,41 @@
-import icon1 from "../../assets/icon/frame1.webp";
-import icon2 from "../../assets/icon/frame2.webp";
-import icon3 from "../../assets/icon/frame3.webp";
-import icon4 from "../../assets/icon/frame4.webp";
-import featurePayment from "../../assets/solution/payment.webp";
-import featureReminder from "../../assets/solution/reminder.webp";
-import featureInstant from "../../assets/solution/instant.webp";
-import featureFlexible from "../../assets/solution/flexible.webp";
+import { cldUrl, cldSrcSet } from "../../lib/cloudinary";
 import SolutionSection from "../common/SolutionSection";
+
+const ICON_WIDTHS = [50, 100, 150];
+const ILLUS_WIDTHS = [400, 800, 1200, 1600];
+
+const icon1 = {
+  src: cldUrl("glass/icon/frame1", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame1", ICON_WIDTHS),
+};
+const icon2 = {
+  src: cldUrl("glass/icon/frame2", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame2", ICON_WIDTHS),
+};
+const icon3 = {
+  src: cldUrl("glass/icon/frame3", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame3", ICON_WIDTHS),
+};
+const icon4 = {
+  src: cldUrl("glass/icon/frame4", { width: 100 }),
+  srcSet: cldSrcSet("glass/icon/frame4", ICON_WIDTHS),
+};
+const featurePayment = {
+  src: cldUrl("glass/solution/payment", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/payment", ILLUS_WIDTHS),
+};
+const featureReminder = {
+  src: cldUrl("glass/solution/reminder", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/reminder", ILLUS_WIDTHS),
+};
+const featureInstant = {
+  src: cldUrl("glass/solution/instant", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/instant", ILLUS_WIDTHS),
+};
+const featureFlexible = {
+  src: cldUrl("glass/solution/flexible", { width: 800 }),
+  srcSet: cldSrcSet("glass/solution/flexible", ILLUS_WIDTHS),
+};
 
 const features = [
   {

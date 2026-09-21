@@ -1,10 +1,21 @@
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import BlurText from "./ui/BlurText";
+import { cldUrl, cldSrcSet } from "../lib/cloudinary";
 
-import icon1 from "../assets/security/icon1.webp";
-import icon2 from "../assets/security/icon2.webp";
-import icon3 from "../assets/security/icon3.webp";
+const ICON_WIDTHS = [28, 56, 84];
+const icon1 = {
+  src: cldUrl("glass/security/icon1", { width: 100 }),
+  srcSet: cldSrcSet("glass/security/icon1", ICON_WIDTHS),
+};
+const icon2 = {
+  src: cldUrl("glass/security/icon2", { width: 100 }),
+  srcSet: cldSrcSet("glass/security/icon2", ICON_WIDTHS),
+};
+const icon3 = {
+  src: cldUrl("glass/security/icon3", { width: 100 }),
+  srcSet: cldSrcSet("glass/security/icon3", ICON_WIDTHS),
+};
 
 const cards = [
   {
@@ -70,7 +81,6 @@ export default function Security() {
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         {/* ── Header ── */}
         <div className="mb-8 md:mb-16" style={{ textAlign: "center" }}>
-          {/* Badge */}
           <div
             style={{
               display: "flex",
@@ -89,7 +99,6 @@ export default function Security() {
             </motion.span>
           </div>
 
-          {/* Headline */}
           <div
             style={{
               display: "flex",
@@ -112,7 +121,6 @@ export default function Security() {
             </h2>
           </div>
 
-          {/* Subtext */}
           <div style={{ display: "flex", justifyContent: "center" }}>
             <motion.p
               className="text-[17px] text-[#00000099] leading-relaxed"
@@ -120,9 +128,14 @@ export default function Security() {
               initial={{ clipPath: "inset(0% 0% 100% 0%)", opacity: 0 }}
               whileInView={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
               viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.65, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 0.65,
+                delay: 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
-              We protect your funds with encryption in transit and at rest, strict access controls, and continuous security monitoring.
+              We protect your funds with encryption in transit and at rest,
+              strict access controls, and continuous security monitoring.
             </motion.p>
           </div>
         </div>
@@ -149,7 +162,7 @@ export default function Security() {
                       : window.innerWidth >= 640
                         ? `rotateZ(${rotate * 0.4}deg) translateY(${(y + 20) * 0.5}px)`
                         : "none",
-                        
+
                   transition: `transform 0.7s cubic-bezier(0.22,1,0.36,1) ${200 + i * 100}ms`,
 
                   transformOrigin: "top center",
@@ -163,9 +176,6 @@ export default function Security() {
                   flexDirection: "column",
                   alignItems: "center",
                   textAlign: "center",
-
-                  // boxShadow:
-                  //   "0 0 0 1px rgba(255,255,255,0.7) inset, 0 2px 16px rgba(28,43,138,0.06)",
                 }}
               >
                 <div
@@ -179,7 +189,6 @@ export default function Security() {
                     justifyContent: "center",
                   }}
                 >
-                  {/* Glow */}
                   <div
                     style={{
                       position: "absolute",
@@ -191,7 +200,6 @@ export default function Security() {
                     }}
                   />
 
-                  {/* White circle */}
                   <div
                     style={{
                       width: 78,
@@ -208,7 +216,9 @@ export default function Security() {
                     }}
                   >
                     <img
-                      src={icon}
+                      src={icon.src}
+                      srcSet={icon.srcSet}
+                      sizes="28px"
                       alt={title}
                       style={{
                         width: 28,
@@ -221,7 +231,6 @@ export default function Security() {
                   </div>
                 </div>
 
-                {/* Title */}
                 <h3
                   style={{
                     fontSize: 18,
@@ -234,7 +243,6 @@ export default function Security() {
                   {title}
                 </h3>
 
-                {/* Description */}
                 <p
                   style={{
                     fontSize: 14,
@@ -267,6 +275,7 @@ export default function Security() {
                 Discover how Glass is redefining community financial security.
               </p>
             </div>
+
             <a
               href="https://tribuneonlineng.com/team-glass-shines-as-winner-of-5th-babcock-innovation-challenge/"
               target="_blank"

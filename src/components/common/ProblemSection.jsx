@@ -4,6 +4,10 @@
  * them; only copy, image, item list, and two animation constants
  * (clipInsetStart, staggerStep) vary — see organizations/ProblemSection.jsx
  * and members/MembersProblem.jsx for the per-audience data.
+ *
+ * `image` is now a {src, srcSet} object (not a plain URL string) so the
+ * <img> can ship a real srcSet for high-DPI screens. Callers must be
+ * updated to pass that shape.
  */
 
 import { useEffect, useRef } from "react";
@@ -155,7 +159,9 @@ export default function ProblemSection({
               className="relative rounded-2xl overflow-hidden w-full shadow-xl shadow-[#1C2B8A]/15 aspect-[458/250]"
             >
               <img
-                src={image}
+                src={image.src}
+                srcSet={image.srcSet}
+                sizes="(min-width: 1024px) 640px, 100vw"
                 alt={imageAlt}
                 className="absolute inset-0 w-full h-full object-cover object-[50%_40%]"
                 loading="lazy"

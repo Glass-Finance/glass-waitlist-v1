@@ -1,36 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { goToApp } from "../utils/deviceRedirect";
-import logo from "../assets/cta/ctalogo.webp";
+import { cldUrl } from "../lib/cloudinary";
 import BlurText from "./ui/BlurText";
+
+const glassLogoUrl = cldUrl("glass/Glass", { width: 128 });
 
 const links = {
   Product: [
-    { label: "Features",     href: "/#solution"     },
+    { label: "Features", href: "/#solution" },
     { label: "How It Works", href: "/#how-it-works" },
-    { label: "Integrations", href: null             },
+    { label: "Integrations", href: null },
   ],
   "Use Cases": [
-    { label: "Schools",                href: null },
-    { label: "Religious Organizations",href: null },
-    { label: "Clubs",                  href: null },
-    { label: "Professional Bodies",    href: null },
+    { label: "Schools", href: null },
+    { label: "Religious Organizations", href: null },
+    { label: "Clubs", href: null },
+    { label: "Professional Bodies", href: null },
   ],
-  Resources: [
-    { label: "Help Centre", href: "mailto:glasspayhq@gmail.com" },
-  ],
+  Resources: [{ label: "Help Centre", href: "mailto:glasspayhq@gmail.com" }],
   Company: [
-    { label: "About",    href: null                          },
-    { label: "Team",     href: null                          },
-    { label: "Careers",  href: null                          },
-    { label: "Contact",  href: "mailto:glasspayhq@gmail.com" },
+    { label: "About", href: null },
+    { label: "Team", href: null },
+    { label: "Careers", href: null },
+    { label: "Contact", href: "mailto:glasspayhq@gmail.com" },
   ],
   Legal: [
-    { label: "Privacy",         href: "/privacy"       },
-    { label: "Terms",           href: "/terms"         },
-    { label: "Cookie Policy",   href: "/cookies"        },
-    { label: "Acceptable Use",  href: "/acceptable-use" },
-    { label: "Refund Policy",   href: "/refund-policy"  },
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
+    { label: "Cookie Policy", href: "/cookies" },
+    { label: "Acceptable Use", href: "/acceptable-use" },
+    { label: "Refund Policy", href: "/refund-policy" },
   ],
 };
 
@@ -41,9 +41,7 @@ export default function Footer() {
     <footer className="relative isolate bg-[#0d1a6e] text-white">
       {/* ── CTA ── */}
       <div className="relative pt-20 md:pt-28 pb-20 overflow-hidden">
-        <div
-          className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(30,50,160,0.35)_0%,transparent_70%)]"
-        />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(30,50,160,0.35)_0%,transparent_70%)]" />
         <div className="relative z-10 max-w-[860px] mx-auto px-6 text-center">
           <h2 className="text-[clamp(30px,5vw,54px)] font-bold text-white leading-tight tracking-tight mb-5">
             <BlurText
@@ -81,42 +79,48 @@ export default function Footer() {
       {/* ── Footer content ── */}
       <div className="max-w-[1140px] mx-auto px-6 pt-14 pb-8">
         {/* Brand */}
-        <div className="mb-6">
+        <div className="mb-8">
           <a
             href="/"
             className="inline-flex items-center gap-2 no-underline mb-3"
           >
-            <img src={logo} alt="Glass" className="w-7 h-7" />
-            <span className="font-bold text-[20px] text-white">Glass</span>
+            <img src={glassLogoUrl} alt="Glass" className="w-7 h-7" />
+            <span className="font-bold text-[22px] text-white">Glass</span>
           </a>
           <a
             href="https://www.google.com/maps/search/?api=1&query=1%2C+Onyemargwu+Street%2C+Abule+Egba%2C+Lagos"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[13px] text-white/50 hover:text-white no-underline transition-colors"
+            className="flex items-center gap-1.5 text-[14px] text-white/50 hover:text-white no-underline transition-colors"
           >
             <MapPin size={14} className="text-white/40 flex-shrink-0" />
             1, Onyemargwu Street, Abule Egba, Lagos
           </a>
         </div>
 
-        {/* Nav columns */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-30 mb-12">
+        {/* Nav columns — was a flat 2-col grid with a 120px gap even on
+            mobile (gap-30), which read as disjointed rather than a clean
+            footer, and every link sat at a flat 13px regardless of
+            screen size. Single column on true mobile, then 2/5 col as
+            before; text bumped to 14px (15px from sm) throughout. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 mb-12">
           {Object.entries(links).map(([section, items]) => (
             <div key={section}>
-              <p className="text-[13px] font-bold text-white mb-4">{section}</p>
-              <ul className="space-y-2.5 list-none p-0 m-0">
+              <p className="text-[14px] sm:text-[15px] font-bold text-white mb-4">
+                {section}
+              </p>
+              <ul className="space-y-3 sm:space-y-2.5 list-none p-0 m-0">
                 {items.map(({ label, href }) => (
                   <li key={label}>
                     {href ? (
                       <a
                         href={href}
-                        className="text-[13px] text-white/60 hover:text-white no-underline transition-colors"
+                        className="text-[14px] sm:text-[15px] text-white/60 hover:text-white no-underline transition-colors"
                       >
                         {label}
                       </a>
                     ) : (
-                      <span className="text-[13px] text-white/35 cursor-default select-none">
+                      <span className="text-[14px] sm:text-[15px] text-white/35 cursor-default select-none">
                         {label}
                       </span>
                     )}
@@ -129,7 +133,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="border-t border-white/10 pt-7 text-center">
-          <p className="text-[13px] text-white/50">
+          <p className="text-[13px] sm:text-[14px] text-white/50">
             Copyright © {new Date().getFullYear()} Glass Limited | Made for
             Nigerian communities
           </p>

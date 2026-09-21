@@ -1,31 +1,47 @@
-/**
- * Shared closing CTA section used by both the organizations and members
- * marketing pages. Icon layout/entrance animation is identical between
- * them; only copy, click target, and button hover style vary — see
- * organizations/CTA.jsx and members/MembersCTA.jsx for the per-audience
- * data. buttonHoverVariant "magnetic" (org) follows the cursor on hover;
- * "lift" (members) is a simpler translateY.
- */
-
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import BlurText from "../ui/BlurText";
+import { cldUrl, cldSrcSet } from "../../lib/cloudinary";
 
-import icon1 from "../../assets/cta/icon1.webp";
-import icon2 from "../../assets/cta/icon2.webp";
-import icon3 from "../../assets/cta/icon3.webp";
-import icon4 from "../../assets/cta/icon4.webp";
-import icon5 from "../../assets/cta/icon5.webp";
-import icon6 from "../../assets/cta/icon6.webp";
-import logo from "../../assets/cta/ctalogo.webp";
+const ICON_WIDTHS = [66, 132, 198];
+const LOGO_WIDTHS = [34, 68, 102];
+
+const icon1 = {
+  src: cldUrl("glass/cta/icon1", { width: 132 }),
+  srcSet: cldSrcSet("glass/cta/icon1", ICON_WIDTHS),
+};
+const icon2 = {
+  src: cldUrl("glass/cta/icon2", { width: 132 }),
+  srcSet: cldSrcSet("glass/cta/icon2", ICON_WIDTHS),
+};
+const icon3 = {
+  src: cldUrl("glass/cta/icon3", { width: 132 }),
+  srcSet: cldSrcSet("glass/cta/icon3", ICON_WIDTHS),
+};
+const icon4 = {
+  src: cldUrl("glass/cta/icon4", { width: 132 }),
+  srcSet: cldSrcSet("glass/cta/icon4", ICON_WIDTHS),
+};
+const icon5 = {
+  src: cldUrl("glass/cta/icon5", { width: 132 }),
+  srcSet: cldSrcSet("glass/cta/icon5", ICON_WIDTHS),
+};
+const icon6 = {
+  src: cldUrl("glass/cta/icon6", { width: 132 }),
+  srcSet: cldSrcSet("glass/cta/icon6", ICON_WIDTHS),
+};
+const logo = {
+  src: cldUrl("glass/cta/ctalogo", { width: 68 }),
+  srcSet: cldSrcSet("glass/cta/ctalogo", LOGO_WIDTHS),
+};
 
 /* ─── Icon layout config ───────────────────────────────────────────── */
 const icons = [
   /* ── LEFT SIDE ── */
   {
     id: "soccer",
-    src: icon1,
+    img: icon1,
     /* top-left — further out */
     style: { top: "8%", left: "4.5%" },
     size: 62,
@@ -36,7 +52,7 @@ const icons = [
   },
   {
     id: "hoop",
-    src: icon2,
+    img: icon2,
     /* mid-left — CLOSER to text */
     style: { top: "50%", left: "11%", transform: "translateY(-50%)" },
     size: 66,
@@ -47,7 +63,7 @@ const icons = [
   },
   {
     id: "people",
-    src: icon3,
+    img: icon3,
     /* bottom-left — further out */
     style: { bottom: "8%", left: "4.5%" },
     size: 60,
@@ -60,7 +76,7 @@ const icons = [
   /* ── RIGHT SIDE ── */
   {
     id: "bible",
-    src: icon4,
+    img: icon4,
     /* top-right — further out */
     style: { top: "8%", right: "4.5%" },
     size: 62,
@@ -71,7 +87,7 @@ const icons = [
   },
   {
     id: "runner",
-    src: icon5,
+    img: icon5,
     /* mid-right — CLOSER to text */
     style: { top: "50%", right: "11%", transform: "translateY(-50%)" },
     size: 66,
@@ -82,7 +98,7 @@ const icons = [
   },
   {
     id: "grad",
-    src: icon6,
+    img: icon6,
     /* bottom-right — further out */
     style: { bottom: "8%", right: "4.5%" },
     size: 60,
@@ -160,7 +176,9 @@ function FloatingIcon({ icon, inView }) {
       ref={elRef}
     >
       <img
-        src={icon.src}
+        src={icon.img.src}
+        srcSet={icon.img.srcSet}
+        sizes={`clamp(30px, 8vw, ${icon.size}px)`}
         alt=""
         draggable={false}
         className="w-full h-full object-contain block"
@@ -228,8 +246,6 @@ export default function CTASection({
       }),
     );
 
-    // after the bounce finishes, clear the slow transition so hover can
-    // take over instantly
     const t = setTimeout(() => {
       if (btnRef.current) {
         btnRef.current.style.transition =
@@ -251,15 +267,15 @@ export default function CTASection({
         ref={cardRef}
         className="max-w-[1140px] mx-auto rounded-3xl overflow-hidden relative bg-[#0d1a6e] text-center min-h-[300px] flex flex-col items-center justify-center [padding:clamp(40px,7vw,88px)_clamp(24px,10vw,200px)]"
       >
-        {/* ── Floating icons ── */}
         {icons.map((icon) => (
           <FloatingIcon key={icon.id} icon={icon} inView={inView} />
         ))}
 
-        {/* ── Glass logo ── */}
         <div className="mb-[18px] relative z-[5]">
           <img
-            src={logo}
+            src={logo.src}
+            srcSet={logo.srcSet}
+            sizes="34px"
             alt="Glass"
             className="w-[34px] h-[34px] object-contain opacity-[0.88]"
             loading="lazy"
@@ -267,7 +283,6 @@ export default function CTASection({
           />
         </div>
 
-        {/* ── Headline ── */}
         <h2 className="text-[clamp(24px,4.5vw,52px)] font-extrabold text-white leading-[1.1] tracking-[-0.02em] max-w-[580px] mb-3.5 relative z-[5]">
           <BlurText
             text={headline}
@@ -279,12 +294,10 @@ export default function CTASection({
           />
         </h2>
 
-        {/* ── Subtext ── */}
         <p className="text-[clamp(13px,3vw,16px)] text-white/52 mb-9 leading-[1.6] relative z-[5]">
           {subtext}
         </p>
 
-        {/* ── Button ── */}
         {magnetic ? (
           <button
             ref={btnRef}
@@ -304,7 +317,8 @@ export default function CTASection({
               const dx = ((e.clientX - cx) / (r.width / 2)) * 10;
               const dy = ((e.clientY - cy) / (r.height / 2)) * 6;
               btn.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(1.04)`;
-              btn.style.boxShadow = "0 14px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15)";
+              btn.style.boxShadow =
+                "0 14px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translate(0,0) scale(1)";
@@ -336,7 +350,8 @@ export default function CTASection({
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-4px) scale(1.03)";
-              e.currentTarget.style.boxShadow = "0 14px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15)";
+              e.currentTarget.style.boxShadow =
+                "0 14px 40px rgba(0,0,0,0.35), 0 0 0 3px rgba(255,255,255,0.15)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0) scale(1)";
@@ -346,7 +361,11 @@ export default function CTASection({
             {buttonLabel}
             <motion.span
               animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 1.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               className="inline-flex items-center"
             >
               <ArrowRight className="w-4 h-4" />

@@ -1,25 +1,42 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { goToApp } from "../../utils/deviceRedirect";
-import orgCreateCommunity from "../../assets/howItWorks/org-create-community.png";
-import orgCreateCommunityMobile from "../../assets/howItWorks/org-create-community-mobile.png";
-import orgAddMembers from "../../assets/howItWorks/org-add-members.png";
-import orgAddMembersMobile from "../../assets/howItWorks/org-add-members-mobile.png";
-import orgPaymentPlan from "../../assets/howItWorks/org-payment-plan.png";
-import orgLaunch from "../../assets/howItWorks/org-launch.png";
-import orgLaunchMobile from "../../assets/howItWorks/org-launch-mobile.png";
+import { cldUrl } from "../../lib/cloudinary";
 
-// Each card below is a single pixel-exact Figma export (709x705 / 480x705
-// / 595x727 / 595x727) -- background gradient, icon, heading, and mockup
-// are all baked into the image, so there's nothing to hand-recreate (or
-// get subtly wrong) in CSS. No animation, per direction -- these are
-// static exports, not the earlier scripted mockups.
+const orgCreateCommunity = cldUrl("glass/howItWorks/org-create-community", {
+  width: 2100,
+});
+const orgCreateCommunityMobile = cldUrl(
+  "glass/howItWorks/org-create-community-mobile",
+  { width: 1600 },
+);
+const orgAddMembers = cldUrl("glass/howItWorks/org-add-members", {
+  width: 1440,
+});
+const orgAddMembersMobile = cldUrl("glass/howItWorks/org-add-members-mobile", {
+  width: 1440,
+});
+const orgPaymentPlan = cldUrl("glass/howItWorks/org-payment-plan", {
+  width: 1780,
+});
+const orgPaymentPlanMobile = cldUrl(
+  "glass/howItWorks/org-payment-plan-mobile",
+  { width: 1600 },
+);
+const orgLaunch = cldUrl("glass/howItWorks/org-launch", { width: 1780 });
+const orgLaunchMobile = cldUrl("glass/howItWorks/org-launch-mobile", {
+  width: 1600,
+});
+
 export default function OrganizationHowItWorks() {
   const navigate = useNavigate();
   const onCtaClick = () => goToApp("/sign-up", navigate);
 
   return (
-    <section className="relative isolate overflow-hidden py-24" id="how-it-works">
+    <section
+      className="relative isolate overflow-hidden py-24"
+      id="how-it-works"
+    >
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
         <div className="text-center mb-12 md:mb-20">
           <motion.span
@@ -48,34 +65,60 @@ export default function OrganizationHowItWorks() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            Set up your community, link member payment methods, and let Glass handle the rest.
+            Set up your community, link member payment methods, and let Glass
+            handle the rest.
           </motion.p>
         </div>
       </div>
 
-      {/* Tablet/Desktop — 2x2 grid, 1213px content width matching Figma at
-          lg+. Below that (iPad-width viewports), the fixed Figma pixel
-          sizes don't fit the screen at all, which is what was making the
-          baked-in heading text read oversized -- scaled down ~0.6x at md
-          so the whole card (text included) fits the viewport, full size
-          restored at lg. */}
       <div className="hidden md:block relative z-10 mx-auto px-6 max-w-[800px] lg:max-w-[1330px]">
         <div className="flex gap-6">
-          <img src={orgCreateCommunity} alt="Create your Community and get started" className="w-[425px] h-[423px] lg:w-[709px] lg:h-[705px] shrink-0 rounded-[8px]" />
-          <img src={orgAddMembers} alt="Add Your Members" className="w-[288px] h-[423px] lg:w-[480px] lg:h-[705px] shrink-0 rounded-[8px]" />
+          <img
+            src={orgCreateCommunity}
+            alt="Create your Community and get started"
+            className="w-[425px] h-[423px] lg:w-[709px] lg:h-[705px] shrink-0 rounded-[8px]"
+          />
+          <img
+            src={orgAddMembers}
+            alt="Add Your Members"
+            className="w-[288px] h-[423px] lg:w-[480px] lg:h-[705px] shrink-0 rounded-[8px]"
+          />
         </div>
         <div className="flex gap-6 mt-6">
-          <img src={orgPaymentPlan} alt="Create your payment plan" className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]" />
-          <img src={orgLaunch} alt="Launch Your Community" className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]" />
+          <img
+            src={orgPaymentPlan}
+            alt="Create your payment plan"
+            className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]"
+          />
+          <img
+            src={orgLaunch}
+            alt="Launch Your Community"
+            className="w-[357px] h-[436px] lg:w-[595px] lg:h-[727px] shrink-0 rounded-[8px]"
+          />
         </div>
       </div>
 
-      {/* Mobile — each card as a full-width responsive image, stacked */}
       <div className="md:hidden relative z-10 flex flex-col gap-4 px-4">
-        <img src={orgCreateCommunityMobile} alt="Create your Community and get started" className="w-full h-auto rounded-[8px]" />
-        <img src={orgAddMembersMobile} alt="Add Your Members" className="w-full h-auto rounded-[8px]" />
-        <img src={orgPaymentPlan} alt="Create your payment plan" className="w-full h-auto rounded-[8px]" />
-        <img src={orgLaunchMobile} alt="Launch Your Community" className="w-full h-auto rounded-[8px]" />
+        <img
+          src={orgCreateCommunityMobile}
+          alt="Create your Community and get started"
+          className="w-full h-auto rounded-[8px]"
+        />
+        <img
+          src={orgAddMembersMobile}
+          alt="Add Your Members"
+          className="w-full h-auto rounded-[8px]"
+        />
+        <img
+          src={orgPaymentPlanMobile}
+          alt="Create your payment plan"
+          className="w-full h-auto rounded-[8px]"
+        />
+        <img
+          src={orgLaunchMobile}
+          alt="Launch Your Community"
+          className="w-full h-auto rounded-[8px]"
+        />
       </div>
 
       <div className="relative z-10 max-w-[880px] mx-auto px-6">
@@ -103,7 +146,11 @@ export default function OrganizationHowItWorks() {
               strokeLinecap="round"
               strokeLinejoin="round"
               animate={{ x: [0, 4, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </motion.svg>
