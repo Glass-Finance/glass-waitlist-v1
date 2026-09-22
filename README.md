@@ -32,6 +32,7 @@ Same core stack as `glass-waitlist`, minus everything app-specific (no React Que
 - **Tailwind CSS 4** (CSS-first config, no `tailwind.config.js`)
 - **Framer Motion / Motion / GSAP** for animation
 - **Sentry** (`@sentry/react`) for crash reporting, gated behind an optional env var — disabled unless configured
+- **Cloudinary** for all image delivery (hero, illustrations, icons, the branded spinner logo). URL-building lives in `src/lib/cloudinary.js` — see the environment variable below and the build guard in `scripts/check-build-env.mjs`.
 - **ESLint 9**
 
 ## Getting started
@@ -45,21 +46,22 @@ Runs at `http://localhost:5173` by default.
 
 ### Environment variables
 
-Neither of these is required to run locally — both have safe fallbacks baked in.
+`VITE_CLOUDINARY_CLOUD_NAME` is the one required at **build time**: `import.meta.env.VITE_*` values are inlined by Vite when the bundle compiles, so if it's missing every image URL ships as `res.cloudinary.com/undefined/...` and the site renders as a blank page. `scripts/check-build-env.mjs` runs before `npm run build` and **fails the build** if it's absent — set it in the Vercel project's Environment Variables (and GitHub Actions already sets it in `.github/workflows/ci.yml`). The other two variables are optional with safe fallbacks baked in.
 
-| Variable          | Required | Purpose                                                                                                                                                                                                                                                                                             |
-| ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `VITE_APP_URL`    | No       | Origin of the real application that "Get Started" / "Sign In" / "Join a Community" buttons redirect to. Defaults to `https://app.glasspay.app` if unset — so it's safe to skip even in production unless you specifically need to point at a different app deployment (e.g. a staging environment). |
-| `VITE_SENTRY_DSN` | No       | Enables crash/error reporting (`src/utils/monitoring.js`). Leave unset to run with monitoring silently disabled — the current default everywhere including production, until/unless a Sentry project is set up for this site specifically.                                                          |
+| Variable                     | Required | Purpose                                                                                                                                                                                                                                                                                             |
+| ---------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `VITE_CLOUDINARY_CLOUD_NAME` | Yes      | Cloudinary cloud name for image delivery (e.g. `ece5jmhy`). Required to build — missing it fails the build via `scripts/check-build-env.mjs`. Set in the Vercel deployment environment, GitHub Actions CI, and your local `.env`.                                                                   |
+| `VITE_APP_URL`               | No       | Origin of the real application that "Get Started" / "Sign In" / "Join a Community" buttons redirect to. Defaults to `https://app.glasspay.app` if unset — so it's safe to skip even in production unless you specifically need to point at a different app deployment (e.g. a staging environment). |
+| `VITE_SENTRY_DSN`            | No       | Enables crash/error reporting (`src/utils/monitoring.js`). Leave unset to run with monitoring silently disabled — the current default everywhere including production, until/unless a Sentry project is set up for this site specifically.                                                          |
 
 ## Scripts
 
-| Command           | Description                        |
-| ----------------- | ---------------------------------- |
-| `npm run dev`     | Start the Vite dev server          |
-| `npm run build`   | Production build to `dist/`        |
-| `npm run lint`    | Run ESLint over the project        |
-| `npm run preview` | Serve the production build locally |
+| Command           | Description                                                                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`     | Start the Vite dev server                                                                                                                             |
+| `npm run build`   | Production build to `dist/` — runs `scripts/check-build-env.mjs` first and fails if required env vars (e.g. `VITE_CLOUDINARY_CLOUD_NAME`) are missing |
+| `npm run lint`    | Run ESLint over the project                                                                                                                           |
+| `npm run preview` | Serve the production build locally                                                                                                                    |
 
 ## Project structure
 
