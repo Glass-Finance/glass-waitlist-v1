@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Crisp } from "crisp-sdk-web";
 
 // Self-hosted fonts (replacing a Google Fonts CSS @import that silently
 // never shipped -- @import "tailwindcss" in index.css expands to real CSS
@@ -30,6 +31,12 @@ import ErrorBoundary from "./components/ErrorBoundary.jsx";
 import { initMonitoring } from "./utils/monitoring.js";
 
 initMonitoring();
+
+// The app uses the same Website ID. Crisp's default cookie domain is the
+// shared base domain, so a visitor keeps their conversation when moving
+// between glasspay.app and app.glasspay.app.
+const CRISP_WEBSITE_ID = import.meta.env.VITE_CRISP_WEBSITE_ID;
+if (CRISP_WEBSITE_ID) Crisp.configure(CRISP_WEBSITE_ID);
 
 // After a new deploy, old chunk hashes no longer exist on the server.
 // Vite fires this event when a dynamic import chunk fails to load —
