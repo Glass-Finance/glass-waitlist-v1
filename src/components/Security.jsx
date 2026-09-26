@@ -21,17 +21,17 @@ const cards = [
   {
     icon: icon1,
     title: "Transparency",
-    desc: "Every kobo is accounted for. No hidden fees or missing funds.",
+    desc: "Every fee is shown before you pay. Your community always receives the full due.",
   },
   {
     icon: icon2,
     title: "NDPR Compliant",
-    desc: "Fully compliant with Nigerian Data Protection Regulations.",
+    desc: "Your rights — access, correction, and deletion — are set out in our Privacy Policy under the Nigeria Data Protection Act 2023.",
   },
   {
     icon: icon3,
     title: "Encryption",
-    desc: "All data and transactions are encrypted. Your records are private.",
+    desc: "Bank details, identity documents, and MFA secrets are AES-256 encrypted at rest; everything is TLS-encrypted in transit.",
   },
 ];
 
@@ -106,7 +106,7 @@ export default function Security() {
               style={{ maxWidth: 1080 }}
             >
               <BlurText
-                text="Bank-grade security for your peace of mind"
+                text="Your Money and Data Are Protected at Every Layer"
                 delay={80}
                 animateBy="words"
                 direction="top"
@@ -129,8 +129,8 @@ export default function Security() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              We protect your funds with encryption in transit and at rest, strict access controls,
-              and continuous security monitoring.
+              Your money moves through Paystack straight to your community's account — we never hold
+              it. Your data is AES-256 encrypted, access-controlled, and monitored around the clock.
             </motion.p>
           </div>
         </div>
@@ -267,7 +267,8 @@ export default function Security() {
                 Why the Nigerian Tribune Is Talking About Glass
               </h4>
               <p className="text-[14px] text-[#9099b2]">
-                Discover how Glass is redefining community financial security.
+                See how Team Glass took the ₦1,000,000 grand prize at the 5th Babcock Innovation
+                Challenge.
               </p>
             </div>
 
