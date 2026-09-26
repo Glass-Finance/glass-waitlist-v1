@@ -1,10 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { MapPin } from "lucide-react";
+import { Crisp } from "crisp-sdk-web";
 import { goToApp } from "../utils/deviceRedirect";
 import { cldUrl } from "../lib/cloudinary";
 import BlurText from "./ui/BlurText";
 
 const glassLogoUrl = cldUrl("glass/Glass", { width: 128 });
+
+// Help Centre opens the support chat when Crisp is configured; the mailto
+// href stays as the no-JS / chat-disabled fallback.
+const openChat = (e) => {
+  if (!import.meta.env.VITE_CRISP_WEBSITE_ID) return;
+  e.preventDefault();
+  Crisp.chat.open();
+};
 
 const links = {
   Product: [
@@ -18,7 +27,7 @@ const links = {
     { label: "Clubs", href: null },
     { label: "Professional Bodies", href: null },
   ],
-  Resources: [{ label: "Help Centre", href: "mailto:glasspayhq@gmail.com" }],
+  Resources: [{ label: "Help Centre", href: "mailto:glasspayhq@gmail.com", chat: true }],
   Company: [
     { label: "About", href: null },
     { label: "Team", href: null },
@@ -105,12 +114,13 @@ export default function Footer() {
             <div key={section}>
               <p className="text-[14px] sm:text-[15px] font-bold text-white mb-4">{section}</p>
               <ul className="space-y-3 sm:space-y-2.5 list-none p-0 m-0">
-                {items.map(({ label, href }) => (
+                {items.map(({ label, href, chat }) => (
                   <li key={label}>
                     {href ? (
                       <a
                         href={href}
-                        className="text-[14px] sm:text-[15px] text-white/60 hover:text-white no-underline transition-colors"
+                        onClick={chat ? openChat : undefined}
+                        className="text-[13px] text-white/60 hover:text-white no-underline transition-colors"
                       >
                         {label}
                       </a>
