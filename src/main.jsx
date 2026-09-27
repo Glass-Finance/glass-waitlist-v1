@@ -27,6 +27,7 @@ import "@fontsource/urbanist/800.css";
 import "./index.css";
 import App from "./App.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import CrispChat from "./components/CrispChat.jsx";
 import { initMonitoring } from "./utils/monitoring.js";
 
 initMonitoring();
@@ -43,5 +44,6 @@ createRoot(document.getElementById("root")).render(
     <ErrorBoundary>
       <App />
     </ErrorBoundary>
+    <CrispChat />
   </StrictMode>,
 );
