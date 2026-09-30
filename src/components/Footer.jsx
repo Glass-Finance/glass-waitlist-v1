@@ -2,10 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { Crisp } from "crisp-sdk-web";
 import { goToApp } from "../utils/deviceRedirect";
-import { cldUrl } from "../lib/cloudinary";
+import glassLogo from "../assets/Glass.webp";
 import BlurText from "./ui/BlurText";
-
-const glassLogoUrl = cldUrl("glass/Glass", { width: 128 });
 
 // Help Centre opens the support chat when Crisp is configured; the mailto
 // href stays as the no-JS / chat-disabled fallback.
@@ -90,7 +88,9 @@ export default function Footer() {
         {/* Brand */}
         <div className="mb-8">
           <a href="/" className="inline-flex items-center gap-2 no-underline mb-3">
-            <img src={glassLogoUrl} alt="Glass" className="w-7 h-7" />
+            {/* Local bundle, not Cloudinary: a 28px icon needs no CDN
+                round trip — mirrors the app repo's footer logo fix. */}
+            <img src={glassLogo} alt="Glass" className="w-7 h-7" />
             <span className="font-bold text-[22px] text-white">Glass</span>
           </a>
           <a
