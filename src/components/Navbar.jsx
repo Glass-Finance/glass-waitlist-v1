@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { goToApp } from "../utils/deviceRedirect";
-import { motion, useScroll, useSpring } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { cldUrl, cldSrcSet } from "../lib/cloudinary";
 
 const scrollTo = (id) =>
@@ -56,6 +56,7 @@ export default function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -70,6 +71,18 @@ export default function Navbar() {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // The menu only exists below lg — if the viewport crosses that breakpoint
+  // while it's open (rotate/resize), drop the open state so the shell doesn't
+  // keep the menu's background/radius on the desktop layout.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (mq.matches) setMenuOpen(false);
+    };
+    mq.addEventListener("change", closeOnDesktop);
+    return () => mq.removeEventListener("change", closeOnDesktop);
   }, []);
 
   const handleViewModeChange = (mode) => {
@@ -101,16 +114,22 @@ export default function Navbar() {
             inset from the screen edges, no border, and no backdrop blur at
             any scroll position. The pill stays see-through so content
             passing underneath reads as itself rather than as a frosted
-            smear; scrolling only deepens the tint slightly (black/20 →
-            black/45) plus a soft shadow, which is enough to keep the white
-            nav text legible over lighter sections without hiding what's
-            behind it. ── */}
+            smear; scrolling only deepens the tint to black/80 plus a soft
+            shadow, which is enough to keep the white nav text legible over
+            lighter sections without hiding what's behind it. The mobile
+            menu lives inside this shell too — the pill grows into the panel
+            instead of a second card opening under it — so the shell clips
+            to its corners and holds one radius (30px: full-round at
+            resting height, a card's corners once expanded); animating
+            rounded-full → a small radius wouldn't interpolate cleanly in
+            Tailwind v4. An open menu covers the whole panel, so it goes
+            solid black — even at black/95 the white page behind it lifted
+            the panel to gray and ghosted the copy through the links and
+            buttons. ── */}
         <div
-          className={`mx-3 sm:mx-6 lg:mx-auto lg:w-fit max-w-[1280px] rounded-full transition-all duration-300 ${
-            scrolled
-              ? "bg-black/80 shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
-              : "bg-transparent shadow-none"
-          }`}
+          className={`mx-3 sm:mx-6 lg:mx-auto lg:w-fit max-w-[1280px] overflow-hidden rounded-[30px] transition-all duration-300 ${
+            scrolled || menuOpen ? "shadow-[0_8px_32px_rgba(0,0,0,0.35)]" : "shadow-none"
+          } ${menuOpen ? "bg-black" : scrolled ? "bg-black/80" : "bg-transparent"}`}
         >
           <div className="flex items-center justify-between lg:justify-start gap-3 sm:gap-4 lg:gap-6 px-4 sm:px-5 lg:px-6 h-[58px] sm:h-[64px]">
             {/* ── Logo ── */}
@@ -181,7 +200,7 @@ export default function Navbar() {
             {/* ── < lg: compact toggle (tablet only, ≥640px) + circular
                 hamburger. Below 640px there simply isn't room for logo +
                 toggle text + a hamburger button without crowding or
-                wrapping, so the toggle moves into the dropdown menu
+                wrapping, so the toggle moves into the expanded menu
                 instead — see below. ── */}
             <div className="flex lg:hidden items-center gap-2.5">
               <div className="hidden sm:block">
@@ -190,83 +209,108 @@ export default function Navbar() {
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={menuOpen}
                 className="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 border border-white/[0.15] text-white/80 hover:text-white hover:bg-white/15 transition-colors cursor-pointer shrink-0"
               >
-                {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                {/* Both glyphs share one slot and rotate the same direction
+                    (out: 0 → 90°, in: -90° → 0°; mirrored on close), so the
+                    menu bars spin out and the close icon spins in as one
+                    motion instead of swapping instantly. ── */}
+                <span className="relative block w-4 h-4">
+                  <Menu
+                    className={`absolute inset-0 w-4 h-4 transition-all duration-500 ease-in-out motion-reduce:transition-none ${
+                      menuOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
+                    }`}
+                  />
+                  <X
+                    className={`absolute inset-0 w-4 h-4 transition-all duration-500 ease-in-out motion-reduce:transition-none ${
+                      menuOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
+                    }`}
+                  />
+                </span>
               </button>
             </div>
           </div>
-        </div>
 
-        {/* ── Mobile/tablet dropdown — a floating card matching the same
-            inset margins as the pill above, not a full-bleed rectangle,
-            so open/closed states read as one component. This one keeps its
-            blur: it's an opened panel covering the page (same as
-            gdgbabcock's), not the resting nav surface. ── */}
-        {menuOpen && (
-          <div className="lg:hidden mx-3 sm:mx-6 mt-2 rounded-[20px] bg-black/90 shadow-2xl overflow-hidden">
-            <div className="px-6 py-5 space-y-4">
-              {/* Toggle lives here on true mobile (<640px) where the header
-                  has no room for it inline — inline-flex on ViewToggle
-                  keeps it sized to content, centered here instead of
-                  stretching edge-to-edge. */}
-              <div className="sm:hidden pb-1 flex justify-center">
-                <ViewToggle viewMode={viewMode} onChange={handleViewModeChange} compact />
-              </div>
+          {/* ── Mobile/tablet menu — expands inside the pill shell above, so
+              the navbar container itself grows into the panel (one
+              component, postra/marloden-style) instead of a second card
+              popping open underneath it. AnimatePresence drives the 0 → auto
+              height; the shell's overflow-hidden clips it to the corners. ── */}
+          <AnimatePresence initial={false}>
+            {menuOpen && (
+              <motion.div
+                key="mobile-menu"
+                className="lg:hidden overflow-hidden"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: reduce ? 0 : 0.36, ease: [0.32, 0.72, 0, 1] }}
+              >
+                <div className="px-4 sm:px-5 pt-2 pb-5 space-y-4">
+                  {/* Toggle lives here on true mobile (<640px) where the
+                      header has no room for it inline — inline-flex on
+                      ViewToggle keeps it sized to content, centered here
+                      instead of stretching edge-to-edge. */}
+                  <div className="sm:hidden pb-1 flex justify-center">
+                    <ViewToggle viewMode={viewMode} onChange={handleViewModeChange} compact />
+                  </div>
 
-              <div className="space-y-1 pt-1">
-                {[
-                  { label: "Use Cases", id: "use-cases" },
-                  { label: "How It Works", id: "how-it-works" },
-                ].map(({ label, id }) => (
-                  <button
-                    key={label}
-                    onClick={() => {
-                      scrollTo(id);
-                      setMenuOpen(false);
-                    }}
-                    className="flex items-center justify-between w-full py-3 text-[14px] font-medium text-white/60 hover:text-white transition-colors border-b border-white/[0.05]"
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+                  <div className="space-y-1 pt-1">
+                    {[
+                      { label: "Use Cases", id: "use-cases" },
+                      { label: "How It Works", id: "how-it-works" },
+                    ].map(({ label, id }) => (
+                      <button
+                        key={label}
+                        onClick={() => {
+                          scrollTo(id);
+                          setMenuOpen(false);
+                        }}
+                        className="flex items-center justify-between w-full py-3 text-[14px] font-medium text-white/60 hover:text-white transition-colors border-b border-white/[0.05]"
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
 
-              {viewMode === "organizations" ? (
-                <div className="flex flex-col gap-3">
-                  <button
-                    onClick={() => {
-                      goToApp("/sign-up", navigate);
-                      setMenuOpen(false);
-                    }}
-                    className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold cursor-pointer"
-                  >
-                    Get Started Free <ChevronRight className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => {
-                      goToApp("/sign-in", navigate);
-                      setMenuOpen(false);
-                    }}
-                    className="w-full flex items-center justify-center gap-2 text-white/80 py-2.5 rounded-full border border-white/[0.15] text-[14px] font-medium cursor-pointer"
-                  >
-                    Sign In
-                  </button>
+                  {viewMode === "organizations" ? (
+                    <div className="flex flex-col gap-3">
+                      <button
+                        onClick={() => {
+                          goToApp("/sign-up", navigate);
+                          setMenuOpen(false);
+                        }}
+                        className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold cursor-pointer"
+                      >
+                        Get Started Free <ChevronRight className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          goToApp("/sign-in", navigate);
+                          setMenuOpen(false);
+                        }}
+                        className="w-full flex items-center justify-center gap-2 text-white/80 py-2.5 rounded-full border border-white/[0.15] text-[14px] font-medium cursor-pointer"
+                      >
+                        Sign In
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        goToApp("/sign-in", navigate);
+                        setMenuOpen(false);
+                      }}
+                      className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold cursor-pointer"
+                    >
+                      Sign In
+                    </button>
+                  )}
                 </div>
-              ) : (
-                <button
-                  onClick={() => {
-                    goToApp("/sign-in", navigate);
-                    setMenuOpen(false);
-                  }}
-                  className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold cursor-pointer"
-                >
-                  Sign In
-                </button>
-              )}
-            </div>
-          </div>
-        )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </nav>
     </>
   );
