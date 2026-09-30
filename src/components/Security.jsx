@@ -1,257 +1,136 @@
-import { useEffect, useRef } from "react";
-import { motion } from "motion/react";
-import BlurText from "./ui/BlurText";
-import { cldUrl, cldSrcSet } from "../lib/cloudinary";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import SecurityPhoneDemo from "./members/SecurityPhoneDemo";
 
-const ICON_WIDTHS = [28, 56, 84];
-const icon1 = {
-  src: cldUrl("glass/security/icon1", { width: 100 }),
-  srcSet: cldSrcSet("glass/security/icon1", ICON_WIDTHS),
-};
-const icon2 = {
-  src: cldUrl("glass/security/icon2", { width: 100 }),
-  srcSet: cldSrcSet("glass/security/icon2", ICON_WIDTHS),
-};
-const icon3 = {
-  src: cldUrl("glass/security/icon3", { width: 100 }),
-  srcSet: cldSrcSet("glass/security/icon3", ICON_WIDTHS),
-};
-
-const cards = [
+const claims = [
   {
-    icon: icon1,
+    num: "01",
     title: "Transparency",
     desc: "Every fee is shown before you pay. Your community always receives the full due.",
   },
   {
-    icon: icon2,
+    num: "02",
     title: "Data Rights",
     desc: "Your rights: access, correction, and deletion are set out in our Privacy Policy.",
   },
   {
-    icon: icon3,
+    num: "03",
     title: "Encryption",
     desc: "Bank details, identity documents, and MFA secrets are AES-256 encrypted at rest; everything is TLS-encrypted in transit.",
   },
 ];
 
-const TILTS = [
-  { rotate: -3, y: 18 },
-  { rotate: 0, y: 0 },
-  { rotate: 3, y: 18 },
-];
+const STEP_INTERVAL_MS = 4000;
 
 export default function Security() {
-  const cardRefs = useRef([]);
+  const [activeStep, setActiveStep] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          const idx = cardRefs.current.indexOf(entry.target);
-          if (idx === -1) return;
-
-          const { rotate, y } = TILTS[idx];
-
-          entry.target.style.transform =
-            window.innerWidth >= 1024 ? `rotateZ(${rotate}deg) translateY(${y}px)` : "none";
-
-          observer.unobserve(entry.target);
-        });
-      },
-      {
-        threshold: 0.15,
-      },
+    if (reduceMotion) return undefined;
+    const timer = setTimeout(
+      () => setActiveStep((current) => (current + 1) % claims.length),
+      STEP_INTERVAL_MS,
     );
-
-    cardRefs.current.forEach((el) => el && observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+    return () => clearTimeout(timer);
+  }, [activeStep, reduceMotion]);
 
   return (
     <section className="relative isolate overflow-hidden py-20 md:py-28" id="security">
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
-        {/* ── Header ── */}
-        <div className="mb-8 md:mb-16" style={{ textAlign: "center" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: "clamp(16px, 4vw, 28px)",
-            }}
-          >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div>
             <motion.span
               initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
               whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="inline-flex items-center border border-[#1C2B8A]/25 text-[#1C2B8A] text-[13px] font-medium px-5 py-2 rounded-full"
+              style={{ marginBottom: "clamp(16px, 4vw, 28px)" }}
             >
-              Security & Trust
+              Security &amp; Trust
             </motion.span>
-          </div>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: 16,
-            }}
-          >
-            <h2
-              className="text-[clamp(32px,5.5vw,58px)] font-bold text-[#0f1d6e] leading-tight tracking-tight"
-              style={{ maxWidth: 1080 }}
+            <motion.h2
+              initial={{ y: 16, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[clamp(32px,5vw,58px)] font-bold text-[#0f1d6e] leading-[1.08] tracking-tight mb-8 lg:mb-10"
             >
-              <BlurText
-                text="Your Money and Data Are Protected at Every Layer"
-                delay={80}
-                animateBy="words"
-                direction="top"
-                stepDuration={0.38}
-                centered
-              />
-            </h2>
-          </div>
+              Security you can verify,
+              <br /> not just trust.
+            </motion.h2>
 
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <motion.p
-              className="text-[17px] text-[#00000099] leading-relaxed"
-              style={{ maxWidth: 700, textAlign: "center" }}
-              initial={{ clipPath: "inset(0% 0% 100% 0%)", opacity: 0 }}
-              whileInView={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{
-                duration: 0.65,
-                delay: 0.35,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              Your money moves through Paystack straight to your community's account — we never hold
-              it. Your data is AES-256 encrypted, access-controlled, and monitored around the clock.
-            </motion.p>
-          </div>
-        </div>
+            <div>
+              {claims.map((claim, i) => {
+                const isActive = i === activeStep;
 
-        {/* ── Cards ── */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-14 xl:gap-20 mb-14 justify-items-center"
-          style={{ alignItems: "start" }}
-        >
-          {cards.map(({ icon, title, desc }, i) => {
-            const { rotate, y } = TILTS[i];
+                return (
+                  <div key={claim.num} className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setActiveStep(i)}
+                      aria-current={isActive ? "step" : undefined}
+                      className="group block w-full text-left py-4 md:py-5"
+                    >
+                      <span className="flex items-center gap-3">
+                        <span
+                          className={`inline-flex items-center justify-center min-w-[34px] h-[26px] px-1.5 rounded-md text-[12px] font-semibold tracking-wide transition-colors duration-300 ${
+                            isActive
+                              ? "bg-[#1C2B8A] text-white"
+                              : "bg-[#EFEFF1] text-[#9AA0AE] group-hover:text-[#6B7280]"
+                          }`}
+                        >
+                          {claim.num}
+                        </span>
+                        <span
+                          className={`text-[17px] md:text-[18px] font-semibold transition-colors duration-300 ${
+                            isActive
+                              ? "text-[#1C2B8A]"
+                              : "text-[#9AA0AE] group-hover:text-[#6B7280]"
+                          }`}
+                        >
+                          {claim.title}
+                        </span>
+                      </span>
+                    </button>
 
-            return (
-              <div
-                key={title}
-                ref={(el) => (cardRefs.current[i] = el)}
-                style={{
-                  width: "100%",
-                  maxWidth: "320px",
+                    {isActive ? (
+                      <div className="pb-7">
+                        <p className="ml-[46px] max-w-[520px] text-[15px] leading-relaxed text-[#00000099]">
+                          {claim.desc}
+                        </p>
 
-                  transform:
-                    window.innerWidth >= 1024
-                      ? `rotateZ(${rotate}deg) translateY(${y + 20}px)`
-                      : window.innerWidth >= 640
-                        ? `rotateZ(${rotate * 0.4}deg) translateY(${(y + 20) * 0.5}px)`
-                        : "none",
+                        <div className="lg:hidden mt-5 mx-auto w-full max-w-[300px] h-[330px] overflow-hidden rounded-b-[28px]">
+                          <SecurityPhoneDemo activeStep={activeStep} maxWidth={300} />
+                        </div>
+                      </div>
+                    ) : null}
 
-                  transition: `transform 0.7s cubic-bezier(0.22,1,0.36,1) ${200 + i * 100}ms`,
-
-                  transformOrigin: "top center",
-
-                  borderRadius: 24,
-                  background: "#EFEFF1E5",
-
-                  padding: "32px 24px",
-
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              >
-                <div
-                  style={{
-                    position: "relative",
-                    width: 170,
-                    height: 170,
-                    marginBottom: 28,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      borderRadius: "50%",
-                      background:
-                        "radial-gradient(circle, rgba(168,85,247,0.35) 0%, rgba(168,85,247,0.18) 45%, transparent 75%)",
-                      filter: "blur(20px)",
-                    }}
-                  />
-
-                  <div
-                    style={{
-                      width: 78,
-                      height: 78,
-                      borderRadius: "50%",
-                      background: "#fff",
-                      boxShadow:
-                        "0 0 0 6px rgba(255,255,255,0.35), 0 4px 20px rgba(28,43,138,0.10)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    <img
-                      src={icon.src}
-                      srcSet={icon.srcSet}
-                      sizes="28px"
-                      alt={title}
-                      style={{
-                        width: 28,
-                        height: 28,
-                        objectFit: "contain",
-                      }}
-                      loading="lazy"
-                      decoding="async"
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-x-0 bottom-0 h-[2px] bg-[#E6E8F0]"
                     />
+                    {isActive && !reduceMotion ? (
+                      <motion.span
+                        key={`fill-${activeStep}`}
+                        aria-hidden="true"
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: STEP_INTERVAL_MS / 1000, ease: "linear" }}
+                        className="absolute inset-x-0 bottom-0 h-[2px] origin-left bg-[#1C2B8A]"
+                      />
+                    ) : null}
                   </div>
-                </div>
+                );
+              })}
+            </div>
+          </div>
 
-                <h3
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 700,
-                    color: "#1C2B8A",
-                    marginBottom: 12,
-                    lineHeight: 1.25,
-                  }}
-                >
-                  {title}
-                </h3>
-
-                <p
-                  style={{
-                    fontSize: 14,
-                    color: "rgba(0,0,0,0.5)",
-                    lineHeight: 1.65,
-                    margin: 0,
-                    maxWidth: 260,
-                  }}
-                >
-                  {desc}
-                </p>
-              </div>
-            );
-          })}
+          <div className="hidden lg:flex justify-center">
+            <SecurityPhoneDemo activeStep={activeStep} maxWidth={300} />
+          </div>
         </div>
 
         {/* ── Bottom banner ── */}
@@ -260,6 +139,7 @@ export default function Security() {
           whileInView={{ y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-14"
         >
           <div className="bg-[#CCDBFF66] rounded-2xl px-8 py-6 flex items-center justify-between gap-6 flex-wrap">
             <div>
