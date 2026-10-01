@@ -2,7 +2,6 @@
    All selectors are namespaced under .gps so nothing leaks into the page. */
 .gps {
   margin: 0;
-  background: #f5f5f6;
   color: var(--body);
   font: 17px/1.55 var(--f);
   padding: 88px 16px;
