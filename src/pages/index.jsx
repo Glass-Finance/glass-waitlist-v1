@@ -41,7 +41,7 @@ export default function OrganizationsHome() {
   }, [location.hash]);
 
   return (
-    <div className="bg-white">
+    <div>
       <PageGlow />
       <Navbar />
       <Hero />

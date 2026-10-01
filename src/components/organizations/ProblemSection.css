@@ -14,7 +14,6 @@
   --accent: #002fa7;
   --red: #b3261e;
   --f: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --m: "JetBrains Mono", ui-monospace, Menlo, monospace;
 }
 .gps .wrap {
   max-width: 1200px;
@@ -28,7 +27,7 @@
 }
 .gps .eyebrow,
 .gps .tag {
-  font: 600 12px var(--m);
+  font: 600 12px var(--f);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
@@ -68,10 +67,10 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font: 12px var(--m);
+  font: 12px var(--f);
 }
 .gps .ctl button {
-  font: 600 12px var(--m);
+  font: 600 12px var(--f);
   color: var(--accent);
   background: none;
   border: 1px solid var(--line2);
@@ -122,7 +121,7 @@
   background: #fff;
   display: grid;
   place-items: center;
-  font: 600 13px var(--m);
+  font: 600 13px var(--f);
   color: var(--body);
   transition: 0.4s;
 }
@@ -143,7 +142,7 @@
   display: none;
 }
 .gps .t {
-  font: 600 11.5px var(--m);
+  font: 600 11.5px var(--f);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--body);
@@ -738,7 +737,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font: 600 11.5px var(--m);
+  font: 600 11.5px var(--f);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #b9b9c0;
@@ -951,31 +950,6 @@
 .gps .col p {
   margin: 14px 0 0;
   max-width: 34ch;
-}
-.gps .next {
-  margin-top: 48px;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px 32px;
-  flex-wrap: wrap;
-}
-.gps .next p {
-  margin: 0;
-  color: var(--fg);
-  font-size: 18px;
-  font-weight: 600;
-}
-.gps .next p span {
-  font-weight: 400;
-  color: var(--body);
-}
-.gps .next a {
-  color: var(--accent);
-  font-weight: 600;
-  text-underline-offset: 5px;
 }
 @media (max-width: 1040px) {
   .gps {

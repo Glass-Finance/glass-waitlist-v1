@@ -483,12 +483,6 @@ export default function ProblemSection() {
             <p>Limited transparency reduces trust and slows compliance.</p>
           </div>
         </div>
-        <div className="next">
-          <p>
-            Your solution awaits. <span>Experience financial transparency.</span>
-          </p>
-          <a href="#solution">See how Glasspay fixes this →</a>
-        </div>
       </div>
     </section>
   );
