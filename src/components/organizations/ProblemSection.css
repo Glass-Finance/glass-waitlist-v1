@@ -24,7 +24,15 @@
   gap: 24px 64px;
   align-items: end;
 }
-.gps .eyebrow,
+.gps .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  border: 1px solid rgba(28, 43, 138, 0.25);
+  border-radius: 9999px;
+  font: 500 13px var(--f);
+  color: #1c2b8a;
+}
 .gps .tag {
   font: 600 12px var(--f);
   letter-spacing: 0.14em;
@@ -34,7 +42,7 @@
 .gps h2 {
   margin: 18px 0 0;
   max-width: 20ch;
-  font-size: clamp(2.25rem, 4.6vw, 3.4rem);
+  font-size: clamp(26px, 5vw, 58px);
   line-height: 1.02;
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -44,7 +52,7 @@
 .gps .lede {
   margin: 0;
   max-width: 34ch;
-  font-size: 20px;
+  font-size: clamp(15px, 2vw, 17px);
   line-height: 1.45;
 }
 .gps .top {
@@ -1008,6 +1016,25 @@
   .gps .col + .col {
     border-top: 1px solid var(--line);
     margin-top: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .gps .row {
+    flex-direction: column;
+  }
+  .gps .note {
+    margin-top: 12px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .gps .note i {
+    width: auto;
+    height: 28px;
+    border-top: 0;
+    border-left: 2px dashed #e0ab88;
+  }
+  .gps .stage {
+    min-height: 740px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
