@@ -54,7 +54,10 @@
           "value": "frame-ancestors 'self' https://www.upwork.com https://upwork.com"
         },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(self \"https://*.crisp.chat\"), geolocation=()"
+        }
       ]
     },
     {
