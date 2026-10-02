@@ -39,10 +39,6 @@ export default function Security() {
     <section className="relative isolate overflow-hidden py-20 md:py-28" id="security">
       <div className="relative z-10 max-w-[1140px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="hidden lg:flex justify-center">
-            <SecurityPhoneDemo activeStep={activeStep} maxWidth={300} />
-          </div>
-
           <div>
             <motion.span
               initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
@@ -130,6 +126,10 @@ export default function Security() {
                 );
               })}
             </div>
+          </div>
+
+          <div className="hidden lg:flex justify-center">
+            <SecurityPhoneDemo activeStep={activeStep} maxWidth={300} />
           </div>
         </div>
 
