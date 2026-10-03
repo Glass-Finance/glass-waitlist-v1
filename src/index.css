@@ -19,6 +19,12 @@
   --color-gray-bg: #f5f5f6;
   --color-dark-bg: #0a1f2e;
 
+  /* Brand navy pair, mirrored from glass-waitlist's index.css. Without these
+     the `text-brand-ink` / `border-brand-deep` utilities resolve to nothing
+     here and headings silently fall back to inherited black. */
+  --color-brand-deep: #1c2b8a;
+  --color-brand-ink: #0f1d6e;
+
   --animate-fadeIn: fadeIn 0.8s ease-out forwards;
   --animate-slideInLeft: slideInLeft 0.8s ease-out forwards;
   --animate-slideInRight: slideInRight 0.8s ease-out forwards;
