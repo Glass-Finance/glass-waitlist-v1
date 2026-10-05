@@ -725,10 +725,23 @@ export default function ProblemSection() {
                         className="min-h-6 flex-1 px-2 py-1 before:text-[#888] before:font-semibold before:not-italic before:content-['fx_']"
                       />
                     </div>
-                    <table
-                      data-role="grid"
-                      className="h-[326px] w-full table-fixed border-collapse border-[#dcdcdc] max-[600px]:h-[300px]"
-                    />
+                    {/* The screen above is a fixed 398px with overflow-hidden, so
+                        everything inside it has to add up to that: title bar 32 +
+                        ribbon 34 + formula bar 28 + sheet tabs 33 = 127, leaving
+                        271 for the grid. The table itself cannot be the clipper —
+                        `height` on a <table> is only a minimum, so it grows to fit
+                        its 14 rows and pushed the sheet tabs clean out of the
+                        screen at every width. Hence the wrapper: it owns the
+                        height, the table stays a real table (buildGrid injects
+                        bare <tr> markup, which only survives in a table context)
+                        and its overflow is clipped at the frame edge like a real
+                        spreadsheet viewport. */}
+                    <div className="h-[271px] overflow-hidden">
+                      <table
+                        data-role="grid"
+                        className="w-full table-fixed border-collapse border-[#dcdcdc]"
+                      />
+                    </div>
                     <div className="flex gap-0.5 border-t border-[#d4d4d4] bg-[#f4f4f5] px-2 py-1 text-[11.5px]">
                       <span className="rounded-b bg-white px-3 py-[3px] font-semibold text-[#217346] shadow-[inset_0_2px_0_#217346]">
                         Sheet1
