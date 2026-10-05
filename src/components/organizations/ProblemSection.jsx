@@ -388,6 +388,9 @@ export default function ProblemSection() {
           // on phones (see the [data-role="stage"][data-scene] rules in
           // index.css — the scenes are absolute, so the stage can't size to them).
           $("stage").dataset.scene = String(i);
+          // The spreadsheet stage has to clear the laptop, whose height depends
+          // on the width — re-fit whenever the active scene changes.
+          fit();
           await SCENES[i](wait);
           if (i < SCENES.length - 1) await wait(500);
         }
@@ -405,9 +408,37 @@ export default function ProblemSection() {
     function fit() {
       const stage = $("stage");
       const mock = $("mock");
+      const wrap = $("mockWrap");
       if (!stage || !mock) return;
       const scale = Math.min(1, (stage.clientWidth - 20) / 724);
       mock.style.transform = `scale(${scale})`;
+      /* offsetHeight ignores the transform, so this is the mock's real layout
+         height. Collapsing the wrapper to the *scaled* height is what makes the
+         scene's justify-center land the laptop in the middle: without it flex
+         centres the unscaled box and the shrunken laptop hangs off its top edge. */
+      if (wrap) wrap.style.height = `${Math.round(mock.offsetHeight * scale)}px`;
+      /* index.css sizes the stage per scene on phones, and its spreadsheet
+         height (280px) is tuned for a ~206px laptop. The laptop's height is
+         width-dependent, so in the band above phones it grows past that and the
+         stage would clip it top and bottom. Grow the stage to clear the laptop,
+         never shrink it below the stylesheet's value — that keeps the reduced
+         phone height while stopping the tablet/small-laptop clip. */
+      if (stage.dataset.scene === "3") {
+        /* Read the stylesheet's own height with the transition suppressed —
+           fit() runs the instant data-scene flips, and mid-transition
+           getComputedStyle reports whatever value it is animating *through*
+           (an inflated one here), which would make the comparison below always
+           lose. */
+        const running = stage.style.transition;
+        stage.style.transition = "none";
+        void stage.offsetHeight; // flush the style change
+        const cssMin = parseFloat(getComputedStyle(stage).minHeight) || 0;
+        stage.style.transition = running;
+        const needed = Math.round(mock.offsetHeight * scale) + 32;
+        if (needed > cssMin) stage.style.minHeight = `${needed}px`;
+      } else if (stage.style.minHeight) {
+        stage.style.minHeight = "";
+      }
     }
 
     fit();
@@ -691,41 +722,47 @@ export default function ProblemSection() {
               data-role="scene"
               className="scene absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 invisible translate-x-10 [clip-path:inset(0_0_0_100%)] transition-[clip-path,transform,visibility] duration-750 [&.on]:visible [&.on]:translate-x-0 [&.on]:[clip-path:inset(0)] [&.on]:delay-0"
             >
-              <div
-                data-role="mock"
-                className="w-[724px] flex-none flex flex-col items-center drop-shadow-[0_30px_40px_#02061f99] max-[1040px]:origin-top"
-              >
-                <div className="relative w-[660px] rounded-[18px_18px_4px_4px] border-2 border-[#d3d5db] bg-[#0a0a0c] px-3 pt-3 pb-3.5 before:absolute before:top-1 before:left-1/2 before:size-1 before:rounded-full before:bg-[#2a2c34] before:content-['']">
-                  <div className="h-[398px] overflow-hidden rounded-[3px] bg-white font-['Segoe_UI',Calibri,Helvetica,Arial,sans-serif]">
-                    <div className="flex items-center justify-between border-b border-[#d9d9d9] bg-[#f4f4f5] px-2.5 py-1.5 text-[12px] text-[#333]">
-                      <span className="flex gap-[7px]">
-                        <i className="size-[11px] rounded-full bg-[#ff5f57]" />
-                        <i className="size-[11px] rounded-full bg-[#febc2e]" />
-                        <i className="size-[11px] rounded-full bg-[#28c840]" />
-                      </span>
-                      <span className="font-medium">dues_march_FINAL_v3.xlsx</span>
-                      <span />
-                    </div>
-                    <div className="flex gap-4 border-b border-[#d4d4d4] bg-white px-2.5 py-[5px] text-[11.5px] text-[#333]">
-                      <b className="border-b-2 border-[#217346] pb-[3px] font-semibold">Home</b>
-                      <span>Insert</span>
-                      <span>Draw</span>
-                      <span>Page Layout</span>
-                      <span>Formulas</span>
-                      <span>Data</span>
-                      <span>Review</span>
-                      <span>View</span>
-                    </div>
-                    <div className="flex border-b border-[#d4d4d4] text-[12px]">
-                      <div data-role="nameBox" className="border-r border-[#d4d4d4] px-2 py-1">
-                        A1
+              {/* The wrapper exists only to carry the scaled height — see
+                  fit(). The scene centres its flex child, but a CSS transform
+                  does not change layout size, so the mock's full 724x441 box
+                  would be centred while the visible laptop shrank toward its top
+                  edge (origin-top), stranding it above a pool of empty space. */}
+              <div data-role="mockWrap" className="flex w-full flex-col items-center">
+                <div
+                  data-role="mock"
+                  className="w-[724px] flex-none flex flex-col items-center drop-shadow-[0_30px_40px_#02061f99] max-[1040px]:origin-top"
+                >
+                  <div className="relative w-[660px] rounded-[18px_18px_4px_4px] border-2 border-[#d3d5db] bg-[#0a0a0c] px-3 pt-3 pb-3.5 before:absolute before:top-1 before:left-1/2 before:size-1 before:rounded-full before:bg-[#2a2c34] before:content-['']">
+                    <div className="h-[398px] overflow-hidden rounded-[3px] bg-white font-['Segoe_UI',Calibri,Helvetica,Arial,sans-serif]">
+                      <div className="flex items-center justify-between border-b border-[#d9d9d9] bg-[#f4f4f5] px-2.5 py-1.5 text-[12px] text-[#333]">
+                        <span className="flex gap-[7px]">
+                          <i className="size-[11px] rounded-full bg-[#ff5f57]" />
+                          <i className="size-[11px] rounded-full bg-[#febc2e]" />
+                          <i className="size-[11px] rounded-full bg-[#28c840]" />
+                        </span>
+                        <span className="font-medium">dues_march_FINAL_v3.xlsx</span>
+                        <span />
                       </div>
-                      <div
-                        data-role="formulaBar"
-                        className="min-h-6 flex-1 px-2 py-1 before:text-[#888] before:font-semibold before:not-italic before:content-['fx_']"
-                      />
-                    </div>
-                    {/* The screen above is a fixed 398px with overflow-hidden, so
+                      <div className="flex gap-4 border-b border-[#d4d4d4] bg-white px-2.5 py-[5px] text-[11.5px] text-[#333]">
+                        <b className="border-b-2 border-[#217346] pb-[3px] font-semibold">Home</b>
+                        <span>Insert</span>
+                        <span>Draw</span>
+                        <span>Page Layout</span>
+                        <span>Formulas</span>
+                        <span>Data</span>
+                        <span>Review</span>
+                        <span>View</span>
+                      </div>
+                      <div className="flex border-b border-[#d4d4d4] text-[12px]">
+                        <div data-role="nameBox" className="border-r border-[#d4d4d4] px-2 py-1">
+                          A1
+                        </div>
+                        <div
+                          data-role="formulaBar"
+                          className="min-h-6 flex-1 px-2 py-1 before:text-[#888] before:font-semibold before:not-italic before:content-['fx_']"
+                        />
+                      </div>
+                      {/* The screen above is a fixed 398px with overflow-hidden, so
                         everything inside it has to add up to that: title bar 32 +
                         ribbon 34 + formula bar 28 + sheet tabs 33 = 127, leaving
                         271 for the grid. The table itself cannot be the clipper —
@@ -736,23 +773,24 @@ export default function ProblemSection() {
                         bare <tr> markup, which only survives in a table context)
                         and its overflow is clipped at the frame edge like a real
                         spreadsheet viewport. */}
-                    <div className="h-[271px] overflow-hidden">
-                      <table
-                        data-role="grid"
-                        className="w-full table-fixed border-collapse border-[#dcdcdc]"
-                      />
-                    </div>
-                    <div className="flex gap-0.5 border-t border-[#d4d4d4] bg-[#f4f4f5] px-2 py-1 text-[11.5px]">
-                      <span className="rounded-b bg-white px-3 py-[3px] font-semibold text-[#217346] shadow-[inset_0_2px_0_#217346]">
-                        Sheet1
-                      </span>
-                      <span className="rounded-b bg-[#e4e4e4] px-3 py-[3px]">Jan</span>
-                      <span className="rounded-b bg-[#e4e4e4] px-3 py-[3px]">Feb</span>
-                      <span className="rounded-b bg-[#e4e4e4] px-3 py-[3px]">Mar</span>
+                      <div className="h-[271px] overflow-hidden">
+                        <table
+                          data-role="grid"
+                          className="w-full table-fixed border-collapse border-[#dcdcdc]"
+                        />
+                      </div>
+                      <div className="flex gap-0.5 border-t border-[#d4d4d4] bg-[#f4f4f5] px-2 py-1 text-[11.5px]">
+                        <span className="rounded-b bg-white px-3 py-[3px] font-semibold text-[#217346] shadow-[inset_0_2px_0_#217346]">
+                          Sheet1
+                        </span>
+                        <span className="rounded-b bg-[#e4e4e4] px-3 py-[3px]">Jan</span>
+                        <span className="rounded-b bg-[#e4e4e4] px-3 py-[3px]">Feb</span>
+                        <span className="rounded-b bg-[#e4e4e4] px-3 py-[3px]">Mar</span>
+                      </div>
                     </div>
                   </div>
+                  <div className="relative mt-[-1px] h-[14px] w-[724px] rounded-b-[18px/14px] bg-[linear-gradient(#e9eaee,#b7bac3)] before:absolute before:top-0 before:left-1/2 before:h-[5px] before:w-[110px] before:-ml-[55px] before:rounded-b-lg before:bg-[#9b9ea8] before:content-['']" />
                 </div>
-                <div className="relative mt-[-1px] h-[14px] w-[724px] rounded-b-[18px/14px] bg-[linear-gradient(#e9eaee,#b7bac3)] before:absolute before:top-0 before:left-1/2 before:h-[5px] before:w-[110px] before:-ml-[55px] before:rounded-b-lg before:bg-[#9b9ea8] before:content-['']" />
               </div>
             </div>
 
