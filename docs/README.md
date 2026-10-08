@@ -6,5 +6,6 @@ This structure intentionally mirrors `glass-waitlist` (the application repo) —
 
 - [Architecture](architecture.md)
 - [Cloudinary assets](cloudinary.md)
+- [Design system](design-system.md) — colours, radii, button roles/sizes/states, from the Figma file "Glass Design By AQ". Read before styling anything.
 - [Testing strategy](testing-strategy.md)
 - [Architecture decisions](decisions/)
