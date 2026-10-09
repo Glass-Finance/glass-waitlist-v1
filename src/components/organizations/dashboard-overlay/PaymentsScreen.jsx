@@ -150,6 +150,8 @@ export default function PaymentsScreen({ active }) {
           </div>
         </div>
         <button
+          tabIndex={-1}
+          aria-hidden="true"
           style={{
             padding: "6px 12px",
             borderRadius: 7,

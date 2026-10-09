@@ -318,8 +318,26 @@ a {
   font-weight: 600;
 }
 .legal-prose a {
-  color: #002fa7;
+  color: var(--color-brand);
   text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+/* The privacy policy and terms of service are 31 links of prose with no
+   hover and no focus state of their own. Underlined brand-blue links are
+   distinguishable without either, which is what got them missed -- but the
+   focus ring is the only thing a keyboard user gets, and this block sits in
+   unlayered CSS so it outranks the global :focus-visible outline below.
+   Without an explicit focus-visible here the ring is suppressed and the 31
+   links are unreachable again. */
+.legal-prose a:hover {
+  color: var(--color-brand-hover);
+}
+
+.legal-prose a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-g-1);
 }
 
 /* Ensure proper stacking context */

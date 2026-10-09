@@ -149,6 +149,8 @@ export default function MembersScreen({ active }) {
         </div>
         <div style={{ display: "flex", gap: 7 }}>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "6px 12px",
               borderRadius: 7,
@@ -173,6 +175,8 @@ export default function MembersScreen({ active }) {
             Copy Invite Link
           </button>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "6px 12px",
               borderRadius: 7,
@@ -242,6 +246,8 @@ export default function MembersScreen({ active }) {
         >
           <span style={{ fontSize: 12, fontWeight: 700, color: "#000" }}>Member Payments</span>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "5px 11px",
               borderRadius: 7,

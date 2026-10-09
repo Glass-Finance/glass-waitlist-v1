@@ -86,6 +86,8 @@ export default function DashboardScreen() {
         </div>
         <div style={{ display: "flex", gap: 7 }}>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "6px 12px",
               borderRadius: 7,
@@ -99,6 +101,8 @@ export default function DashboardScreen() {
             Create Payment Plan
           </button>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "6px 12px",
               borderRadius: 7,
