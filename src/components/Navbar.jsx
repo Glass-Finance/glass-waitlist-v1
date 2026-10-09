@@ -5,6 +5,7 @@ import { goToApp } from "../utils/deviceRedirect";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { cldUrl, cldSrcSet } from "../lib/cloudinary";
 import { Button } from "./ui/Button";
+import { LandingCta } from "./ui/LandingCta";
 
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -180,15 +181,13 @@ export default function Navbar() {
                   >
                     Sign In
                   </button>
-                  <Button
+                  <LandingCta
                     onClick={() => goToApp("/sign-up", navigate)}
-                    fullWidth={false}
-                    size="sm"
                     className="shadow-lg shadow-black/20"
                   >
                     Get Started Free
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </Button>
+                  </LandingCta>
                 </>
               ) : (
                 <Button
@@ -281,16 +280,14 @@ export default function Navbar() {
 
                   {viewMode === "organizations" ? (
                     <div className="flex flex-col gap-3">
-                      <Button
+                      <LandingCta
                         onClick={() => {
                           goToApp("/sign-up", navigate);
                           setMenuOpen(false);
                         }}
-                        size="md"
-                        className="justify-center"
                       >
                         Get Started Free <ChevronRight className="w-4 h-4" />
-                      </Button>
+                      </LandingCta>
                       <button
                         onClick={() => {
                           goToApp("/sign-in", navigate);

@@ -7,7 +7,7 @@ import { cldUrl } from "../../lib/cloudinary";
 import BlurText from "../ui/BlurText";
 import VariableProximity from "../ui/VariableProximity";
 import { ScaledPhoneHeroDemo } from "./PhoneHeroDemo";
-import { Button } from "../ui/Button";
+import { LandingCta } from "../ui/LandingCta";
 
 const waveBg = cldUrl("glass/hero/hero", { width: 1920 });
 
@@ -149,12 +149,10 @@ export default function MembersHero() {
                 delay: 1.4,
               }}
             >
-              <Button
+              <LandingCta
                 onClick={handleJoin}
                 loading={isRedirecting}
-                fullWidth={false}
-                size="sm"
-                className="inline-flex items-center gap-2 hover:-translate-y-0.5 transition-transform hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 disabled:hover:translate-y-0 disabled:hover:shadow-lg"
+                className="shadow-lg shadow-black/30"
               >
                 {isRedirecting ? "Redirecting…" : "Join A Community"}
                 <motion.span
@@ -168,7 +166,7 @@ export default function MembersHero() {
                 >
                   <ArrowRight className="w-3.5 h-3.5" />
                 </motion.span>
-              </Button>
+              </LandingCta>
             </motion.div>
           </div>
 
@@ -225,12 +223,10 @@ export default function MembersHero() {
               Stop sending screenshots of receipts. Get instant proof of payment, track your
               history, and never miss a deadline again.
             </p>
-            <Button
+            <LandingCta
               onClick={handleJoin}
               loading={isRedirecting}
-              fullWidth={false}
-              size="sm"
-              className="inline-flex items-center gap-2 hover:-translate-y-0.5 transition-transform hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/30 disabled:hover:translate-y-0 disabled:hover:shadow-lg"
+              className="shadow-lg shadow-black/30"
             >
               {isRedirecting ? "Redirecting…" : "Join A Community"}
               <motion.span
@@ -244,7 +240,7 @@ export default function MembersHero() {
               >
                 <ArrowRight className="w-3.5 h-3.5" />
               </motion.span>
-            </Button>
+            </LandingCta>
           </div>
 
           {/* Phone — text stays left-anchored (px-6/px-12 above), no
