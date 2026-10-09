@@ -12,18 +12,72 @@
   --font-playfair: "Playfair Display", serif;
   --font-urbanist: "Urbanist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --color-primary: #17a1e5;
-  --color-primary-dark: #0e628c;
-  --color-primary-light: #e8f5fb;
-  --color-gray-text: #808080;
-  --color-gray-bg: #f5f5f6;
-  --color-dark-bg: #0a1f2e;
+  /* DESIGN-SYSTEM.md §1/§2 — the Figma palette, mirrored from
+     glass-waitlist/src/index.css. This repo had almost none of it, which is
+     why nearly every component spelled its colours out as literals.
 
-  /* Brand navy pair, mirrored from glass-waitlist's index.css. Without these
-     the `text-brand-ink` / `border-brand-deep` utilities resolve to nothing
-     here and headings silently fall back to inherited black. */
-  --color-brand-deep: #1c2b8a;
-  --color-brand-ink: #0f1d6e;
+     Six legacy tokens are deleted rather than repointed: --color-primary
+     #17a1e5 (Tailwind sky blue, banned by §1.6, and in no node of the design
+     file), --color-primary-dark, --color-primary-light, --color-gray-text,
+     --color-gray-bg and --color-dark-bg. All six had zero consumers once the
+     brand tokens below existed, so repointing them would have been a lie --
+     they are not aliases of anything, they are unused.
+
+     Two navies that WERE consumed, brand-deep #1c2b8a and brand-ink #0f1d6e,
+     now alias brand-navy below, Figma's one navy. Same treatment in
+     glass-waitlist, for the same reason: §1.6 lists six near-identical
+     "brand navy" hexes and says Figma has one. Their names are kept so the
+     utilities that resolve to them keep working -- text-brand-ink and
+     border-brand-deep were used all over the old components. */
+
+  /* The one brand colour. 2,812 nodes in the file — the highest-confidence
+     value in the design. */
+  --color-brand: #002fa7;
+  --color-brand-tint: #e6eeff;
+  --color-hairline: #e0e0eb;
+
+  /* Figma's focus-ring colour. Previously the global :focus-visible reused the
+     brand blue, which was invisible against this repo's navy sections. */
+  --color-focus: #0f53ff;
+
+  /* Figma's Critical Action button. Not Tailwind red-600 (#dc2626). */
+  --color-danger: #db0000;
+
+  /* Figma's hover/pressed are black overlays on the brand fill (black @6% /
+     @12%), not element opacity. */
+  --color-brand-hover: #002f9b;
+  --color-brand-pressed: #002b8f;
+
+  /* Figma's deep navy — one value, replacing the six near-identical navies
+     this repo was using (#0f1d6e, #1c2b8a, #0b0f2e, #0d1a6e, #0c1020,
+     #0d1022, #0f1640). */
+  --color-brand-navy: #001f6e;
+  --color-brand-deep: #001f6e;
+  --color-brand-ink: #001f6e;
+
+  /* Figma's tint ramp and its only purple. */
+  --color-brand-100: #ccdaff;
+  --color-brand-200: #bdd0fe;
+  --color-brand-300: #dbe6ff;
+  --color-brand-400: #94b1fb;
+  --color-brand-500: #6a8ff0;
+  --color-brand-purple: #6b2fb5;
+
+  /* Status fills the design file actually reaches for: #008000 (435 nodes),
+     #9a6500 (91), #ccffcc (183), #ffffdb (56), #ffcccc (27). */
+  --color-success: #008000;
+  --color-warning: #9a6500;
+  --color-success-wash: #ccffcc;
+  --color-warning-wash: #ffffdb;
+  --color-danger-wash: #ffcccc;
+
+  /* Figma's corner-radius scale: four values. Additive on purpose -- remapping
+     Tailwind's built-in --radius-sm/md/lg would enlarge every card and input
+     already using rounded-lg/rounded-md in this repo. */
+  --radius-g-1: 4px;
+  --radius-g-2: 8px;
+  --radius-g-3: 12px;
+  --radius-g-4: 16px;
 
   --animate-fadeIn: fadeIn 0.8s ease-out forwards;
   --animate-slideInLeft: slideInLeft 0.8s ease-out forwards;
@@ -61,6 +115,22 @@
 /* Global Resets */
 * {
   box-sizing: border-box;
+}
+
+/* DESIGN-SYSTEM.md §2.3 — the focus ring is #0f53ff, not the brand blue.
+
+   This repo previously had no :focus-visible rule at all, so 29 of its 30
+   buttons fell back to the UA default. On the navy hero and nav sections that
+   default is easy to miss, and reusing #002fa7 (the fill colour) for a ring
+   drawn *around* a #002fa7 button makes it invisible — the outline merges
+   into the button it is supposed to mark.
+
+   Scoped to focus-visible so pointer users never see it, and it is applied
+   *before* any component rule so an explicit outline-* utility on a component
+   still wins on specificity order. */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 html {
@@ -221,7 +291,7 @@ a {
 .legal-prose h2 {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #111827;
+  color: #000000;
   margin: 2.25rem 0 0.75rem;
 }
 .legal-prose h2:first-child {
@@ -244,12 +314,30 @@ a {
   margin-bottom: 0.4rem;
 }
 .legal-prose strong {
-  color: #111827;
+  color: #000000;
   font-weight: 600;
 }
 .legal-prose a {
-  color: #002fa7;
+  color: var(--color-brand);
   text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+/* The privacy policy and terms of service are 31 links of prose with no
+   hover and no focus state of their own. Underlined brand-blue links are
+   distinguishable without either, which is what got them missed -- but the
+   focus ring is the only thing a keyboard user gets, and this block sits in
+   unlayered CSS so it outranks the global :focus-visible outline below.
+   Without an explicit focus-visible here the ring is suppressed and the 31
+   links are unreachable again. */
+.legal-prose a:hover {
+  color: var(--color-brand-hover);
+}
+
+.legal-prose a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-g-1);
 }
 
 /* Ensure proper stacking context */

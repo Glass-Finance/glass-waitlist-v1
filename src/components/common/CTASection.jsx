@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import BlurText from "../ui/BlurText";
 import { cldUrl, cldSrcSet } from "../../lib/cloudinary";
+import { Button } from "../ui/Button";
 
 const ICON_WIDTHS = [66, 132, 198];
 const LOGO_WIDTHS = [34, 68, 102];
@@ -261,7 +262,7 @@ export default function CTASection({
     <section ref={sectionRef} className="relative isolate py-14 px-6 overflow-hidden">
       <div
         ref={cardRef}
-        className="max-w-[1140px] mx-auto rounded-3xl overflow-hidden relative bg-[#0d1a6e] text-center min-h-[300px] flex flex-col items-center justify-center [padding:clamp(40px,7vw,88px)_clamp(24px,10vw,200px)]"
+        className="max-w-[1140px] mx-auto rounded-3xl overflow-hidden relative bg-brand-navy text-center min-h-[300px] flex flex-col items-center justify-center [padding:clamp(40px,7vw,88px)_clamp(24px,10vw,200px)]"
       >
         {icons.map((icon) => (
           <FloatingIcon key={icon.id} icon={icon} inView={inView} />
@@ -295,11 +296,13 @@ export default function CTASection({
         </p>
 
         {magnetic ? (
-          <button
+          <Button
             ref={btnRef}
             onClick={onButtonClick}
-            disabled={buttonDisabled}
-            className="inline-flex items-center gap-2 bg-white text-[#0d1a6e] font-semibold rounded-full border-none cursor-pointer relative z-[5] [font-size:clamp(12px,3.5vw,15px)] [padding:clamp(10px,2.5vw,14px)_clamp(16px,5vw,32px)] disabled:opacity-70 disabled:cursor-default"
+            loading={buttonDisabled}
+            fullWidth={false}
+            size="md"
+            className="inline-flex items-center gap-2 relative z-[5]"
             style={{
               boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               transition: "transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease",
@@ -332,13 +335,15 @@ export default function CTASection({
             >
               <ArrowRight className="w-4 h-4" />
             </motion.span>
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
             ref={btnRef}
             onClick={onButtonClick}
-            disabled={buttonDisabled}
-            className="inline-flex items-center gap-2 bg-white text-[#0d1a6e] text-[15px] font-semibold py-3.5 px-8 rounded-full border-none cursor-pointer relative z-[5] disabled:opacity-70 disabled:cursor-default"
+            loading={buttonDisabled}
+            fullWidth={false}
+            size="lg"
+            className="inline-flex items-center gap-2 relative z-[5]"
             style={{
               boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -365,7 +370,7 @@ export default function CTASection({
             >
               <ArrowRight className="w-4 h-4" />
             </motion.span>
-          </button>
+          </Button>
         )}
       </div>
     </section>

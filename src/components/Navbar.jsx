@@ -4,6 +4,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { goToApp } from "../utils/deviceRedirect";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { cldUrl, cldSrcSet } from "../lib/cloudinary";
+import { Button } from "./ui/Button";
 
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -98,7 +99,7 @@ export default function Navbar() {
         style={{
           scaleX,
           transformOrigin: "0% 50%",
-          background: "linear-gradient(90deg, #002FA7 0%, #4f46e5 60%, #7c3aed 100%)",
+          background: "linear-gradient(90deg, #002fa7 0%, #6b2fb5 100%)",
           height: 3,
           position: "fixed",
           top: 0,
@@ -179,21 +180,25 @@ export default function Navbar() {
                   >
                     Sign In
                   </button>
-                  <button
+                  <Button
                     onClick={() => goToApp("/sign-up", navigate)}
-                    className="flex items-center gap-1.5 bg-white text-[#0B0F2E] px-5 py-2.5 rounded-full text-[13.5px] font-bold transition-all hover:opacity-90 hover:-translate-y-px shadow-lg shadow-black/20 cursor-pointer"
+                    fullWidth={false}
+                    size="sm"
+                    className="shadow-lg shadow-black/20"
                   >
                     Get Started Free
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
+                  </Button>
                 </>
               ) : (
-                <button
+                <Button
                   onClick={() => goToApp("/sign-in", navigate)}
-                  className="flex items-center gap-1.5 bg-white text-[#0B0F2E] px-5 py-2.5 rounded-full text-[13.5px] font-bold transition-all hover:opacity-90 hover:-translate-y-px shadow-lg shadow-black/20 cursor-pointer"
+                  fullWidth={false}
+                  size="sm"
+                  className="shadow-lg shadow-black/20"
                 >
                   Sign In
-                </button>
+                </Button>
               )}
             </div>
 
@@ -276,15 +281,16 @@ export default function Navbar() {
 
                   {viewMode === "organizations" ? (
                     <div className="flex flex-col gap-3">
-                      <button
+                      <Button
                         onClick={() => {
                           goToApp("/sign-up", navigate);
                           setMenuOpen(false);
                         }}
-                        className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold cursor-pointer"
+                        size="md"
+                        className="justify-center"
                       >
                         Get Started Free <ChevronRight className="w-4 h-4" />
-                      </button>
+                      </Button>
                       <button
                         onClick={() => {
                           goToApp("/sign-in", navigate);
@@ -296,15 +302,16 @@ export default function Navbar() {
                       </button>
                     </div>
                   ) : (
-                    <button
+                    <Button
                       onClick={() => {
                         goToApp("/sign-in", navigate);
                         setMenuOpen(false);
                       }}
-                      className="w-full flex items-center justify-center gap-2 bg-white text-[#0B0F2E] py-3 rounded-full text-[14px] font-bold cursor-pointer"
+                      size="md"
+                      className="justify-center"
                     >
                       Sign In
-                    </button>
+                    </Button>
                   )}
                 </div>
               </motion.div>

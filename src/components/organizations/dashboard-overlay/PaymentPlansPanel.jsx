@@ -10,7 +10,7 @@ const REVEAL_STYLE = {
 // it doesn't vary by frequency. Progress-bar color does vary, cycling
 // through the real app's BAR_COLOR_CLASSES palette by position, not by
 // frequency either.
-const BAR_COLORS = ["#d4a017", "#7c3aed", "#002FA7"];
+const BAR_COLORS = ["#d4a017", "#6b2fb5", "#002FA7"];
 
 const PLANS = [
   {
@@ -81,7 +81,7 @@ export default function PaymentPlansPanel() {
                 style={{
                   fontSize: 8.5,
                   fontWeight: 700,
-                  color: "#7c3aed",
+                  color: "#6b2fb5",
                   background: "#f3eeff",
                   borderRadius: 99,
                   padding: "1px 6px",

@@ -6,6 +6,7 @@ import BlurText from "./ui/BlurText";
 import { cldUrl, cldSrcSet } from "../lib/cloudinary";
 import { goToApp } from "../utils/deviceRedirect";
 import { USECASE_PHOTOS } from "./usecasePhotos";
+import { Button } from "./ui/Button";
 
 // ─── Carousel geometry ──────────────────────────────────────────────────────
 // Featured width = calc(100% - 352px - --T): 352 = strips (152+96+56) + 3
@@ -399,14 +400,16 @@ export default function UseCases() {
                 </motion.div>
               </AnimatePresence>
             </div>
-            <button
-              type="button"
+            <Button
               onClick={() => goToApp("/sign-up", navigate)}
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[#002FA7]/25 bg-white px-5 py-2.5 text-[14px] font-semibold text-[#002FA7] transition-colors hover:bg-[#002FA7] hover:border-[#002FA7] hover:text-white motion-reduce:transition-none"
+              fullWidth={false}
+              variant="outline"
+              size="sm"
+              className="inline-flex shrink-0 items-center gap-1.5"
             >
               Get started
               <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+            </Button>
           </div>
           {STRIP_W.map((w) => (
             <div key={w} aria-hidden className="hidden md:block shrink-0" style={{ width: w }} />

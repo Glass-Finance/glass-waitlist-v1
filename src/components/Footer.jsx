@@ -4,6 +4,7 @@ import { Crisp } from "crisp-sdk-web";
 import { goToApp } from "../utils/deviceRedirect";
 import glassLogo from "../assets/Glass.webp";
 import BlurText from "./ui/BlurText";
+import { Button } from "./ui/Button";
 
 // Help Centre opens the support chat when Crisp is configured; the mailto
 // href stays as the no-JS / chat-disabled fallback.
@@ -45,7 +46,7 @@ export default function Footer() {
   const navigate = useNavigate();
 
   return (
-    <footer className="relative isolate bg-[#0d1a6e] text-white">
+    <footer className="relative isolate bg-brand-navy text-white">
       {/* ── CTA ── */}
       <div className="relative pt-20 md:pt-28 pb-20 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(30,50,160,0.35)_0%,transparent_70%)]" />
@@ -74,12 +75,14 @@ export default function Footer() {
           <p className="text-[16px] text-white/60 max-w-[720px] mx-auto leading-relaxed mb-10">
             Join communities already running transparent finances on Glass.
           </p>
-          <button
+          <Button
             onClick={() => goToApp("/sign-up", navigate)}
-            className="inline-flex items-center gap-2 bg-white text-[#0f1640] text-[15px] font-semibold px-8 py-3.5 rounded-full transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/20"
+            fullWidth={false}
+            size="lg"
+            className="inline-flex items-center gap-2 hover:-translate-y-0.5 transition-transform hover:shadow-2xl hover:shadow-white/20 shadow-lg shadow-black/20"
           >
             Get Started Free
-          </button>
+          </Button>
         </div>
       </div>
 

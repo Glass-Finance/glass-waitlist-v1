@@ -69,9 +69,9 @@ const STATS = [
     value: "07",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="#DC2626" strokeWidth="1.8" />
-        <path d="M12 7v6" stroke="#DC2626" strokeWidth="1.8" strokeLinecap="round" />
-        <circle cx="12" cy="16.5" r="1" fill="#DC2626" />
+        <circle cx="12" cy="12" r="10" stroke="#db0000" strokeWidth="1.8" />
+        <path d="M12 7v6" stroke="#db0000" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="12" cy="16.5" r="1" fill="#db0000" />
       </svg>
     ),
   },
@@ -98,8 +98,8 @@ const STATS = [
     value: "05",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <rect x="2" y="5" width="20" height="14" rx="2" stroke="#7c3aed" strokeWidth="1.8" />
-        <path d="M2 10h20M6 15h4" stroke="#7c3aed" strokeWidth="1.8" strokeLinecap="round" />
+        <rect x="2" y="5" width="20" height="14" rx="2" stroke="#6b2fb5" strokeWidth="1.8" />
+        <path d="M2 10h20M6 15h4" stroke="#6b2fb5" strokeWidth="1.8" strokeLinecap="round" />
       </svg>
     ),
   },

@@ -70,9 +70,9 @@ function ShieldIcon({ color }) {
 // success / amber / purple.
 const STATS = [
   { label: "Total Members", value: "209", fg: "#002FA7", bg: "#e6eeff", Icon: UsersIcon },
-  { label: "Active Members", value: "197", fg: "#16A34A", bg: "#DCFCE7", Icon: UserCheckIcon },
+  { label: "Active Members", value: "197", fg: "#008000", bg: "#DCFCE7", Icon: UserCheckIcon },
   { label: "Inactive", value: "12", fg: "#b45309", bg: "#FFF8E7", Icon: ClockIcon },
-  { label: "Admins", value: "02", fg: "#7c3aed", bg: "#F3EEFF", Icon: ShieldIcon },
+  { label: "Admins", value: "02", fg: "#6b2fb5", bg: "#F3EEFF", Icon: ShieldIcon },
 ];
 
 const MEMBERS = [
@@ -80,7 +80,7 @@ const MEMBERS = [
     n: "Adebayor Okafor",
     plans: "2",
     st: "2/2 Paid",
-    sc: "#059669",
+    sc: "#008000",
     sb: "#ecfdf5",
     d: "Mar 12, 2025",
     e: "adebayor@gmail.com",
@@ -98,7 +98,7 @@ const MEMBERS = [
     n: "Tunde Nwosu",
     plans: "3",
     st: "0/3 Paid",
-    sc: "#e11d48",
+    sc: "#db0000",
     sb: "#fff1f2",
     d: "Mar 12, 2025",
     e: "tunde@gmail.com",
@@ -107,7 +107,7 @@ const MEMBERS = [
     n: "Blessing Igwe",
     plans: "2",
     st: "2/2 Paid",
-    sc: "#059669",
+    sc: "#008000",
     sb: "#ecfdf5",
     d: "Mar 12, 2025",
     e: "blessing@gmail.com",
@@ -149,6 +149,8 @@ export default function MembersScreen({ active }) {
         </div>
         <div style={{ display: "flex", gap: 7 }}>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "6px 12px",
               borderRadius: 7,
@@ -173,6 +175,8 @@ export default function MembersScreen({ active }) {
             Copy Invite Link
           </button>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "6px 12px",
               borderRadius: 7,
@@ -242,6 +246,8 @@ export default function MembersScreen({ active }) {
         >
           <span style={{ fontSize: 12, fontWeight: 700, color: "#000" }}>Member Payments</span>
           <button
+            tabIndex={-1}
+            aria-hidden="true"
             style={{
               padding: "5px 11px",
               borderRadius: 7,

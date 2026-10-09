@@ -156,15 +156,7 @@ export default function Security() {
               href="https://tribuneonlineng.com/team-glass-shines-as-winner-of-5th-babcock-innovation-challenge/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 border border-[#0f1d6e] text-[#0f1d6e] font-semibold text-[14px] px-6 py-3 rounded-full no-underline transition-all"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#0f1d6e";
-                e.currentTarget.style.color = "#fff";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "";
-                e.currentTarget.style.color = "#0f1d6e";
-              }}
+              className="flex-shrink-0 inline-flex items-center justify-center rounded-g-1 border border-brand-navy bg-transparent px-6 py-3 text-[14px] font-medium text-brand-navy no-underline transition-colors hover:bg-brand-navy hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
             >
               Check It Out
             </a>
