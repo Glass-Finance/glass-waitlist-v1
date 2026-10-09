@@ -25,6 +25,61 @@
   --color-brand-deep: #1c2b8a;
   --color-brand-ink: #0f1d6e;
 
+  /* DESIGN-SYSTEM.md §1/§2 — the Figma palette, mirrored from
+     glass-waitlist/src/index.css. This repo had almost none of it, which is
+     why nearly every component spelled its colours out as literals.
+
+     --color-primary above is #17a1e5, a Tailwind sky blue that appears
+     nowhere in the design file. It has no consumers; leave it until it can be
+     deleted outright rather than repointing something at it. */
+
+  /* The one brand colour. 2,812 nodes in the file — the highest-confidence
+     value in the design. */
+  --color-brand: #002fa7;
+  --color-brand-tint: #e6eeff;
+  --color-hairline: #e0e0eb;
+
+  /* Figma's focus-ring colour. Previously the global :focus-visible reused the
+     brand blue, which was invisible against this repo's navy sections. */
+  --color-focus: #0f53ff;
+
+  /* Figma's Critical Action button. Not Tailwind red-600 (#dc2626). */
+  --color-danger: #db0000;
+
+  /* Figma's hover/pressed are black overlays on the brand fill (black @6% /
+     @12%), not element opacity. */
+  --color-brand-hover: #002f9b;
+  --color-brand-pressed: #002b8f;
+
+  /* Figma's deep navy — one value, replacing the six near-identical navies
+     this repo was using (#0f1d6e, #1c2b8a, #0b0f2e, #0d1a6e, #0c1020,
+     #0d1022, #0f1640). */
+  --color-brand-navy: #001f6e;
+
+  /* Figma's tint ramp and its only purple. */
+  --color-brand-100: #ccdaff;
+  --color-brand-200: #bdd0fe;
+  --color-brand-300: #dbe6ff;
+  --color-brand-400: #94b1fb;
+  --color-brand-500: #6a8ff0;
+  --color-brand-purple: #6b2fb5;
+
+  /* Status fills the design file actually reaches for: #008000 (435 nodes),
+     #9a6500 (91), #ccffcc (183), #ffffdb (56), #ffcccc (27). */
+  --color-success: #008000;
+  --color-warning: #9a6500;
+  --color-success-wash: #ccffcc;
+  --color-warning-wash: #ffffdb;
+  --color-danger-wash: #ffcccc;
+
+  /* Figma's corner-radius scale: four values. Additive on purpose -- remapping
+     Tailwind's built-in --radius-sm/md/lg would enlarge every card and input
+     already using rounded-lg/rounded-md in this repo. */
+  --radius-g-1: 4px;
+  --radius-g-2: 8px;
+  --radius-g-3: 12px;
+  --radius-g-4: 16px;
+
   --animate-fadeIn: fadeIn 0.8s ease-out forwards;
   --animate-slideInLeft: slideInLeft 0.8s ease-out forwards;
   --animate-slideInRight: slideInRight 0.8s ease-out forwards;
@@ -61,6 +116,22 @@
 /* Global Resets */
 * {
   box-sizing: border-box;
+}
+
+/* DESIGN-SYSTEM.md §2.3 — the focus ring is #0f53ff, not the brand blue.
+
+   This repo previously had no :focus-visible rule at all, so 29 of its 30
+   buttons fell back to the UA default. On the navy hero and nav sections that
+   default is easy to miss, and reusing #002fa7 (the fill colour) for a ring
+   drawn *around* a #002fa7 button makes it invisible — the outline merges
+   into the button it is supposed to mark.
+
+   Scoped to focus-visible so pointer users never see it, and it is applied
+   *before* any component rule so an explicit outline-* utility on a component
+   still wins on specificity order. */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 html {

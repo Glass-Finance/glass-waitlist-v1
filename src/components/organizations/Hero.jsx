@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { useEffect } from "react";
 import { ScaledDashboard } from "./dashboard-overlay";
 import { cldUrl } from "../../lib/cloudinary";
+import { Button } from "../ui/Button";
 
 // Previously `const waveBg = "/hero.webp"` — a raw path into the public/
 // folder that bypassed Vite's asset pipeline entirely and was silently
@@ -117,9 +118,11 @@ export default function Hero() {
           </Reveal>
           <Reveal variant="up" delay={240}>
             <div className="flex items-center justify-center gap-3 flex-wrap">
-              <button
+              <Button
                 onClick={() => goToApp("/sign-up", navigate)}
-                className="inline-flex items-center gap-2 bg-white text-[#0d1022] text-[15px] px-8 py-3.5 rounded-full shadow-lg shadow-black/30 cursor-pointer"
+                fullWidth={false}
+                size="lg"
+                className="inline-flex items-center gap-2 shadow-lg shadow-black/30"
                 style={{
                   fontFamily: "Inter,sans-serif",
                   fontWeight: 500,
@@ -150,7 +153,7 @@ export default function Hero() {
                 >
                   <ArrowRight className="w-4 h-4" />
                 </motion.span>
-              </button>
+              </Button>
             </div>
           </Reveal>
         </div>
