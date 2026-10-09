@@ -14,7 +14,7 @@ const ACTIVITY = [
   {
     id: "e8",
     aBg: "#ecfdf5",
-    aColor: "#059669",
+    aColor: "#008000",
     type: "payment",
     name: "Joseph Alabi",
     action: "paid",
@@ -32,7 +32,7 @@ const ACTIVITY = [
   {
     id: "e10",
     aBg: "#ecfdf5",
-    aColor: "#059669",
+    aColor: "#008000",
     type: "payment",
     name: "Emeka Nwosu",
     action: "paid Event Fee",
@@ -41,7 +41,7 @@ const ACTIVITY = [
   {
     id: "e11",
     aBg: "#fff1f2",
-    aColor: "#e11d48",
+    aColor: "#db0000",
     type: "failed",
     name: "Chidinma Obi",
     action: "payment failed for",

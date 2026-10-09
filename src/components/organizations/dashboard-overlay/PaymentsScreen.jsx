@@ -59,9 +59,9 @@ const STATS = [
     bg: "#e6eeff",
     Icon: WalletIcon,
   },
-  { label: "Active Plans", value: "04", fg: "#16A34A", bg: "#DCFCE7", Icon: ChecklistIcon },
+  { label: "Active Plans", value: "04", fg: "#008000", bg: "#DCFCE7", Icon: ChecklistIcon },
   { label: "Yet to pay", value: "36", fg: "#b45309", bg: "#FFF8E7", Icon: ClockIcon },
-  { label: "Failed Payments", value: "08", fg: "#DC2626", bg: "#FEE2E2", Icon: XCircleIcon },
+  { label: "Failed Payments", value: "08", fg: "#db0000", bg: "#FEE2E2", Icon: XCircleIcon },
 ];
 
 // Frequency pill is always purple in the real app, not color-varying by
@@ -69,11 +69,11 @@ const STATS = [
 // Paused is amber, not gray. Progress-bar color cycles by position
 // (BAR_COLOR_CLASSES), same palette as the Dashboard's Payment Plans panel.
 const STATUS = {
-  Active: { fg: "#059669", bg: "#ecfdf5" },
-  Inactive: { fg: "#e11d48", bg: "#fff1f2" },
+  Active: { fg: "#008000", bg: "#ecfdf5" },
+  Inactive: { fg: "#db0000", bg: "#fff1f2" },
   Paused: { fg: "#b45309", bg: "#fffbeb" },
 };
-const BAR_COLORS = ["#d4a017", "#7c3aed", "#002FA7", "#059669"];
+const BAR_COLORS = ["#d4a017", "#6b2fb5", "#002FA7", "#008000"];
 
 const PLANS = [
   {
@@ -283,7 +283,7 @@ export default function PaymentsScreen({ active }) {
                     style={{
                       fontSize: 9,
                       fontWeight: 700,
-                      color: "#7c3aed",
+                      color: "#6b2fb5",
                       background: "#f3eeff",
                       borderRadius: 99,
                       padding: "1px 7px",

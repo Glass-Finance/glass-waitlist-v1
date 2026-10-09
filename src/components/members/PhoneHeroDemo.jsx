@@ -261,9 +261,9 @@ function HomeScreen({ homeRef, homeScroll }) {
       >
         <div
           style={{
-            borderTop: "1.5px solid #2547D0",
-            borderLeft: "1.5px solid #2547D0",
-            borderRight: "1.5px solid #2547D0",
+            borderTop: "1.5px solid #002fa7",
+            borderLeft: "1.5px solid #002fa7",
+            borderRight: "1.5px solid #002fa7",
             borderRadius: "16px 16px 0 0",
             padding: "20px 20px 0 20px",
             display: "flex",
@@ -285,7 +285,7 @@ function HomeScreen({ homeRef, homeScroll }) {
               gap: 6,
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#7C3AED" }} />
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#6b2fb5" }} />
             Recurring
           </div>
           <p style={{ fontSize: 13, color: "#6B7280", margin: "0 0 6px 0" }}>Next Payment Due</p>
@@ -293,7 +293,7 @@ function HomeScreen({ homeRef, homeScroll }) {
             style={{
               fontSize: 42,
               fontWeight: 700,
-              color: "#111827",
+              color: "#000000",
               letterSpacing: "-1px",
               lineHeight: 1,
               margin: "0 0 14px 0",
@@ -315,7 +315,7 @@ function HomeScreen({ homeRef, homeScroll }) {
               padding: "6px 16px",
               borderRadius: 8,
               background: "#D7E2FF",
-              color: "#2547D0",
+              color: "#002fa7",
               fontSize: 12,
               marginBottom: 10,
             }}
@@ -351,7 +351,7 @@ function HomeScreen({ homeRef, homeScroll }) {
               width: "100%",
               padding: "14px 0",
               borderRadius: 6,
-              background: "#2547D0",
+              background: "#002fa7",
               color: "#fff",
               fontSize: 15,
               fontWeight: 600,
@@ -448,9 +448,9 @@ function HomeScreen({ homeRef, homeScroll }) {
                 style={{
                   padding: "7px 16px",
                   borderRadius: 6,
-                  border: "1.5px solid #2547D0",
+                  border: "1.5px solid #002fa7",
                   background: "#fff",
-                  color: "#2547D0",
+                  color: "#002fa7",
                   fontSize: 12,
                   fontWeight: 600,
                   whiteSpace: "nowrap",
@@ -493,7 +493,7 @@ function HomeScreen({ homeRef, homeScroll }) {
           }}
         >
           <span style={{ fontSize: 14, fontWeight: 600, color: "#111" }}>Payment History</span>
-          <span style={{ fontSize: 13, fontWeight: 600, color: "#2547D0" }}>See All</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#002fa7" }}>See All</span>
         </div>
         {HISTORY.map((h, i) => (
           <div
@@ -522,7 +522,7 @@ function HomeScreen({ homeRef, homeScroll }) {
                   fontWeight: 600,
                   padding: "2px 10px",
                   borderRadius: 999,
-                  color: "#059669",
+                  color: "#008000",
                   background: "#ECFDF5",
                 }}
               >

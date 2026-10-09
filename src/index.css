@@ -12,26 +12,23 @@
   --font-playfair: "Playfair Display", serif;
   --font-urbanist: "Urbanist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --color-primary: #17a1e5;
-  --color-primary-dark: #0e628c;
-  --color-primary-light: #e8f5fb;
-  --color-gray-text: #808080;
-  --color-gray-bg: #f5f5f6;
-  --color-dark-bg: #0a1f2e;
-
-  /* Brand navy pair, mirrored from glass-waitlist's index.css. Without these
-     the `text-brand-ink` / `border-brand-deep` utilities resolve to nothing
-     here and headings silently fall back to inherited black. */
-  --color-brand-deep: #1c2b8a;
-  --color-brand-ink: #0f1d6e;
-
   /* DESIGN-SYSTEM.md §1/§2 — the Figma palette, mirrored from
      glass-waitlist/src/index.css. This repo had almost none of it, which is
      why nearly every component spelled its colours out as literals.
 
-     --color-primary above is #17a1e5, a Tailwind sky blue that appears
-     nowhere in the design file. It has no consumers; leave it until it can be
-     deleted outright rather than repointing something at it. */
+     Six legacy tokens are deleted rather than repointed: --color-primary
+     #17a1e5 (Tailwind sky blue, banned by §1.6, and in no node of the design
+     file), --color-primary-dark, --color-primary-light, --color-gray-text,
+     --color-gray-bg and --color-dark-bg. All six had zero consumers once the
+     brand tokens below existed, so repointing them would have been a lie --
+     they are not aliases of anything, they are unused.
+
+     Two navies that WERE consumed, brand-deep #1c2b8a and brand-ink #0f1d6e,
+     now alias brand-navy below, Figma's one navy. Same treatment in
+     glass-waitlist, for the same reason: §1.6 lists six near-identical
+     "brand navy" hexes and says Figma has one. Their names are kept so the
+     utilities that resolve to them keep working -- text-brand-ink and
+     border-brand-deep were used all over the old components. */
 
   /* The one brand colour. 2,812 nodes in the file — the highest-confidence
      value in the design. */
@@ -55,6 +52,8 @@
      this repo was using (#0f1d6e, #1c2b8a, #0b0f2e, #0d1a6e, #0c1020,
      #0d1022, #0f1640). */
   --color-brand-navy: #001f6e;
+  --color-brand-deep: #001f6e;
+  --color-brand-ink: #001f6e;
 
   /* Figma's tint ramp and its only purple. */
   --color-brand-100: #ccdaff;
@@ -292,7 +291,7 @@ a {
 .legal-prose h2 {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #111827;
+  color: #000000;
   margin: 2.25rem 0 0.75rem;
 }
 .legal-prose h2:first-child {
@@ -315,7 +314,7 @@ a {
   margin-bottom: 0.4rem;
 }
 .legal-prose strong {
-  color: #111827;
+  color: #000000;
   font-weight: 600;
 }
 .legal-prose a {

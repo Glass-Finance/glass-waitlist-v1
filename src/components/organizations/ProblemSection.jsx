@@ -743,7 +743,7 @@ export default function ProblemSection() {
                         <span className="font-medium">dues_march_FINAL_v3.xlsx</span>
                         <span />
                       </div>
-                      <div className="flex gap-4 border-b border-[#d4d4d4] bg-white px-2.5 py-[5px] text-[11.5px] text-[#333]">
+                      <div className="flex gap-4 border-b border-[#e0e0eb] bg-white px-2.5 py-[5px] text-[11.5px] text-[#333]">
                         <b className="border-b-2 border-[#217346] pb-[3px] font-semibold">Home</b>
                         <span>Insert</span>
                         <span>Draw</span>
@@ -753,8 +753,8 @@ export default function ProblemSection() {
                         <span>Review</span>
                         <span>View</span>
                       </div>
-                      <div className="flex border-b border-[#d4d4d4] text-[12px]">
-                        <div data-role="nameBox" className="border-r border-[#d4d4d4] px-2 py-1">
+                      <div className="flex border-b border-[#e0e0eb] text-[12px]">
+                        <div data-role="nameBox" className="border-r border-[#e0e0eb] px-2 py-1">
                           A1
                         </div>
                         <div
@@ -779,7 +779,7 @@ export default function ProblemSection() {
                           className="w-full table-fixed border-collapse border-[#dcdcdc]"
                         />
                       </div>
-                      <div className="flex gap-0.5 border-t border-[#d4d4d4] bg-[#f4f4f5] px-2 py-1 text-[11.5px]">
+                      <div className="flex gap-0.5 border-t border-[#e0e0eb] bg-[#f4f4f5] px-2 py-1 text-[11.5px]">
                         <span className="rounded-b bg-white px-3 py-[3px] font-semibold text-[#217346] shadow-[inset_0_2px_0_#217346]">
                           Sheet1
                         </span>

@@ -99,7 +99,7 @@ export default function Navbar() {
         style={{
           scaleX,
           transformOrigin: "0% 50%",
-          background: "linear-gradient(90deg, #002FA7 0%, #4f46e5 60%, #7c3aed 100%)",
+          background: "linear-gradient(90deg, #002fa7 0%, #6b2fb5 100%)",
           height: 3,
           position: "fixed",
           top: 0,
