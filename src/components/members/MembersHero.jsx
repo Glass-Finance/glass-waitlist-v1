@@ -105,7 +105,7 @@ export default function MembersHero() {
             ref={containerRef}
             className="flex flex-col justify-start pt-8 w-[45%] flex-shrink-0 relative -mt-[60px]"
           >
-            <div className="text-[clamp(38px,5.8vw,62px)] font-extrabold leading-[1.05] tracking-[-0.03em] mb-0.5">
+            <div className="text-[clamp(38px,5.8vw,62px)] font-bold leading-[1.05] tracking-[-0.03em] mb-0.5">
               <BlurText
                 text="Pay Your Dues"
                 delay={80}
@@ -116,7 +116,7 @@ export default function MembersHero() {
               />
             </div>
 
-            <div className="mb-6 text-white text-[clamp(38px,5.8vw,62px)] font-extrabold leading-[1.05] tracking-[-0.03em]">
+            <div className="mb-6 text-white text-[clamp(38px,5.8vw,62px)] font-bold leading-[1.05] tracking-[-0.03em]">
               <BlurText
                 text="Effortlessly"
                 delay={400}
