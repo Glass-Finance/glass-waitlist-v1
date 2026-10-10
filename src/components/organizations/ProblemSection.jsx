@@ -20,6 +20,7 @@
 
 import { useEffect, useRef } from "react";
 import { cldUrl } from "../../lib/cloudinary";
+import { Button } from "../ui/Button";
 
 /* The five beats of the story, in order. */
 const STEPS = [
@@ -497,13 +498,15 @@ export default function ProblemSection() {
           </h3>
           <div className="flex items-center gap-3.5 text-[12px]">
             <span>Sample data</span>
-            <button
+            <Button
+              variant="outline-neutral"
+              size="sm"
+              fullWidth={false}
               type="button"
               onClick={() => restartRef.current(0)}
-              className="cursor-pointer rounded-full border border-[#cdd0e2] bg-none px-3 py-1.5 text-[12px] font-semibold text-[#002fa7]"
             >
               ↻ Replay
-            </button>
+            </Button>
           </div>
         </div>
 

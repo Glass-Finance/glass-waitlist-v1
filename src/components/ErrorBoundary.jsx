@@ -53,6 +53,7 @@
 import { Component } from "react";
 import { captureRenderError } from "../utils/monitoring";
 import { cldUrl, cldSrcSet } from "../lib/cloudinary";
+import { Button } from "./ui/Button";
 
 // Plain cldUrl() strings, not the CloudImage component, on purpose: this
 // is the error fallback UI — it should render with the absolute minimum
@@ -104,12 +105,9 @@ export default class ErrorBoundary extends Component {
             >
               Go home
             </a>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-5 py-2.5 rounded-full text-[13px] font-semibold text-white cursor-pointer border-none transition-opacity hover:opacity-90 bg-[#002FA7]"
-            >
+            <Button onClick={() => window.location.reload()} size="md">
               Refresh page
-            </button>
+            </Button>
           </div>
         </div>
       );
